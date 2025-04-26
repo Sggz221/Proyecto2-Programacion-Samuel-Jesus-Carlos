@@ -9,6 +9,7 @@ module org.example.newteam {
     requires org.jdbi.v3.kotlin;
     requires org.jdbi.v3.sqlobject;
     requires org.jdbi.v3.sqlobject.kotlin;
+    requires com.github.benmanes.caffeine;
 
 
     opens org.example.newteam to javafx.fxml;

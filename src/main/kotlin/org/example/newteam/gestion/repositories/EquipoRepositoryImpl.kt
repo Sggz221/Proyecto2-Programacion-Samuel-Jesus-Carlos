@@ -1,6 +1,9 @@
 package org.example.newteam.gestion.repositories
 
+import org.example.newteam.gestion.dao.IntegranteEntity
 import org.example.newteam.gestion.dao.VehiculosDAO
+import org.example.newteam.gestion.extensions.copy
+import org.example.newteam.gestion.mapper.toEntity
 import org.example.newteam.gestion.mapper.toModel
 import org.example.newteam.gestion.models.Entrenador
 import org.example.newteam.gestion.models.Integrante
@@ -8,6 +11,7 @@ import org.example.newteam.gestion.models.Jugador
 import org.example.newteam.gestion.validator.IntegranteValidator
 import org.example.repositories.EquipoRepository
 import org.lighthousegames.logging.logging
+import java.time.LocalDateTime
 
 /**
  * Clase que implementa la interfaz [EquipoRepository] para gestionar un equpo de futbol en memoria con una serie de [Integrante] que pueden ser [Jugador] o [Entrenador]
@@ -27,7 +31,19 @@ class EquipoRepositoryImpl(
      */
     override fun save(entity: Integrante): Integrante {
         logger.debug { "Guardando integrante del equipo..." }
-        
+        //Actualizamos los campos createdAt y updatedAt
+        val timestamp = LocalDateTime.now()
+        val integranteToSave=
+            when(entity) {
+                is Jugador -> entity.copy(timeStamp = timestamp).toEntity()
+                is Entrenador -> entity.copy(timeStamp = timestamp).toEntity()
+                else -> null
+            }
+        //Guardamos el vehículo en la base de datos y lo devolvemos como modelo
+        val generatedId = dao.save(integranteToSave!!).toLong()
+        val savedIntegrante = dao.getById(generatedId)!!.toModel()
+        logger.info { "Integrante guardado" }
+        return savedIntegrante
     }
 
     /**
@@ -37,7 +53,16 @@ class EquipoRepositoryImpl(
      */
     override fun delete(id: Long): Integrante? {
         logger.debug { "Borrando integrante del equipo con ID: $id" }
+        val integranteToDelete: Integrante? = dao.getById(id)?.toModel()
 
+        if (integranteToDelete == null) {
+            logger.info { "No se ha encontrado un Integrante con id: $id" }
+            return null
+        }
+        // Si todo sale bien...
+        dao.delete(id)
+        logger.info { "Integrante con ID: $id se ha eliminado correctamente" }
+        return integranteToDelete
     }
 
     /**
@@ -48,7 +73,18 @@ class EquipoRepositoryImpl(
      */
     override fun update(id: Long, entity: Integrante): Integrante? {
         logger.debug{"Actualizando integrante del equipo con ID: $id"}
-
+        val integranteToUpdate: IntegranteEntity? = dao.getById(id)
+        // Comprobamos si es null
+        if (integranteToUpdate == null) {
+            logger.info { "No se ha encontrado un Integrante con id: $id" }
+            return null
+        }
+        // Si todo sale bien...
+        val timestamp = LocalDateTime.now()
+        val integranteUpdated = integranteToUpdate.copy(updatedAt = timestamp).toModel()
+        dao.update(integranteToUpdate)
+        logger.info { "Integrante con ID: $id se ha actualizado correctamente" }
+        return integranteUpdated
     }
 
     /**
@@ -76,6 +112,17 @@ class EquipoRepositoryImpl(
      */
     override fun deleteLogical(id: Long, entity: Integrante): Integrante? {
         logger.debug{"Borrando lógicamente integrante del equipo con ID: $id"}
-
+        val integranteToDeleteLogical: IntegranteEntity? = dao.getById(id)
+        // Comprobamos si es null
+        if (integranteToDeleteLogical == null) {
+            logger.info { "No se ha encontrado un Integrante con id: $id" }
+            return null
+        }
+        // Si todo sale bien...
+        val timestamp = LocalDateTime.now()
+        val integranteDeleted = integranteToDeleteLogical.copy(updatedAt = timestamp, isDeleted = true).toModel()
+        dao.update(integranteToDeleteLogical)
+        logger.info { "Integrante con ID: $id se ha borrado lógicamente" }
+        return integranteDeleted
     }
 }

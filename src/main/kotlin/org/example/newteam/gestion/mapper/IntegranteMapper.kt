@@ -48,6 +48,51 @@ fun IntegranteEntity.toModel(): Integrante {
     }
 }
 
+fun Jugador.toEntity(): IntegranteEntity {
+    return IntegranteEntity(
+        id = id,
+        nombre = nombre,
+        apellidos = apellidos,
+        fecha_nacimiento = fecha_nacimiento,
+        fecha_incorporacion = fecha_incorporacion,
+        salario = salario,
+        pais = pais,
+        rol = "Jugador",
+        posicion = posicion.toString(),
+        especialidad = null,
+        dorsal = dorsal,
+        altura = altura,
+        peso = peso,
+        goles = goles,
+        partidos_jugados = partidos_jugados,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+        isDeleted = isDeleted
+    )
+}
+
+fun Entrenador.toEntity(): IntegranteEntity {
+    return IntegranteEntity(
+        id = id,
+        nombre = nombre,
+        apellidos = apellidos,
+        fecha_nacimiento = fecha_nacimiento,
+        fecha_incorporacion = fecha_incorporacion,
+        salario = salario,
+        pais = pais,
+        rol = "Entrenador",
+        posicion = null,
+        especialidad = especialidad.toString(),
+        dorsal = null,
+        altura = null,
+        peso = null,
+        goles = null,
+        partidos_jugados = null,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+        isDeleted = isDeleted
+    )
+}
 /**
  * Funcion de extension que convierte [IntegranteDTO] a un objeto [Integrante] [Jugador] o [Entrenador] segun [IntegranteDTO.rol]
  * @return La version [Integrante] de la DTO. O bien [Jugador] o [Entrenador]
