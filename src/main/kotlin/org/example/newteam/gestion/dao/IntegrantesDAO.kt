@@ -8,7 +8,7 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
 @RegisterKotlinMapper(IntegranteEntity::class)
-interface VehiculosDAO {
+interface IntegrantesDAO {
 
     @SqlQuery("SELECT * FROM integrantes")
     fun getAll(): List<IntegranteEntity>

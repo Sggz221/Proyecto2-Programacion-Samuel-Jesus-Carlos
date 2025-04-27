@@ -16,7 +16,6 @@ class JdbiManager private constructor () { //private para que no se pueda instan
 
     private val jdbi = Jdbi.create(Configuration.configurationProperties.databaseUrl) //se crea la bbdd en base a la url del archivo config.properties
 
-
     init {
         logger.debug { "Inicializando JdbiManager" }
         jdbi.installPlugin(KotlinPlugin())

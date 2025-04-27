@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+    id 'org.jetbrains.kotlin.jvm' version '2.1.0'
     id 'org.javamodularity.moduleplugin' version '1.8.12'
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'org.beryx.jlink' version '2.25.0'
@@ -47,7 +47,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.4.14")
 
     // BBDD H2
-    implementation("com.h2database:h2:2.3.232")
+    implementation("com.h2database:h2:2.2.224")
 
     // JDBI
     // Reflexión
@@ -60,7 +60,6 @@ dependencies {
     implementation("org.jdbi:jdbi3-kotlin:3.48.0")
     // Extensión de SQL Object para Kotlin
     implementation("org.jdbi:jdbi3-kotlin-sqlobject:3.48.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
     // Result
     implementation("com.michael-bull.kotlin-result:kotlin-result:2.0.0")
@@ -158,4 +157,17 @@ task testCoverage(group: 'verification', description: 'Runs the unit tests with 
     dependsOn test,
             jacocoTestReport,
             jacocoTestCoverageVerification
+}
+// Asegurar que Kotlin compile antes que Java
+compileJava.dependsOn compileKotlin
+
+// Fusionar las clases Kotlin en el mismo output que Java
+tasks.named('compileKotlin') {
+    kotlinOptions {
+        destinationDirectory.set(file("build/classes/java/main"))
+    }
+}
+// Opcional pero recomendado: limpiar el proyecto completo
+clean {
+    delete "build"
 }

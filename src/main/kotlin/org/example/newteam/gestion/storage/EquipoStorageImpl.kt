@@ -1,5 +1,8 @@
 package org.example.newteam.gestion.storage
 
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.models.Integrante
 import java.io.File
 
@@ -10,28 +13,24 @@ class EquipoStorageImpl(
     private val storageBIN: EquipoStorageBIN = EquipoStorageBIN()
 ): EquipoStorage {
 
-    override fun fileRead(file: File): List<Integrante> {
+    override fun fileRead(file: File): Result<List<Integrante>, GestionErrors> {
         when {
             file.name.endsWith(".csv") -> {
                 return storageCSV.fileRead(file)
-
             }
             file.name.endsWith(".json") -> {
                 return storageJSON.fileRead(file)
-
             }
             file.name.endsWith(".xml") -> {
                 return storageXML.fileRead(file)
-
             }
             else -> {
                 return storageBIN.fileRead(file)
-
             }
         }
     }
 
-    override fun fileWrite(equipo: List<Integrante>, file: File) {
+    override fun fileWrite(equipo: List<Integrante>, file: File): Result<Unit, GestionErrors> {
         when {
             file.name.endsWith(".csv") -> {
                 storageCSV.fileWrite(equipo,file)
@@ -46,5 +45,6 @@ class EquipoStorageImpl(
                 storageBIN.fileWrite(equipo,file)
             }
         }
+        return Ok(Unit)
     }
 }

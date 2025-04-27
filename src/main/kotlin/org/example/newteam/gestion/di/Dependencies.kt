@@ -3,7 +3,7 @@ package org.example.newteam.gestion.di
 import com.github.benmanes.caffeine.cache.Cache
 import com.github.benmanes.caffeine.cache.Caffeine
 import org.example.newteam.gestion.configuration.Configuration
-import org.example.newteam.gestion.dao.VehiculosDAO
+import org.example.newteam.gestion.dao.IntegrantesDAO
 import org.example.newteam.gestion.database.JdbiManager
 import org.example.newteam.gestion.models.Integrante
 import org.example.newteam.gestion.repositories.EquipoRepositoryImpl
@@ -26,9 +26,9 @@ object Dependencies {
         return JdbiManager.instance
     }
 
-    fun provideIntegrantesDao(jdbi: Jdbi): VehiculosDAO {
+    fun provideIntegrantesDao(jdbi: Jdbi): IntegrantesDAO {
         logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando DAO de Integrantes" }
-        return jdbi.onDemand(VehiculosDAO::class.java)
+        return jdbi.onDemand(IntegrantesDAO::class.java)
     }
 
     private fun provideIntegrantesCache(
@@ -42,7 +42,7 @@ object Dependencies {
             .build<Long, Integrante>()
     }
 
-    private fun provideIntegrantesRepository(dao: VehiculosDAO): EquipoRepositoryImpl {
+    private fun provideIntegrantesRepository(dao: IntegrantesDAO): EquipoRepositoryImpl {
         logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Repositorio de Integrantes" }
         return EquipoRepositoryImpl(dao)
     }
@@ -63,7 +63,7 @@ object Dependencies {
         validator: IntegranteValidator,
         storage: EquipoStorageImpl
     ): ServiceImpl {
-        logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Servicio de Vehículos" }
+        logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Servicio de Integrantes" }
         return ServiceImpl(repository, cache, validator, storage)
     }
 

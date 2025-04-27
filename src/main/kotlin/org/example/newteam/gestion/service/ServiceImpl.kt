@@ -39,7 +39,7 @@ class ServiceImpl(
         logger.debug { "Importando integrantes del fichero $filePath" }
 
         val file = File(filePath)
-        val equipo : List<Integrante> = storage.fileRead(file)
+        val equipo = storage.fileRead(file).value
         equipo.forEach {repository.save(it)}
 
     }
