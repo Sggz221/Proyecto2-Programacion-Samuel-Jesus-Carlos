@@ -33,16 +33,16 @@ object Dependencies {
     }
 
 
-    /*private fun provideVehiculosCache(
-        capacity: Long = Config.cacheSize,
-        duration: Long = Config.cacheExpiration
+    private fun provideVehiculosCache(
+        capacity: Long = Configuration.configurationProperties.cacheSize,
+        duration: Long = Configuration.configurationProperties.cacheExpiration
     ): Cache<Long, Integrante> {
         logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Caché de Vehículos (capacidad: $capacity - duración: $duration)" }
         return Caffeine.newBuilder()
-            .maximumSize(capacity) // LRU con máximo de 5 elementos
-            .expireAfterWrite(duration, TimeUnit.SECONDS) // Expira x segundos después de la escritura
+            .maximumSize(capacity) // LRU con máximo de x elementos
+            .expireAfterWrite(duration, TimeUnit.MILLISECONDS) // Expira x milisegundos después de la escritura
             .build<Long, Integrante>()
-    }*/
+    }
 
     private fun provideVehiculosRepository(dao: VehiculosDAO): EquipoRepositoryImpl {
         logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Repositorio de Vehículos" }
