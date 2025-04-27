@@ -48,11 +48,13 @@ object Configuration {
         val directorioBackup = Path.of(directorioActual, directorioBackupProperties).pathString
         val databaseUrl = propiedades.getProperty("database.url")
         val databaseInitTables = propiedades.getProperty("database.init.tables").toBoolean()
+        val cacheSize = propiedades.getProperty("cache.size").toLong()
+        val cacheExpiration = propiedades.getProperty("cache.expiration").toLong()
 
 
         crearDirectorios(directorioData, directorioBackup)
 
-        return ConfigurationProperties(directorioData, directorioBackup, databaseUrl, databaseInitTables)
+        return ConfigurationProperties(directorioData, directorioBackup, databaseUrl, databaseInitTables, cacheSize, cacheExpiration)
 
 
     }
