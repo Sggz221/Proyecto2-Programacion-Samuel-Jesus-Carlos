@@ -8,9 +8,8 @@ import org.example.newteam.gestion.database.JdbiManager
 import org.example.newteam.gestion.models.Integrante
 import org.example.newteam.gestion.repositories.EquipoRepositoryImpl
 import org.example.newteam.gestion.service.ServiceImpl
-import org.example.newteam.gestion.storage.EquipoStorageCSV
+import org.example.newteam.gestion.storage.EquipoStorageImpl
 import org.example.newteam.gestion.validator.IntegranteValidator
-import org.example.repositories.EquipoRepository
 import org.jdbi.v3.core.Jdbi
 import org.lighthousegames.logging.logging
 import java.util.concurrent.TimeUnit
@@ -27,56 +26,53 @@ object Dependencies {
         return JdbiManager.instance
     }
 
-    fun provideVehiculosDao(jdbi: Jdbi): VehiculosDAO {
-        logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando DAO de Vehiculos" }
+    fun provideIntegrantesDao(jdbi: Jdbi): VehiculosDAO {
+        logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando DAO de Integrantes" }
         return jdbi.onDemand(VehiculosDAO::class.java)
     }
 
-
-    private fun provideVehiculosCache(
+    private fun provideIntegrantesCache(
         capacity: Long = Configuration.configurationProperties.cacheSize,
         duration: Long = Configuration.configurationProperties.cacheExpiration
     ): Cache<Long, Integrante> {
-        logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Caché de Vehículos (capacidad: $capacity - duración: $duration)" }
+        logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Caché de Integrantes (capacidad: $capacity - duración: $duration)" }
         return Caffeine.newBuilder()
             .maximumSize(capacity) // LRU con máximo de x elementos
             .expireAfterWrite(duration, TimeUnit.MILLISECONDS) // Expira x milisegundos después de la escritura
             .build<Long, Integrante>()
     }
 
-    private fun provideVehiculosRepository(dao: VehiculosDAO): EquipoRepositoryImpl {
-        logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Repositorio de Vehículos" }
+    private fun provideIntegrantesRepository(dao: VehiculosDAO): EquipoRepositoryImpl {
+        logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Repositorio de Integrantes" }
         return EquipoRepositoryImpl(dao)
     }
 
-
-    private fun provideVehiculosValidator(): IntegranteValidator {
-        logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Validador de Vehículos" }
+    private fun provideIntegrantesValidator(): IntegranteValidator {
+        logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Validador de Integrantes" }
         return IntegranteValidator()
     }
 
-    private fun provideVehiculosStorage(): EquipoStorageCSV {
-        logger.debug { "INYECCIÓN DE DEPENDENCIAS: Proporcionando Storage de Vehículos" }
-        return EquipoStorageCSV()
+    private fun provideIntegrantesStorage(): EquipoStorageImpl {
+        logger.debug { "INYECCIÓN DE DEPENDENCIAS: Proporcionando Storage de Integrantes" }
+        return EquipoStorageImpl()
     }
 
-
-    private fun provideVehiculosService(
+    private fun provideIntegrantesService(
         repository: EquipoRepositoryImpl,
         cache: Cache<Long, Integrante>,
         validator: IntegranteValidator,
-        storage: EquipoStorageCSV
+        storage: EquipoStorageImpl
     ): ServiceImpl {
         logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Servicio de Vehículos" }
         return ServiceImpl(repository, cache, validator, storage)
     }
 
     fun getVehiculosService(): ServiceImpl {
-        return provideVehiculosService(
-            repository = provideVehiculosRepository(provideVehiculosDao(provideDatabaseManager())),
-            cache = provideVehiculosCache(),
-            validator = provideVehiculosValidator(),
-            storage = provideVehiculosStorage()
+        return provideIntegrantesService(
+            repository = provideIntegrantesRepository(provideIntegrantesDao(provideDatabaseManager())),
+            cache = provideIntegrantesCache(),
+            validator = provideIntegrantesValidator(),
+            storage = provideIntegrantesStorage()
         )
     }
 }
