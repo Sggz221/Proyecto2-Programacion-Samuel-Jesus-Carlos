@@ -1,18 +1,13 @@
 package org.example.newteam.gestion.service
 
-import org.example.Cache.CacheImpl
-import org.example.exceptions.Exceptions
+import com.github.benmanes.caffeine.cache.Cache
 import org.example.newteam.gestion.models.Integrante
 import org.example.newteam.gestion.repositories.EquipoRepositoryImpl
-import org.example.newteam.gestion.storage.EquipoStorageBIN
-import org.example.newteam.gestion.storage.EquipoStorageCSV
-import org.example.newteam.gestion.storage.EquipoStorageJSON
-import org.example.newteam.gestion.storage.EquipoStorageXML
+import org.example.newteam.gestion.storage.*
 import org.example.newteam.gestion.validator.IntegranteValidator
 import org.lighthousegames.logging.logging
 import java.io.File
 
-private val CACHE_SIZE = 5
 
 /**
  * Clase Servicio que implementa [Service] y se le inyecta la Cache, almacenamiento, repositorio y validador
@@ -25,13 +20,10 @@ private val CACHE_SIZE = 5
  * @param storageBIN [EquipoStorageBIN] Almacenamiento encargado de gestionar las operaciones con ficheros BIN
  */
 class ServiceImpl(
-    private val repository: EquipoRepositoryImpl = EquipoRepositoryImpl(),
-    private val cache: CacheImpl<Long, Integrante> = CacheImpl(CACHE_SIZE),
-    private val validator: IntegranteValidator = IntegranteValidator(),
-    private val storageCSV: EquipoStorageCSV = EquipoStorageCSV(),
-    private val storageJSON: EquipoStorageJSON = EquipoStorageJSON(),
-    private val storageXML: EquipoStorageXML = EquipoStorageXML(),
-    private val storageBIN: EquipoStorageBIN = EquipoStorageBIN()
+    private val repository: EquipoRepositoryImpl,
+    private val cache: Cache<Long, Integrante>,
+    private val validator: IntegranteValidator,
+    private val storage: EquipoStorageImpl
 ): Service {
     private val logger = logging()
 
@@ -43,26 +35,9 @@ class ServiceImpl(
         logger.debug { "Importando integrantes del fichero $filePath" }
 
         val file = File(filePath)
-        val equipo : List<Integrante>
+        val equipo : List<Integrante> = storage.fileRead(file)
+        equipo.forEach {repository.save(it)}
 
-        when {
-            file.name.endsWith(".csv") -> {
-                equipo = storageCSV.fileRead(file)
-                equipo.forEach { repository.save(it) }
-            }
-            file.name.endsWith(".json") -> {
-                equipo = storageJSON.fileRead(file)
-                equipo.forEach { repository.save(it) }
-            }
-            file.name.endsWith(".xml") -> {
-                equipo = storageXML.fileRead(file)
-                equipo.forEach { repository.save(it) }
-            }
-            file.name.endsWith(".bin") -> {
-                equipo = storageBIN.fileRead(file)
-                equipo.forEach { repository.save(it) }
-            }
-        }
     }
 
     /**
@@ -73,21 +48,8 @@ class ServiceImpl(
         logger.debug { "Exportando integrantes al fichero $filePath" }
 
         val file = File(filePath)
+        storage.fileWrite(repository.getAll(), file)
 
-        when {
-            file.name.endsWith(".csv") -> {
-                storageCSV.fileWrite(repository.getAll(),file)
-            }
-            file.name.endsWith(".json") -> {
-                storageJSON.fileWrite(repository.getAll(),file)
-            }
-            file.name.endsWith(".xml") -> {
-                storageXML.fileWrite(repository.getAll(),file)
-            }
-            file.name.endsWith(".bin") -> {
-                storageBIN.fileWrite(repository.getAll(),file)
-            }
-        }
     }
 
     /**
