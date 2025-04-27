@@ -1,5 +1,7 @@
 package org.example.newteam.gestion.service
 
+import com.github.michaelbull.result.Result
+import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.models.Integrante
 
 /**
@@ -10,9 +12,9 @@ interface Service {
     fun exportToFile(filePath: String)
 
     fun getAll(): List<Integrante>
-    fun getById(id: Long): Integrante
-    fun save(integrante: Integrante): Integrante
-    fun update(id: Long, integrante: Integrante): Integrante
-    fun delete(id: Long): Integrante
-    fun deleteLogical(id: Long, integrante: Integrante): Integrante
+    fun getById(id: Long): Result<Integrante, GestionErrors>
+    fun save(integrante: Integrante): Result<Integrante, GestionErrors>
+    fun update(id: Long, integrante: Integrante): Result<Integrante, GestionErrors>
+    fun delete(id: Long): Result<Integrante, GestionErrors>
+    fun deleteLogical(id: Long, integrante: Integrante): Result<Integrante, GestionErrors>
 }

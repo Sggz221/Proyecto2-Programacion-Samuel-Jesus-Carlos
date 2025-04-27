@@ -1,6 +1,10 @@
 package org.example.newteam.gestion.service
 
 import com.github.benmanes.caffeine.cache.Cache
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.models.Integrante
 import org.example.newteam.gestion.repositories.EquipoRepositoryImpl
 import org.example.newteam.gestion.storage.*
@@ -64,30 +68,29 @@ class ServiceImpl(
     /**
      * Llama al repositiorio y devuelve un [Integrante] en funcion de su id y lo guarda en la cache
      * @param id [Long] Identificador del objeto
-     * @throws [Exceptions.NotFoundException] Si no encuentra al integrante
+     * @return [GestionErrors.NotFoundError] Si no encuentra al integrante
      * @return [List] de [Integrante]
      * @see [CacheImpl.get]
      * @see [CacheImpl.put]
      * @see [EquipoRepositoryImpl.getById]
      */
-    override fun getById(id: Long): Integrante {
+    override fun getById(id: Long): Result<Integrante, GestionErrors> {
         logger.debug { "Obteniendo el integrante del equipo con id $id" }
 
-        var result = cache.get(id)
+        var result = cache.getIfPresent(id)
 
         if (result == null){
 
             result = repository.getById(id)
 
             if (result == null){
-                throw Exceptions.NotFoundException("Integrante no encontrado con id $id")
+                return Err(GestionErrors.NotFoundError("Integrante no encontrado con id $id"))
             } else {
                 cache.put(id,result)
-                return result
+                return Ok(result)
             }
         }
-
-        return result
+        return Ok(result)
     }
 
     /**
@@ -96,35 +99,35 @@ class ServiceImpl(
      * @see [EquipoRepositoryImpl.save]
      * @see [IntegranteValidator.validar]
      */
-    override fun save(integrante: Integrante): Integrante {
+    override fun save(integrante: Integrante): Result<Integrante, GestionErrors> {
         logger.debug { "Guardando integrante" }
         validator.validar(integrante)
-        return repository.save(integrante)
+        return Ok(repository.save(integrante))
     }
 
     /**
      * Actualiza un integrante del equipo despues de validarlo
      * @param id [Long] Identificador del objeto
      * @param integrante [Integrante] Objeto que se quiere guardar
-     * @throws [Exceptions.NotFoundException] si no encuentra al integrante
+     * @return [GestionErrors.NotFoundError] si no encuentra al integrante
      * @return El integrante guardado
      * @see [IntegranteValidator.validar]
      * @see [EquipoRepositoryImpl.update]
      * @see [CacheImpl.remove]
      */
-    override fun update(id: Long, integrante: Integrante): Integrante {
+    override fun update(id: Long, integrante: Integrante): Result<Integrante, GestionErrors> {
         logger.debug { "Actualizando integrante" }
         validator.validar(integrante)
 
         val actualizado: Integrante? = repository.update(id,integrante)
 
         if (actualizado == null) {
-            throw Exceptions.NotFoundException("Integrante no encontrado con id $id")
+            return Err(GestionErrors.NotFoundError("Integrante no encontrado con id $id"))
         } else {
-            cache.remove(id)
+            cache.invalidate(id)
         }
 
-        return actualizado
+        return Ok(actualizado)
     }
 
     /**
@@ -135,39 +138,39 @@ class ServiceImpl(
      * @see [EquipoRepositoryImpl.delete]
      * @see [CacheImpl.remove]
      */
-    override fun delete(id: Long): Integrante {
+    override fun delete(id: Long): Result<Integrante, GestionErrors> {
         logger.debug { "Borrando integrante" }
 
         val borrado: Integrante? = repository.delete(id)
 
         if (borrado == null) {
-            throw Exceptions.NotFoundException("Integrante no encontrado con id $id")
+            return Err(GestionErrors.NotFoundError("Integrante no encontrado con id $id"))
         } else {
-            cache.remove(id)
+            cache.invalidate(id)
         }
 
-        return borrado
+        return Ok(borrado)
     }
     /**
      * Borra logicamente a un integrante, en esencia es igual a [update] solo que para un campo especifico de [Integrante.isDeleted]
      * @param id [Long] Identificador del objeto
      * @param integrante [Integrante] Objeto que se quiere guardar
-     * @throws [Exceptions.NotFoundException] si no encuentra al integrante
+     * @return [GestionErrors.NotFoundError] si no encuentra al integrante
      * @return El integrante guardado
      * @see [EquipoRepositoryImpl.deleteLogical]
      * @see [CacheImpl.remove]
      */
-    override fun deleteLogical(id: Long, integrante: Integrante): Integrante {
+    override fun deleteLogical(id: Long, integrante: Integrante): Result<Integrante, GestionErrors> {
         logger.debug { "Borrando lógicamente integrante" }
 
         val borrado: Integrante? = repository.deleteLogical(id,integrante)
 
         if (borrado == null) {
-            throw Exceptions.NotFoundException("Integrante no encontrado con id $id")
+            return Err(GestionErrors.NotFoundError("Integrante no encontrado con id $id"))
         } else {
-            cache.remove(id)
+            cache.invalidate(id)
         }
 
-        return borrado
+        return Ok(borrado)
     }
 }

@@ -1,7 +1,10 @@
 package org.example.newteam.gestion.storage
 
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import org.example.newteam.gestion.dto.IntegranteDTO
-import org.example.exceptions.Exceptions
+import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.mapper.toDto
 import org.example.newteam.gestion.mapper.toModel
 import org.example.newteam.gestion.models.Entrenador
@@ -25,10 +28,10 @@ class EquipoStorageBIN: EquipoStorage {
      * @throws [Exceptions.StorageException] Si el fichero no existe, no es un fichero o no se tienen permisos de lectura
      * @return Lista de integrantes
      */
-    override fun fileRead(file: File): List<Integrante> {
+    override fun fileRead(file: File): Result<List<Integrante>, GestionErrors> {
         logger.debug{"Leyendo archivo BIN"}
 
-        if (!file.exists() || !file.isFile || !file.canRead()) throw Exceptions.StorageException("El fichero no existe, la ruta especificada no es un fichero o no se tienen permisos de lectura")
+        if (!file.exists() || !file.isFile || !file.canRead()) return Err(GestionErrors.StorageError("El fichero no existe, la ruta especificada no es un fichero o no se tienen permisos de lectura"))
 
         val equipo = mutableListOf<IntegranteDTO>() // Mutable para poder añadir sobre la marcha los objetos
 
@@ -72,7 +75,7 @@ class EquipoStorageBIN: EquipoStorage {
                 }
             }
         }
-        return equipo.map{it.toModel()}
+        return Ok(equipo.map{it.toModel()})
     }
 
     /**
@@ -80,11 +83,11 @@ class EquipoStorageBIN: EquipoStorage {
      * @param equipo La lista de integrantes
      * @param file El archivo donde se escribira la lista
      */
-    override fun fileWrite(equipo: List<Integrante>, file: File) {
+    override fun fileWrite(equipo: List<Integrante>, file: File): Result<Unit, GestionErrors> {
         logger.debug { "Escribiendo archivo BIN" }
 
         if(!file.parentFile.exists() || !file.parentFile.isDirectory){
-            throw Exceptions.StorageException("El directorio padre del fichero no existe")
+            return Err(GestionErrors.StorageError("El directorio padre del fichero no existe"))
         }
 
         val integrantesDTO = equipo.map {
@@ -127,5 +130,6 @@ class EquipoStorageBIN: EquipoStorage {
                 }
             }
         }
+        return Ok(Unit)
     }
 }

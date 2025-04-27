@@ -1,7 +1,10 @@
 package org.example.newteam.gestion.storage
 
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import org.example.newteam.gestion.dto.IntegranteDTO
-import org.example.exceptions.Exceptions
+import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.mapper.toDto
 import org.example.newteam.gestion.mapper.toModel
 import org.example.newteam.gestion.models.Entrenador
@@ -22,12 +25,12 @@ class EquipoStorageCSV: EquipoStorage {
      * @throws [Exceptions.StorageException] Si el fichero no existe, no es un fichero o no se tienen permisos de lectura
      * @return Lista de integrantes
      */
-    override fun fileRead(file: File): List<Integrante> {
+    override fun fileRead(file: File): Result<List<Integrante>, GestionErrors> {
         logger.debug { "Leyendo fichero CSV" }
 
-        if (!file.exists() || !file.isFile || !file.canRead()) throw Exceptions.StorageException("El fichero no existe, la ruta especificada no es un fichero o no se tienen permisos de lectura")
+        if (!file.exists() || !file.isFile || !file.canRead()) return Err(GestionErrors.StorageError("El fichero no existe, la ruta especificada no es un fichero o no se tienen permisos de lectura"))
 
-        return file.readLines()
+        return Ok( file.readLines()
             .drop(1)
             .map{it.split(",")}
             .map{
@@ -48,18 +51,18 @@ class EquipoStorageCSV: EquipoStorage {
                     goles = it[13].toIntOrNull(),
                     partidos_jugados = it[14].toIntOrNull(),
                 ).toModel()
-            }
+            } ) // Fin OK
     }
     /**
      * Escribe en un fichero dada una lista de [Integrante] y una ruta especificada
      * @param equipo La lista de integrantes
      * @param file El archivo donde se escribira la lista
      */
-    override fun fileWrite(equipo: List<Integrante>, file: File) {
+    override fun fileWrite(equipo: List<Integrante>, file: File): Result<Unit, GestionErrors> {
         logger.debug { "Escribiendo integrantes del equipo en fichero CSV" }
 
         if (!file.parentFile.exists() || !file.parentFile.isDirectory) {
-            throw Exceptions.StorageException("El directorio padre del fichero no existe")
+            return Err(GestionErrors.StorageError("El directorio padre del fichero no existe"))
         }
 
         file.writeText("id,nombre,apellidos,fecha_nacimiento,fecha_incorporacion,salario,pais,rol,especialidad,posicion,dorsal,altura,peso,goles,partidos_jugados\n")
@@ -74,4 +77,6 @@ class EquipoStorageCSV: EquipoStorage {
                 file.appendText("${it.id},${it.nombre},${it.apellidos},${it.fecha_nacimiento},${it.fecha_incorporacion},${it.salario},${it.pais},Entrenador,${it.especialidad},,,,,,\n")
             }
         }
-    }}
+        return Ok(Unit)
+    }
+}

@@ -6,7 +6,9 @@ import javafx.scene.Scene
 import javafx.stage.Stage
 import org.example.newteam.gestion.dao.IntegranteEntity
 import org.example.newteam.gestion.database.JdbiManager
+import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.repositories.EquipoRepositoryImpl
+import sun.security.jca.GetInstance.getService
 
 class HelloApplication : Application() {
     override fun start(stage: Stage) {
@@ -20,6 +22,7 @@ class HelloApplication : Application() {
 
 fun main() {
     //Application.launch(HelloApplication::class.java)
-    val dao = JdbiManager()
-    val repo = EquipoRepositoryImpl()
+    val service = Dependencies.getIntegrantesService()
+
+    service.importFromFile()
 }

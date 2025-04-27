@@ -1,8 +1,11 @@
 package org.example.newteam.gestion.storage
 
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import kotlinx.serialization.json.Json
 import org.example.newteam.gestion.dto.IntegranteDTO
-import org.example.exceptions.Exceptions
+import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.mapper.toDto
 import org.example.newteam.gestion.mapper.toModel
 import org.example.newteam.gestion.models.Entrenador
@@ -21,13 +24,13 @@ class EquipoStorageJSON: EquipoStorage {
     /**
      * Permite leer de un archivo una lista de [Integrante]
      * Lee el archivo como una lista de DTO de integrante y lo mapea al modelo segun va leyendo
-     * @throws [Exceptions.StorageException] Si el fichero no existe, no es un fichero o no se tienen permisos de lectura
+     * @return [GestionErrors.StorageError] Si el fichero no existe, no es un fichero o no se tienen permisos de lectura
      * @return Lista de integrantes
      */
-    override fun fileRead(file: File): List<Integrante> {
+    override fun fileRead(file: File): Result<List<Integrante>, GestionErrors> {
         logger.debug { "Leyendo fichero JSON" }
 
-        if (!file.exists() || !file.isFile || !file.canRead()) throw Exceptions.StorageException("El fichero no existe, la ruta especificada no es un fichero o no se tienen permisos de lectura")
+        if (!file.exists() || !file.isFile || !file.canRead()) return Err(GestionErrors.StorageError("El fichero no existe, la ruta especificada no es un fichero o no se tienen permisos de lectura"))
 
         val json = Json { ignoreUnknownKeys = true }
 
@@ -35,20 +38,20 @@ class EquipoStorageJSON: EquipoStorage {
         val listaIntegrantesDTO: List<IntegranteDTO> = json.decodeFromString(jsonString) // Convertimos el texto anteriormente leido a una lsita de IntegrantesDTO
         val listaIntegrantes = listaIntegrantesDTO.map { it.toModel() } // Mapeamos la lista de DTO para convertir cada elemento a un modelo segun convenga
 
-        return  listaIntegrantes
+        return  Ok(listaIntegrantes)
     }
 
     /**
      * Permite leer de un archivo una lista de [Integrante]
      * Lee el archivo como una lista de DTO de integrante y lo mapea al modelo segun va leyendo
-     * @throws [Exceptions.StorageException] Si el fichero no existe, no es un fichero o no se tienen permisos de lectura
+     * @return [GestionErrors.StorageError] Si el fichero no existe, no es un fichero o no se tienen permisos de lectura
      * @return Lista de integrantes
      */
-    override fun fileWrite(equipo: List<Integrante>, file: File) {
+    override fun fileWrite(equipo: List<Integrante>, file: File): Result<Unit, GestionErrors> {
         logger.debug { "Escribiendo integrantes del equipo en fichero JSON" }
 
         if (!file.parentFile.exists() || !file.parentFile.isDirectory) {
-            throw Exceptions.StorageException("El directorio padre del fichero no existe")
+            return Err(GestionErrors.StorageError("El directorio padre del fichero no existe"))
         }
 
         val json = Json { ignoreUnknownKeys = true ; prettyPrint = true }
@@ -62,6 +65,6 @@ class EquipoStorageJSON: EquipoStorage {
         }  // Convertir integrantes a DTOs segun el modelo
         val jsonString: String = json.encodeToString(listaIntegrantesDTO)  // Serializar a JSON
         file.writeText(jsonString)  // Guardar en el archivo
-
+        return Ok(Unit)
     }
 }

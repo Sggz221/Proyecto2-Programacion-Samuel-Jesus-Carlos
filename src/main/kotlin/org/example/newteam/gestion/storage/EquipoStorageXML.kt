@@ -1,11 +1,14 @@
 package org.example.newteam.gestion.storage
 
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import nl.adaptivity.xmlutil.serialization.XML
 import org.example.newteam.gestion.dto.EquipoDTO
 import org.example.newteam.gestion.dto.IntegranteXmlDTO
-import org.example.exceptions.Exceptions
+import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.mapper.toModel
 import org.example.newteam.gestion.mapper.toXmlDTO
 import org.example.newteam.gestion.models.Entrenador
@@ -23,10 +26,10 @@ class EquipoStorageXML: EquipoStorage {
      * @throws [Exceptions.StorageException] Si el fichero no existe, no es un fichero o no se tienen permisos de lectura
      * @return Lista de integrantes
      */
-    override fun fileRead(file: File): List<Integrante> {
+    override fun fileRead(file: File): Result<List<Integrante>, GestionErrors> {
         logger.debug { "Leyendo fichero XML" }
 
-        if (!file.exists() || !file.isFile || !file.canRead()) throw Exceptions.StorageException("El fichero no existe, la ruta especificada no es un fichero o no se tienen permisos de lectura")
+        if (!file.exists() || !file.isFile || !file.canRead()) return Err(GestionErrors.StorageError("El fichero no existe, la ruta especificada no es un fichero o no se tienen permisos de lectura"))
 
         val xml = XML {}
 
@@ -35,7 +38,7 @@ class EquipoStorageXML: EquipoStorage {
         val listaIntegrantesDTO = listaEquipoDTO.equipo // De la clase listaEquipoDTO, nos quedamos solo con la lista que contiene los IntegrantesDTO
         val listaIntegrantes = listaIntegrantesDTO.map { it.toModel() } // Mapeamos la lista de DTO para convertir cada elemento a un modelo
 
-        return  listaIntegrantes
+        return  Ok(listaIntegrantes)
     }
 
     /**
@@ -43,11 +46,11 @@ class EquipoStorageXML: EquipoStorage {
      * @param equipo La lista de integrantes
      * @param file El archivo donde se escribira la lista
      */
-    override fun fileWrite(equipo: List<Integrante>, file: File) {
+    override fun fileWrite(equipo: List<Integrante>, file: File): Result<Unit, GestionErrors> {
         logger.debug { "Escribiendo en fichero XML" }
 
         if (!file.parentFile.exists() || !file.parentFile.isDirectory) {
-            throw Exceptions.StorageException("El directorio padre del fichero no existe")
+            return Err(GestionErrors.StorageError("El directorio padre del fichero no existe"))
         }
 
         val xml = XML {indent = 4}
@@ -66,5 +69,6 @@ class EquipoStorageXML: EquipoStorage {
 
         file.writeText(xmlString) //Escribimos el String en el fichero .xml
 
+        return Ok(Unit)
     }
 }

@@ -67,7 +67,7 @@ object Dependencies {
         return ServiceImpl(repository, cache, validator, storage)
     }
 
-    fun getVehiculosService(): ServiceImpl {
+    fun getIntegrantesService(): ServiceImpl {
         return provideIntegrantesService(
             repository = provideIntegrantesRepository(provideIntegrantesDao(provideDatabaseManager())),
             cache = provideIntegrantesCache(),
