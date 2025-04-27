@@ -1,1 +1,1 @@
-# Proyecto2-Programacion-Samuel-Jesus-Carlos
+# Proyecto2-Programación-Samuel-Jesus-Carlos
