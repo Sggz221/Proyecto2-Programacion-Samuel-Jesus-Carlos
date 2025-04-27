@@ -18,7 +18,7 @@ object Dependencies {
     private val logger = logging()
 
     init {
-        logger.debug { "Inicializando el gestor de dependencias" }
+        logger.debug { "Inicializando gestor de dependencias" }
     }
 
     fun provideDatabaseManager(): Jdbi {
