@@ -1,0 +1,96 @@
+2025-04-29 18:17:58.947911+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INTEGRANTES" no encontrada
+Table "INTEGRANTES" not found; SQL statement:
+DROP TABLE integrantes [42102-224]
+2025-04-29 18:17:58.953046+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "CREATE TABLE integrantes (\000a    id BIGINT [*]IDENTITY PRIMARY KEY,\000a    nombre VARCHAR(50) NOT NULL,\000a    apellidos VARCHAR(50) NOT NULL,\000a    fecha_nacimiento DATE NOT NULL,\000a    fecha_incorporacion DATE NOT NULL,\000a    salario DOUBLE NOT NULL,\000a    pais VARCHAR(50) NOT NULL,\000a    rol VARCHAR(20) NOT NULL,\000a    especialidad VARCHAR(20),\000a    posicion VARCHAR(20),\000a    dorsal INT,\000a    altura DOUBLE,\000a    peso DOUBLE,\000a    goles INT,\000a    partidos_jugados INT,\000a    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\000a    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\000a    isDeleted BOOLEAN DEFAULT FALSE\000a)"; se esperaba "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "CREATE TABLE integrantes (\000a    id BIGINT [*]IDENTITY PRIMARY KEY,\000a    nombre VARCHAR(50) NOT NULL,\000a    apellidos VARCHAR(50) NOT NULL,\000a    fecha_nacimiento DATE NOT NULL,\000a    fecha_incorporacion DATE NOT NULL,\000a    salario DOUBLE NOT NULL,\000a    pais VARCHAR(50) NOT NULL,\000a    rol VARCHAR(20) NOT NULL,\000a    especialidad VARCHAR(20),\000a    posicion VARCHAR(20),\000a    dorsal INT,\000a    altura DOUBLE,\000a    peso DOUBLE,\000a    goles INT,\000a    partidos_jugados INT,\000a    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\000a    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\000a    isDeleted BOOLEAN DEFAULT FALSE\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE integrantes (
+    id BIGINT IDENTITY PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellidos VARCHAR(50) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    fecha_incorporacion DATE NOT NULL,
+    salario DOUBLE NOT NULL,
+    pais VARCHAR(50) NOT NULL,
+    rol VARCHAR(20) NOT NULL,
+    especialidad VARCHAR(20),
+    posicion VARCHAR(20),
+    dorsal INT,
+    altura DOUBLE,
+    peso DOUBLE,
+    goles INT,
+    partidos_jugados INT,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    isDeleted BOOLEAN DEFAULT FALSE
+) [42001-224]
+2025-04-29 18:17:58.955046+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcBatchUpdateException: Tabla "INTEGRANTES" no encontrada
+Table "INTEGRANTES" not found; SQL statement:
+DROP TABLE integrantes [42102-224]
+	at com.h2database@2.2.224/org.h2.jdbc.JdbcStatement.executeBatch(JdbcStatement.java:816)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.statement.SqlLoggerUtil.wrap(SqlLoggerUtil.java:32)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.statement.Batch.execute(Batch.java:86)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.statement.Script.execute(Script.java:53)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.executeSqlScriptFromResources$lambda$5(JdbiManager.kt:45)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.HandleConsumer.lambda$asCallback$0(HandleConsumer.java:32)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.Jdbi.withHandle(Jdbi.java:422)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.Jdbi.useHandle(Jdbi.java:438)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.executeSqlScriptFromResources(JdbiManager.kt:44)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.<init>(JdbiManager.kt:28)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.<clinit>(JdbiManager.kt:14)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.di.Dependencies.provideDatabaseManager(Dependencies.kt:26)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.di.Dependencies.getIntegrantesService(Dependencies.kt:72)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.HelloApplication.start$lambda$1(HelloApplication.kt:22)
+	at kotlin.stdlib/kotlin.concurrent.ThreadsKt$thread$thread$1.run(Thread.kt:30)
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INTEGRANTES" no encontrada
+Table "INTEGRANTES" not found; SQL statement:
+DROP TABLE integrantes [42102-224]
+	at com.h2database@2.2.224/org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at com.h2database@2.2.224/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at com.h2database@2.2.224/org.h2.message.DbException.get(DbException.java:223)
+	at com.h2database@2.2.224/org.h2.message.DbException.get(DbException.java:199)
+	at com.h2database@2.2.224/org.h2.command.ddl.DropTable.prepareDrop(DropTable.java:66)
+	at com.h2database@2.2.224/org.h2.command.ddl.DropTable.update(DropTable.java:133)
+	at com.h2database@2.2.224/org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at com.h2database@2.2.224/org.h2.command.Command.executeUpdate(Command.java:256)
+	at com.h2database@2.2.224/org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:196)
+	at com.h2database@2.2.224/org.h2.jdbc.JdbcStatement.executeBatchElement(JdbcStatement.java:858)
+	at com.h2database@2.2.224/org.h2.jdbc.JdbcStatement.executeBatch(JdbcStatement.java:810)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.statement.SqlLoggerUtil.wrap(SqlLoggerUtil.java:32)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.statement.Batch.execute(Batch.java:86)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.statement.Script.execute(Script.java:53)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.executeSqlScriptFromResources$lambda$5(JdbiManager.kt:45)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.HandleConsumer.lambda$asCallback$0(HandleConsumer.java:32)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.Jdbi.withHandle(Jdbi.java:422)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.Jdbi.useHandle(Jdbi.java:438)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.executeSqlScriptFromResources(JdbiManager.kt:44)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.<init>(JdbiManager.kt:28)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.<clinit>(JdbiManager.kt:14)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.di.Dependencies.provideDatabaseManager(Dependencies.kt:26)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.di.Dependencies.getIntegrantesService(Dependencies.kt:72)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.HelloApplication.start$lambda$1(HelloApplication.kt:22)
+	at kotlin.stdlib/kotlin.concurrent.ThreadsKt$thread$thread$1.run(Thread.kt:30)
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "CREATE TABLE integrantes (\000a    id BIGINT [*]IDENTITY PRIMARY KEY,\000a    nombre VARCHAR(50) NOT NULL,\000a    apellidos VARCHAR(50) NOT NULL,\000a    fecha_nacimiento DATE NOT NULL,\000a    fecha_incorporacion DATE NOT NULL,\000a    salario DOUBLE NOT NULL,\000a    pais VARCHAR(50) NOT NULL,\000a    rol VARCHAR(20) NOT NULL,\000a    especialidad VARCHAR(20),\000a    posicion VARCHAR(20),\000a    dorsal INT,\000a    altura DOUBLE,\000a    peso DOUBLE,\000a    goles INT,\000a    partidos_jugados INT,\000a    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\000a    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\000a    isDeleted BOOLEAN DEFAULT FALSE\000a)"; se esperaba "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "CREATE TABLE integrantes (\000a    id BIGINT [*]IDENTITY PRIMARY KEY,\000a    nombre VARCHAR(50) NOT NULL,\000a    apellidos VARCHAR(50) NOT NULL,\000a    fecha_nacimiento DATE NOT NULL,\000a    fecha_incorporacion DATE NOT NULL,\000a    salario DOUBLE NOT NULL,\000a    pais VARCHAR(50) NOT NULL,\000a    rol VARCHAR(20) NOT NULL,\000a    especialidad VARCHAR(20),\000a    posicion VARCHAR(20),\000a    dorsal INT,\000a    altura DOUBLE,\000a    peso DOUBLE,\000a    goles INT,\000a    partidos_jugados INT,\000a    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\000a    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\000a    isDeleted BOOLEAN DEFAULT FALSE\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE integrantes (
+    id BIGINT IDENTITY PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellidos VARCHAR(50) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    fecha_incorporacion DATE NOT NULL,
+    salario DOUBLE NOT NULL,
+    pais VARCHAR(50) NOT NULL,
+    rol VARCHAR(20) NOT NULL,
+    especialidad VARCHAR(20),
+    posicion VARCHAR(20),
+    dorsal INT,
+    altura DOUBLE,
+    peso DOUBLE,
+    goles INT,
+    partidos_jugados INT,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    isDeleted BOOLEAN DEFAULT FALSE
+) [42001-224]

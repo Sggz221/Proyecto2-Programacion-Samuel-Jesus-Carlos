@@ -151,26 +151,4 @@ class ServiceImpl(
 
         return Ok(borrado)
     }
-    /**
-     * Borra logicamente a un integrante, en esencia es igual a [update] solo que para un campo especifico de [Integrante.isDeleted]
-     * @param id [Long] Identificador del objeto
-     * @param integrante [Integrante] Objeto que se quiere guardar
-     * @return [GestionErrors.NotFoundError] si no encuentra al integrante
-     * @return El integrante guardado
-     * @see [EquipoRepositoryImpl.deleteLogical]
-     * @see [CacheImpl.remove]
-     */
-    override fun deleteLogical(id: Long, integrante: Integrante): Result<Integrante, GestionErrors> {
-        logger.debug { "Borrando lógicamente integrante" }
-
-        val borrado: Integrante? = repository.deleteLogical(id,integrante)
-
-        if (borrado == null) {
-            return Err(GestionErrors.NotFoundError("Integrante no encontrado con id $id"))
-        } else {
-            cache.invalidate(id)
-        }
-
-        return Ok(borrado)
-    }
 }

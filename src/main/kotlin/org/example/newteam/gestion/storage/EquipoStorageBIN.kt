@@ -59,6 +59,7 @@ class EquipoStorageBIN: EquipoStorage {
                         fecha_incorporacion, salario, pais, rol,
                         especialidad = null, posicion, dorsal,
                         altura, peso, goles, partidos_jugados
+
                     )
                     equipo.add(integranteJugador)
                 }

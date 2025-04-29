@@ -39,6 +39,5 @@ data class IntegranteEntity(
     val goles: Int?,
     val partidos_jugados: Int?,
     val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime,
-    val isDeleted: Boolean
+    val updatedAt: LocalDateTime
 )

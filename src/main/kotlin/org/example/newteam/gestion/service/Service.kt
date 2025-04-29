@@ -16,5 +16,4 @@ interface Service {
     fun save(integrante: Integrante): Result<Integrante, GestionErrors>
     fun update(id: Long, integrante: Integrante): Result<Integrante, GestionErrors>
     fun delete(id: Long): Result<Integrante, GestionErrors>
-    fun deleteLogical(id: Long, integrante: Integrante): Result<Integrante, GestionErrors>
 }

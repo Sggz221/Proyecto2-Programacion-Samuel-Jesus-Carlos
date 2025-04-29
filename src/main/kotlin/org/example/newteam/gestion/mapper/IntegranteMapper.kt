@@ -27,8 +27,7 @@ fun IntegranteEntity.toModel(): Integrante {
             goles = goles!!,
             partidos_jugados = partidos_jugados!!,
             createdAt = createdAt,
-            updatedAt = updatedAt,
-            isDeleted = isDeleted
+            updatedAt = updatedAt
         )
     }
     else{
@@ -42,8 +41,7 @@ fun IntegranteEntity.toModel(): Integrante {
             pais = pais,
             especialidad = Especialidad.valueOf(especialidad!!),
             createdAt = createdAt,
-            updatedAt = updatedAt,
-            isDeleted = isDeleted
+            updatedAt = updatedAt
         )
     }
 }
@@ -66,8 +64,7 @@ fun Jugador.toEntity(): IntegranteEntity {
         goles = goles,
         partidos_jugados = partidos_jugados,
         createdAt = createdAt,
-        updatedAt = updatedAt,
-        isDeleted = isDeleted
+        updatedAt = updatedAt
     )
 }
 
@@ -89,8 +86,7 @@ fun Entrenador.toEntity(): IntegranteEntity {
         goles = null,
         partidos_jugados = null,
         createdAt = createdAt,
-        updatedAt = updatedAt,
-        isDeleted = isDeleted
+        updatedAt = updatedAt
     )
 }
 /**
