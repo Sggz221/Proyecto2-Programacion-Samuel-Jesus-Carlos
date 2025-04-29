@@ -105,24 +105,4 @@ class EquipoRepositoryImpl(
         logger.debug { "Obteniendo integrante del equipo con ID: $id" }
         return dao.getById(id)?.toModel()
     }
-
-    /**
-     * Funcion que borra logicamente un integrante. Su funcionamiento es esencialmente igual al de [update] pero para cambiar el campo de [Integrante.isDeleted] a [true]
-     * @return [Integrante] o nulo si no encuentra el objeto
-     */
-    override fun deleteLogical(id: Long, entity: Integrante): Integrante? {
-        logger.debug{"Borrando lógicamente integrante del equipo con ID: $id"}
-        val integranteToDeleteLogical: IntegranteEntity? = dao.getById(id)
-        // Comprobamos si es null
-        if (integranteToDeleteLogical == null) {
-            logger.info { "No se ha encontrado un Integrante con id: $id" }
-            return null
-        }
-        // Si todo sale bien...
-        val timestamp = LocalDateTime.now()
-        val integranteDeleted = integranteToDeleteLogical.copy(updatedAt = timestamp, isDeleted = true).toModel()
-        dao.update(integranteToDeleteLogical)
-        logger.info { "Integrante con ID: $id se ha borrado lógicamente" }
-        return integranteDeleted
-    }
 }

@@ -34,7 +34,6 @@ fun Jugador.copy(
     new_fecha_incorporacion: LocalDate = this.fecha_incorporacion,
     newSalario: Double = this.salario,
     newPais: String = this.pais,
-    newIsDeleted: Boolean = this.isDeleted,
     newPosicion: Posicion = this.posicion,
     newDorsal: Int = this.dorsal,
     newAltura: Double = this.altura,
@@ -53,7 +52,6 @@ fun Jugador.copy(
         pais = newPais,
         createdAt = timeStamp,
         updatedAt = timeStamp,
-        isDeleted = newIsDeleted,
         posicion = newPosicion,
         dorsal = newDorsal,
         altura = newAltura,
@@ -83,7 +81,6 @@ fun Entrenador.copy(
     new_fecha_incorporacion: LocalDate = this.fecha_incorporacion,
     newSalario: Double = this.salario,
     newPais: String = this.pais,
-    newIsDeleted: Boolean = this.isDeleted,
     newEspecialidad: Especialidad = this.especialidad,
     timeStamp: LocalDateTime = LocalDateTime.now()
 ): Entrenador {
@@ -97,7 +94,6 @@ fun Entrenador.copy(
         pais = newPais,
         createdAt = timeStamp,
         updatedAt = timeStamp,
-        isDeleted = newIsDeleted,
         especialidad = newEspecialidad,
     )
 }

@@ -24,8 +24,7 @@ abstract class Integrante (
     val salario: Double,
     val pais: String,
     var createdAt: LocalDateTime = LocalDateTime.now(),
-    var updatedAt: LocalDateTime = LocalDateTime.now(),
-    var isDeleted: Boolean = false,
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 ){
 
 }

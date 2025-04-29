@@ -6,6 +6,7 @@ import javafx.scene.Scene
 import javafx.stage.Stage
 import org.example.newteam.gestion.configuration.Configuration
 import org.example.newteam.gestion.di.Dependencies
+import org.example.newteam.gestion.service.ServiceImpl
 import java.io.File
 import kotlin.concurrent.thread
 
@@ -27,5 +28,8 @@ class HelloApplication : Application() {
 }
 
 fun main() {
+
+    val service = Dependencies.getIntegrantesService()
     Application.launch(HelloApplication::class.java)
+
 }
