@@ -1,0 +1,20 @@
+/* Estilo general para la aplicación */
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #f5f5f5;
+}
+
+/* Etiquetas */
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+.hyperlink {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+#link:hover {
+    -fx-text-fill: #00c4ff;
+}

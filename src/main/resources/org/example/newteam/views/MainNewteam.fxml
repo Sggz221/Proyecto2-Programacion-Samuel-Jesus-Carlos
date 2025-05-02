@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.newteam.gestion.controllers.NewTeamController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="Archivo">
+          <items>
+            <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <MenuButton contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT" text="Importar">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="CSV" />
+                            <MenuItem mnemonicParsing="false" text="JSON" />
+                              <MenuItem mnemonicParsing="false" text="XML" />
+                              <MenuItem mnemonicParsing="false" text="BIN" />
+                          </items>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../media/Import.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuButton>
+                     </graphic></MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <MenuButton contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT" text="Exportar">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="CSV" />
+                              <MenuItem mnemonicParsing="false" text="JSON" />
+                              <MenuItem mnemonicParsing="false" text="XML" />
+                              <MenuItem mnemonicParsing="false" text="BIN" />
+                           </items>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../media/Export.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuButton>
+                     </graphic>
+                  </MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Salir" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Ayuda">
+          <items>
+            <MenuItem fx:id="aboutButton" mnemonicParsing="false" text="Sobre NewTeam Manager" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="323.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane>
+          <children>
+                  <VBox alignment="CENTER" prefHeight="550.4" prefWidth="222.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                  <Label id="bigLabel" alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Master" textAlignment="CENTER" wrapText="false">
+                    <font>
+                      <Font size="18.0" fx:id="x1" />
+                    </font>
+                    <textFill>
+                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+                    </textFill>
+                  </Label>
+                        <HBox alignment="CENTER" prefHeight="42.0" prefWidth="222.0">
+                           <children>
+                              <Button id="addButton" mnemonicParsing="false" text="Jugador">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../media/Add.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin></Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="42.0" prefWidth="222.0">
+                           <children>
+                              <Button id="addButton" mnemonicParsing="false" text="Entrenador">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../media/Add.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin></Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="42.0" prefWidth="222.0">
+                           <children>
+                              <Button id="editButton" mnemonicParsing="false" text="Editar">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../media/Edit.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin></Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="42.0" prefWidth="222.0">
+                           <children>
+                              <Button id="deleteButton" mnemonicParsing="false" text="Eliminar">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../media/Delete.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin></Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+          </children>
+        </AnchorPane>
+        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+          <content>
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+              <children>
+                        <VBox alignment="CENTER" layoutX="102.0" layoutY="99.0" prefHeight="546.0" prefWidth="443.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-13.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="34.0" prefWidth="443.0">
+                                 <children>
+                                    <Label id="bigLabel" alignment="CENTER" style="&#10;" text="Cuenta: " textAlignment="CENTER" wrapText="false">
+                                       <font>
+                                          <Font size="18.0" fx:id="x11" />
+                                       </font>
+                                       <textFill>
+                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
+                                       </textFill>
+                                    </Label>
+                            <Label id="bigLabel" alignment="CENTER" font="$x1" style="&#10;" text="Admin / User" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="36.0" prefWidth="443.0">
+                                 <children>
+                                    <Label id="bigLabel" text="Buscar" />
+                                    <TextField>
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="10.0" />
+                                       </HBox.margin></TextField>
+                                    <MenuButton mnemonicParsing="false" text="Filtrar">
+                                      <items>
+                                          <MenuItem mnemonicParsing="false" text="Nada" />
+                                        <MenuItem mnemonicParsing="false" text="Jugadores" />
+                                        <MenuItem mnemonicParsing="false" text="Entrenadores" />
+                                      </items>
+                                    </MenuButton>
+                                    <MenuButton mnemonicParsing="false" text="Ordenar">
+                                       <items>
+                                          <MenuItem mnemonicParsing="false" text="Nada" />
+                                          <MenuItem mnemonicParsing="false" text="Nombre" />
+                                          <MenuItem mnemonicParsing="false" text="Fecha Nacimiento" />
+                                          <MenuItem mnemonicParsing="false" text="Fecha Incorporación" />
+                                       </items>
+                                    </MenuButton>
+                                 </children>
+                              </HBox>
+                              <ScrollPane prefHeight="527.0" prefWidth="443.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="479.0" prefWidth="446.0">
+                                       <children>
+                                          <ListView prefHeight="483.0" prefWidth="446.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
+                           </children>
+                        </VBox>
+              </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+        <AnchorPane>
+          <children>
+            <Label id="bigLabel" alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Details" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+          <font>
+            <Font size="11.0" fx:id="x3" />
+          </font>
+          <textFill>
+            <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>
