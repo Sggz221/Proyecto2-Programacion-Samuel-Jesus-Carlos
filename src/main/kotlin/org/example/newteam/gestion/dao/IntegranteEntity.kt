@@ -38,6 +38,8 @@ data class IntegranteEntity(
     val peso: Double?,
     val goles: Int?,
     val partidos_jugados: Int?,
+    val minutos_jugados: Int?,
     val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime
+    val updatedAt: LocalDateTime,
+    val imagen: String
 )

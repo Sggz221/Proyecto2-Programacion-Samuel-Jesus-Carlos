@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS integrantes (
     peso DOUBLE,
     goles INT,
     partidos_jugados INT,
+    minutos_jugados INT,
     createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    imagen VARCHAR (100) NOT NULL
 );

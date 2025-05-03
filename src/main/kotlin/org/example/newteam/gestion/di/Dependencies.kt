@@ -3,11 +3,11 @@ package org.example.newteam.gestion.di
 import com.github.benmanes.caffeine.cache.Cache
 import com.github.benmanes.caffeine.cache.Caffeine
 import org.example.newteam.gestion.configuration.Configuration
-import org.example.newteam.gestion.dao.IntegrantesDAO
+import org.example.newteam.gestion.dao.EquipoDAO
 import org.example.newteam.gestion.database.JdbiManager
 import org.example.newteam.gestion.models.Integrante
 import org.example.newteam.gestion.repositories.EquipoRepositoryImpl
-import org.example.newteam.gestion.service.ServiceImpl
+import org.example.newteam.gestion.service.EquipoServiceImpl
 import org.example.newteam.gestion.storage.EquipoStorageImpl
 import org.example.newteam.gestion.validator.IntegranteValidator
 import org.jdbi.v3.core.Jdbi
@@ -26,9 +26,9 @@ object Dependencies {
         return JdbiManager.instance
     }
 
-    fun provideIntegrantesDao(jdbi: Jdbi): IntegrantesDAO {
+    fun provideIntegrantesDao(jdbi: Jdbi): EquipoDAO {
         logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando DAO de Integrantes" }
-        return jdbi.onDemand(IntegrantesDAO::class.java)
+        return jdbi.onDemand(EquipoDAO::class.java)
     }
 
     private fun provideIntegrantesCache(
@@ -42,7 +42,7 @@ object Dependencies {
             .build<Long, Integrante>()
     }
 
-    private fun provideIntegrantesRepository(dao: IntegrantesDAO): EquipoRepositoryImpl {
+    private fun provideIntegrantesRepository(dao: EquipoDAO): EquipoRepositoryImpl {
         logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Repositorio de Integrantes" }
         return EquipoRepositoryImpl(dao)
     }
@@ -62,12 +62,12 @@ object Dependencies {
         cache: Cache<Long, Integrante>,
         validator: IntegranteValidator,
         storage: EquipoStorageImpl
-    ): ServiceImpl {
+    ): EquipoServiceImpl {
         logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando Servicio de Integrantes" }
-        return ServiceImpl(repository, cache, validator, storage)
+        return EquipoServiceImpl(repository, cache, validator, storage)
     }
 
-    fun getIntegrantesService(): ServiceImpl {
+    fun getIntegrantesService(): EquipoServiceImpl {
         return provideIntegrantesService(
             repository = provideIntegrantesRepository(provideIntegrantesDao(provideDatabaseManager())),
             cache = provideIntegrantesCache(),

@@ -69,5 +69,11 @@ data class IntegranteXmlDTO(
     val goles: String?,
     @SerialName("partidosJugados")
     @XmlElement
-    val partidos_jugados: String?
+    val partidos_jugados: String?,
+    @SerialName("minutos_jugados")
+    @XmlElement
+    val minutos_jugados: String?,
+    @SerialName("imagen")
+    @XmlElement
+    val imagen: String
 ): java.io.Serializable

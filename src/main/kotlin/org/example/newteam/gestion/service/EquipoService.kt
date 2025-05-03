@@ -7,7 +7,7 @@ import org.example.newteam.gestion.models.Integrante
 /**
  * Interfaz que crea el contrato para crear el servicio para gestionar un equipo de futbol en memoria y en el almacenamiento local
  */
-interface Service {
+interface EquipoService {
     fun importFromFile(filePath: String)
     fun exportToFile(filePath: String)
 
