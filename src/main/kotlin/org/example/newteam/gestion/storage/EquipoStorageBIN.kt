@@ -53,24 +53,28 @@ class EquipoStorageBIN: EquipoStorage {
                     val peso = raf.readDouble()
                     val goles = raf.readInt()
                     val partidos_jugados = raf.readInt()
+                    val minutos_jugados = raf.readInt()
+                    val imagen = raf.readUTF()
 
                     val integranteJugador = IntegranteDTO(
                         id, nombre, apellidos, fecha_nacimiento,
                         fecha_incorporacion, salario, pais, rol,
                         especialidad = null, posicion, dorsal,
-                        altura, peso, goles, partidos_jugados
-
+                        altura, peso, goles, partidos_jugados,
+                        minutos_jugados, imagen
                     )
                     equipo.add(integranteJugador)
                 }
                 else{
                     val especialidad = raf.readUTF()
+                    val imagen = raf.readUTF()
 
                     val integranteEntrenador = IntegranteDTO(
                         id, nombre, apellidos, fecha_nacimiento,
                         fecha_incorporacion, salario, pais, rol,
                         especialidad, posicion = null, dorsal = null,
-                        altura = null, peso = null, goles = null, partidos_jugados = null
+                        altura = null, peso = null, goles = null,
+                        partidos_jugados = null, minutos_jugados = null, imagen
                     )
                     equipo.add(integranteEntrenador)
                 }
@@ -117,6 +121,8 @@ class EquipoStorageBIN: EquipoStorage {
                     raf.writeDouble(integrante.peso!!)
                     raf.writeInt(integrante.goles!!)
                     raf.writeInt(integrante.partidos_jugados!!)
+                    raf.writeInt(integrante.minutos_jugados!!)
+                    raf.writeUTF(integrante.imagen)
                 }
                 else{
                     raf.writeLong(integrante!!.id)
@@ -128,6 +134,7 @@ class EquipoStorageBIN: EquipoStorage {
                     raf.writeUTF(integrante.pais)
                     raf.writeUTF(integrante.rol)
                     raf.writeUTF(integrante.especialidad)
+                    raf.writeUTF(integrante.imagen)
                 }
             }
         }

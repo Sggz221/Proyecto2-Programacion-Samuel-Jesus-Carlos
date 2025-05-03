@@ -30,17 +30,19 @@ class Jugador(
     pais: String,
     createdAt: LocalDateTime = LocalDateTime.now(),
     updatedAt: LocalDateTime = LocalDateTime.now(),
+    imagen: String,
     val posicion: Posicion,
     val dorsal: Int,
     val altura: Double,
     val peso: Double,
     val goles: Int,
-    val partidos_jugados: Int
-): Integrante(id = id, nombre = nombre, apellidos = apellidos, fecha_nacimiento = fecha_nacimiento, fecha_incorporacion = fecha_incorporacion, salario = salario, pais = pais, createdAt = createdAt,updatedAt = updatedAt) {
+    val partidos_jugados: Int,
+    val minutos_jugados: Int
+): Integrante(id = id, nombre = nombre, apellidos = apellidos, fecha_nacimiento = fecha_nacimiento, fecha_incorporacion = fecha_incorporacion, salario = salario, pais = pais, createdAt = createdAt,updatedAt = updatedAt, imagen = imagen) {
     /**
      * Sobreescribe la funcion [toString] predeterminada dandole un formato mas legible
      */
     override fun toString(): String {
-        return "Jugador(id= $id, nombre= $nombre, apellidos= $apellidos, fecha_nacimiento= $fecha_nacimiento, fecha_incorporacion= $fecha_incorporacion, salario= $salario, pais = $pais, createdAt= $createdAt, updatedAt= $updatedAt, posicion= $posicion, dorsal= $dorsal, altura= $altura, peso= $peso, goles= $goles, partidos_jugados= $partidos_jugados)"
+        return "Jugador(id= $id, nombre= $nombre, apellidos= $apellidos, fecha_nacimiento= $fecha_nacimiento, fecha_incorporacion= $fecha_incorporacion, salario= $salario, pais = $pais, createdAt= $createdAt, updatedAt= $updatedAt, posicion= $posicion, dorsal= $dorsal, altura= $altura, peso= $peso, goles= $goles, partidos_jugados= $partidos_jugados, minutos_jugados = $minutos_jugados, imagen = $imagen)"
     }
 }

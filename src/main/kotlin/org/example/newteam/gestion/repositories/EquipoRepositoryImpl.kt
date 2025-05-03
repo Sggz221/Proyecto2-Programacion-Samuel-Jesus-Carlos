@@ -1,7 +1,7 @@
 package org.example.newteam.gestion.repositories
 
 import org.example.newteam.gestion.dao.IntegranteEntity
-import org.example.newteam.gestion.dao.IntegrantesDAO
+import org.example.newteam.gestion.dao.EquipoDAO
 import org.example.newteam.gestion.extensions.copy
 import org.example.newteam.gestion.mapper.toEntity
 import org.example.newteam.gestion.mapper.toModel
@@ -17,11 +17,9 @@ import java.time.LocalDateTime
  * Clase que implementa la interfaz [EquipoRepository] para gestionar un equpo de futbol en memoria con una serie de [Integrante] que pueden ser [Jugador] o [Entrenador]
  */
 class EquipoRepositoryImpl(
-    private val dao: IntegrantesDAO
+    private val dao: EquipoDAO
 ): EquipoRepository<Long, Integrante> {
     private val logger = logging()
-    private val equipo = mutableMapOf<Long, Integrante>()
-    private var validator = IntegranteValidator()
 
 
     /**

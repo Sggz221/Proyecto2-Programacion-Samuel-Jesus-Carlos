@@ -24,7 +24,8 @@ abstract class Integrante (
     val salario: Double,
     val pais: String,
     var createdAt: LocalDateTime = LocalDateTime.now(),
-    var updatedAt: LocalDateTime = LocalDateTime.now()
+    var updatedAt: LocalDateTime = LocalDateTime.now(),
+    var imagen: String = "resources/org/example/newteam/media/profile_picture.png"
 ){
 
 }

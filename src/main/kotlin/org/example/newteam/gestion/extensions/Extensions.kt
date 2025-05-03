@@ -40,6 +40,8 @@ fun Jugador.copy(
     newPeso: Double = this.peso,
     newGoles: Int  = this.goles,
     new_partidos_jugados: Int  = this.partidos_jugados,
+    new_minutos_jugados: Int = this.minutos_jugados,
+    new_imagen: String= this.imagen,
     timeStamp: LocalDateTime = LocalDateTime.now()
 ): Jugador {
     return Jugador(
@@ -57,7 +59,9 @@ fun Jugador.copy(
         altura = newAltura,
         peso = newPeso,
         goles = newGoles,
-        partidos_jugados = new_partidos_jugados
+        partidos_jugados = new_partidos_jugados,
+        imagen = new_imagen,
+        minutos_jugados = new_minutos_jugados
     )
 }
 /**
@@ -82,6 +86,7 @@ fun Entrenador.copy(
     newSalario: Double = this.salario,
     newPais: String = this.pais,
     newEspecialidad: Especialidad = this.especialidad,
+    new_imagen: String= this.imagen,
     timeStamp: LocalDateTime = LocalDateTime.now()
 ): Entrenador {
     return Entrenador(
@@ -95,5 +100,6 @@ fun Entrenador.copy(
         createdAt = timeStamp,
         updatedAt = timeStamp,
         especialidad = newEspecialidad,
+        imagen = new_imagen,
     )
 }

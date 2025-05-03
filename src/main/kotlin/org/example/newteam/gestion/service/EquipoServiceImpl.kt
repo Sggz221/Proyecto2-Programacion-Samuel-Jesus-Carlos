@@ -14,7 +14,7 @@ import java.io.File
 
 
 /**
- * Clase Servicio que implementa [Service] y se le inyecta la Cache, almacenamiento, repositorio y validador
+ * Clase Servicio que implementa [EquipoService] y se le inyecta la Cache, almacenamiento, repositorio y validador
  * @param repository [EquipoRepositoryImpl] Repositiorio de un equipo de futbol
  * @param cache [CacheImpl] Cache que agiliza las consultas en memoria
  * @param validator [IntegranteValidator] Validador de un [Integrante]
@@ -23,12 +23,12 @@ import java.io.File
  * @param storageXML [EquipoStorageXML] Almacenamiento encargado de gestionar las operaciones con ficheros XML
  * @param storageBIN [EquipoStorageBIN] Almacenamiento encargado de gestionar las operaciones con ficheros BIN
  */
-class ServiceImpl(
+class EquipoServiceImpl(
     private val repository: EquipoRepositoryImpl,
     private val cache: Cache<Long, Integrante>,
     private val validator: IntegranteValidator,
     private val storage: EquipoStorageImpl
-): Service {
+): EquipoService {
     private val logger = logging()
 
     /**

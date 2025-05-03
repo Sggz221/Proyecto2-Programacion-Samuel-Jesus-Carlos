@@ -50,6 +50,8 @@ class EquipoStorageCSV: EquipoStorage {
                     peso = it[12].toDoubleOrNull(),
                     goles = it[13].toIntOrNull(),
                     partidos_jugados = it[14].toIntOrNull(),
+                    minutos_jugados = it[15].toIntOrNull(),
+                    imagen = it[16],
                 ).toModel()
             } ) // Fin OK
     }
@@ -70,11 +72,11 @@ class EquipoStorageCSV: EquipoStorage {
         equipo.map {
             if (it is Jugador) {
                 it.toDto()
-                file.appendText("${it.id},${it.nombre},${it.apellidos},${it.fecha_nacimiento},${it.fecha_incorporacion},${it.salario},${it.pais},Jugador,,${it.posicion},${it.dorsal},${it.altura},${it.peso},${it.goles},${it.partidos_jugados}\n")
+                file.appendText("${it.id},${it.nombre},${it.apellidos},${it.fecha_nacimiento},${it.fecha_incorporacion},${it.salario},${it.pais},Jugador,,${it.posicion},${it.dorsal},${it.altura},${it.peso},${it.goles},${it.partidos_jugados},${it.minutos_jugados},${it.imagen}\n")
             }
             if (it is Entrenador) {
                 it.toDto()
-                file.appendText("${it.id},${it.nombre},${it.apellidos},${it.fecha_nacimiento},${it.fecha_incorporacion},${it.salario},${it.pais},Entrenador,${it.especialidad},,,,,,\n")
+                file.appendText("${it.id},${it.nombre},${it.apellidos},${it.fecha_nacimiento},${it.fecha_incorporacion},${it.salario},${it.pais},Entrenador,${it.especialidad},,,,,,,,${it.imagen}\n")
             }
         }
         return Ok(Unit)
