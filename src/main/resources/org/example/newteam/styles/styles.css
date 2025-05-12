@@ -27,7 +27,6 @@
 .menu-item:hover {
     -fx-background-color: #476381;
 }
-
 /* Etiquetas */
 .label {
     -fx-text-fill: white;
@@ -107,4 +106,12 @@
 /*Correcciones de color*/
 #bigLabel {
     -fx-text-fill: #333;
+}
+
+#details .label{
+    -fx-text-fill: #000;
+}
+
+#tableView .label{
+    -fx-text-fill: #000;
 }

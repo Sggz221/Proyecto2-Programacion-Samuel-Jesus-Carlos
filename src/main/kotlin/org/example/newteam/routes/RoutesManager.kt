@@ -25,7 +25,7 @@ object RoutesManager {
 
     val logger = logging()
     enum class Vistas(val path: String) {
-        MAIN("views/MainNewteam.fxml"),
+        MAIN("views/MainNewteamAdmin.fxml"),
         //DETAILS(TODO()), // CREARLA!!
         SPLASH("views/SplashNewTeam.fxml"),
         //LOGIN(TODO()),// CREARLA!!
