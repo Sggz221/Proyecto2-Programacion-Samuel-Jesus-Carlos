@@ -1,11 +1,21 @@
 package org.example.newteam.gestion.controllers
 
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import javafx.event.Event
 import javafx.fxml.FXML
+import javafx.scene.Cursor.DEFAULT
+import javafx.scene.Cursor.WAIT
 import javafx.scene.control.*
+import javafx.scene.control.Alert.AlertType
+import javafx.stage.FileChooser
+import org.example.newteam.gestion.errors.GestionErrors
+import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import org.example.newteam.routes.RoutesManager
 
-class NewTeamController {
+class NewTeamController (
+    private var viewModel: EquipoViewModel
+) {
     /* Menu */
     @FXML
     lateinit var exitButton: MenuItem
@@ -117,5 +127,46 @@ class NewTeamController {
         exitButton.setOnAction {
             RoutesManager.onAppExit()
         }
+        importCsvButton.setOnAction { onImportarCSVAction() }
+    }
+
+    private fun onImportarCSVAction() {
+        FileChooser().run {
+            title = "Importar integrantes"
+            extensionFilters.add(FileChooser.ExtensionFilter("CSV", "*.csv"))
+            extensionFilters.add(FileChooser.ExtensionFilter("JSON", "*.json"))
+            extensionFilters.add(FileChooser.ExtensionFilter("XML", "*.xml"))
+            extensionFilters.add(FileChooser.ExtensionFilter("BIN", "*.bin"))
+            showOpenDialog(RoutesManager.activeStage)
+        }?.let {
+
+            showAlertOperation(
+                AlertType.INFORMATION,
+                "Importando datos del fichero CSV",
+
+            )
+            // Cambiar el cursor a espera
+            RoutesManager.activeStage.scene.cursor = WAIT
+            viewModel.loadIntegrantes(it)
+                .onSuccess {
+                    showAlertOperation(
+                        title = "Datos importados",
+                        mensaje = "Se han importado los Integrantes."
+                    )
+                }.onFailure { error: GestionErrors->
+                    showAlertOperation(alerta = AlertType.ERROR, title = "Error al importar", mensaje = error.message)
+                }
+            RoutesManager.activeStage.scene.cursor = DEFAULT
+        }
+    }
+    private fun showAlertOperation(
+        alerta: AlertType = AlertType.CONFIRMATION,
+        title: String = "",
+        mensaje: String = ""
+    ) {
+        Alert(alerta).apply {
+            this.title = title
+            this.contentText = mensaje
+        }.showAndWait()
     }
 }
