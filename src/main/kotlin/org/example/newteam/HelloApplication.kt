@@ -17,18 +17,6 @@ class HelloApplication : Application() {
         }.run {
             initMainStage(stage)
         }
-        thread {
-            val service = Dependencies.getIntegrantesService()
-            val file = File("data", "personal.csv")
-            service.importFromFile(file.path)
-            service.getAll().forEach { println(it) }
-            val file2 = File("backup", "personal.xml")
-            service.exportToFile(file2.path)
-            val file3 = File("backup", "personal.json")
-            service.exportToFile(file3.path)
-            val file4 = File("backup", "personal.bin")
-            service.exportToFile(file4.path)
-        }
     }
 }
 

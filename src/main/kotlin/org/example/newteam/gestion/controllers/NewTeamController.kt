@@ -1,5 +1,6 @@
 package org.example.newteam.gestion.controllers
 
+import javafx.event.Event
 import javafx.fxml.FXML
 import javafx.scene.control.*
 import org.example.newteam.routes.RoutesManager
@@ -112,6 +113,9 @@ class NewTeamController {
     private fun initEvents() {
         aboutButton.setOnAction {
             RoutesManager.initAboutStage()
+        }
+        exitButton.setOnAction {
+            RoutesManager.onAppExit()
         }
     }
 }

@@ -2,15 +2,12 @@ package org.example.newteam.routes
 
 import javafx.application.Application
 import javafx.application.Platform
-import javafx.event.EventType
 import javafx.fxml.FXMLLoader
-import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import javafx.scene.image.Image
 import javafx.scene.layout.Pane
-import javafx.scene.layout.VBox
 import javafx.stage.Modality
 import javafx.stage.Stage
 import javafx.stage.WindowEvent
@@ -25,16 +22,16 @@ object RoutesManager {
 
     val logger = logging()
     enum class Vistas(val path: String) {
-        MAIN("views/MainNewteamAdmin.fxml"),
-        //DETAILS(TODO()), // CREARLA!!
+        ADMIN("views/MainNewteamAdmin.fxml"),
+        USER("views/MainNewteamUser.fxml"),
         SPLASH("views/SplashNewTeam.fxml"),
-        //LOGIN(TODO()),// CREARLA!!
+        LOGIN("views/LoginNewTeam.fxml"),
         ABOUT("views/AboutNewTeam.fxml")
     }
 
     fun initMainStage(stage: Stage) {
         logger.debug { "Iniciando main stage" }
-        val fxmlLoader = FXMLLoader(getResource(Vistas.MAIN.path))
+        val fxmlLoader = FXMLLoader(getResource(Vistas.ADMIN.path))
         val parentRoot = fxmlLoader.load<Pane>() // Ponemos tipo Pane porque todos los contenedores de javaFX heredan de este
         val scene = Scene(parentRoot, 1200.0, 600.0)
         stage.title = "NewTeam Manager"
@@ -45,7 +42,7 @@ object RoutesManager {
         stage.setOnCloseRequest { onAppExit(event = it) }
         mainStage = stage // Escena principal...
         mainStage.isIconified = true
-        //initSplashStage()
+       //initSplashStage()
         mainStage.show()
     }
 

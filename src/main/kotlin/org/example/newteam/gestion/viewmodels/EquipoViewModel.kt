@@ -1,10 +1,12 @@
 package org.example.newteam.gestion.viewmodels
 
+import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.service.EquipoService
+import org.example.newteam.gestion.service.EquipoServiceImpl
 import java.time.LocalDate
 //
 class EquipoViewModel (
-    val service: EquipoService
+    private val service: EquipoServiceImpl = Dependencies.getIntegrantesService()
 ) {
 
     data class EntrenadorState(
