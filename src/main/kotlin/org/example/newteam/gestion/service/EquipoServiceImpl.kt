@@ -4,6 +4,7 @@ import com.github.benmanes.caffeine.cache.Cache
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onSuccess
 import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.models.Integrante
 import org.example.newteam.gestion.repositories.EquipoRepositoryImpl
@@ -35,13 +36,13 @@ class EquipoServiceImpl(
      * Importa un fichero de una ruta especificada por parametro y segun su extension llama al almacenamiento indicado para su correcto manipulamiento
      * @param filePath [String] Cadena de texto que indica la ruta de un archivo
      */
-    override fun importFromFile(filePath: String) {
+    override fun importFromFile(filePath: String): Result<List<Integrante>, GestionErrors> {
         logger.debug { "Importando integrantes del fichero $filePath" }
 
         val file = File(filePath)
-        val equipo = storage.fileRead(file).value
-        equipo.forEach {repository.save(it)}
-
+        return storage.fileRead(file).onSuccess { integrantes ->
+            integrantes.forEach { repository.save(it) }
+        }
     }
 
     /**

@@ -1,8 +1,13 @@
 package org.example.newteam.gestion.viewmodels
 
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import org.example.newteam.gestion.di.Dependencies
+import org.example.newteam.gestion.errors.GestionErrors
+import org.example.newteam.gestion.models.Integrante
 import org.example.newteam.gestion.service.EquipoService
 import org.example.newteam.gestion.service.EquipoServiceImpl
+import java.io.File
 import java.time.LocalDate
 //
 class EquipoViewModel (
@@ -39,4 +44,8 @@ class EquipoViewModel (
         val minutos_jugados: Int = 0
 
     )
+
+    fun loadIntegrantes(file: File) : Result<List<Integrante>, GestionErrors> {
+        return service.importFromFile(file.path)
+    }
 }
