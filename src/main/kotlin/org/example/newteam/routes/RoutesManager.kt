@@ -36,7 +36,7 @@ object RoutesManager {
         logger.debug { "Iniciando main stage" }
         val fxmlLoader = FXMLLoader(getResource(Vistas.MAIN.path))
         val parentRoot = fxmlLoader.load<Pane>() // Ponemos tipo Pane porque todos los contenedores de javaFX heredan de este
-        val scene = Scene(parentRoot, 900.0, 600.0)
+        val scene = Scene(parentRoot, 1200.0, 600.0)
         stage.title = "NewTeam Manager"
         stage.isResizable = false
         stage.icons.add(Image(getResourceAsStream("media/app-icon.png")))

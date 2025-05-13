@@ -68,10 +68,10 @@
                      <graphic>
                         <MenuButton contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT" text="Importar">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="CSV" />
-                            <MenuItem mnemonicParsing="false" text="JSON" />
-                              <MenuItem mnemonicParsing="false" text="XML" />
-                              <MenuItem mnemonicParsing="false" text="BIN" />
+                            <MenuItem fx:id="importCsvButton" mnemonicParsing="false" text="CSV" />
+                            <MenuItem fx:id="importJsonButton" mnemonicParsing="false" text="JSON" />
+                              <MenuItem fx:id="importXmlButton" mnemonicParsing="false" text="XML" />
+                              <MenuItem fx:id="importBinButton" mnemonicParsing="false" text="BIN" />
                           </items>
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -87,10 +87,10 @@
                      <graphic>
                         <MenuButton contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT" text="Exportar">
                            <items>
-                              <MenuItem mnemonicParsing="false" text="CSV" />
-                              <MenuItem mnemonicParsing="false" text="JSON" />
-                              <MenuItem mnemonicParsing="false" text="XML" />
-                              <MenuItem mnemonicParsing="false" text="BIN" />
+                              <MenuItem fx:id="exportCsvButton" mnemonicParsing="false" text="CSV" />
+                              <MenuItem fx:id="exportJsonButton" mnemonicParsing="false" text="JSON" />
+                              <MenuItem fx:id="exportXmlButton" mnemonicParsing="false" text="XML" />
+                              <MenuItem fx:id="exportBinButton" mnemonicParsing="false" text="BIN" />
                            </items>
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -103,7 +103,7 @@
                      </graphic>
                   </MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Salir" />
+            <MenuItem fx:id="exitButton" mnemonicParsing="false" text="Salir" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Ayuda">
@@ -213,21 +213,22 @@
                               <HBox alignment="CENTER" prefHeight="36.0" prefWidth="443.0">
                                  <children>
                                     <Label id="bigLabel" text="Buscar" />
-                                    <TextField prefWidth="250.0">
+                                    <TextField fx:id="searchBar" prefWidth="250.0">
                                        <HBox.margin>
                                           <Insets left="3.0" right="10.0" />
                                        </HBox.margin></TextField>
                                     <MenuButton mnemonicParsing="false" text="Filtrar">
                                       <items>
-                                          <MenuItem mnemonicParsing="false" text="Nada" />
-                                        <MenuItem mnemonicParsing="false" text="Jugadores" />
-                                        <MenuItem mnemonicParsing="false" text="Entrenadores" />
+                                          <MenuItem fx:id="filterByNothing" mnemonicParsing="false" text="Nada" />
+                                        <MenuItem fx:id="filterByJugadores" mnemonicParsing="false" text="Jugadores" />
+                                        <MenuItem fx:id="filterByEntrenadores" mnemonicParsing="false" text="Entrenadores" />
                                       </items>
                                     </MenuButton>
                                     <MenuButton mnemonicParsing="false" text="Ordenar">
                                        <items>
-                                          <MenuItem mnemonicParsing="false" text="Nada" />
-                                          <MenuItem mnemonicParsing="false" text="Nombre" />
+                                          <MenuItem fx:id="sortByNothing" mnemonicParsing="false" text="Nada" />
+                                          <MenuItem fx:id="sortByNombre" mnemonicParsing="false" text="Nombre" />
+                                          <MenuItem fx:id="sortBySalario" mnemonicParsing="false" text="Salario" />
                                        </items>
                                     </MenuButton>
                                  </children>
@@ -241,7 +242,7 @@
                                               <TableColumn fx:id="colNombre" prefWidth="150.4000182747841" text="Nombre completo" />
                                                 <TableColumn fx:id="colRol" prefWidth="125.60006713867188" text="Rol" />
                                                 <TableColumn fx:id="colEspecialidad" prefWidth="203.20001220703125" text="Especialidad" />
-                                                <TableColumn fx:id="colEspecialidad1" prefWidth="126.4000244140625" text="Salario" />
+                                                <TableColumn fx:id="colSalario" prefWidth="126.4000244140625" text="Salario" />
                                             </columns>
                                           </TableView>
                                        </children>
@@ -413,7 +414,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
                                  <children>
-                                    <TextField>
+                                    <TextField fx:id="paisField">
                                        <HBox.margin>
                                           <Insets right="15.0" />
                                        </HBox.margin>
@@ -430,7 +431,7 @@
                               <Label text="Especialidad" />
                               <HBox alignment="CENTER" prefHeight="42.0" prefWidth="348.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" text="Principal">
+                                    <RadioButton fx:id="radioPrincipal" mnemonicParsing="false" text="Principal">
                                        <HBox.margin>
                                           <Insets right="6.0" />
                                        </HBox.margin>
@@ -438,12 +439,12 @@
                                           <ToggleGroup fx:id="Especialidad" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="Asistente" toggleGroup="$Especialidad">
+                                    <RadioButton fx:id="radioAsistente" mnemonicParsing="false" text="Asistente" toggleGroup="$Especialidad">
                                        <HBox.margin>
                                           <Insets right="6.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="Porteros" toggleGroup="$Especialidad">
+                                    <RadioButton fx:id="radioPorteros" mnemonicParsing="false" text="Porteros" toggleGroup="$Especialidad">
                                        <HBox.margin>
                                           <Insets right="6.0" />
                                        </HBox.margin>
@@ -457,7 +458,7 @@
                               <Label text="Posición" />
                               <HBox alignment="CENTER" prefHeight="42.0" prefWidth="348.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" text="Delantero">
+                                    <RadioButton fx:id="radioDelantero" mnemonicParsing="false" text="Delantero">
                                        <HBox.margin>
                                           <Insets right="6.0" />
                                        </HBox.margin>
@@ -465,17 +466,17 @@
                                           <ToggleGroup fx:id="Posicion" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="Centro" toggleGroup="$Posicion">
+                                    <RadioButton fx:id="radioCentro" mnemonicParsing="false" text="Centro" toggleGroup="$Posicion">
                                        <HBox.margin>
                                           <Insets right="6.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="Defensa" toggleGroup="$Posicion">
+                                    <RadioButton fx:id="radioDefensa" mnemonicParsing="false" text="Defensa" toggleGroup="$Posicion">
                                        <HBox.margin>
                                           <Insets right="6.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="Portero" toggleGroup="$Posicion" />
+                                    <RadioButton fx:id="radioPortero" mnemonicParsing="false" text="Portero" toggleGroup="$Posicion" />
                                  </children>
                               </HBox>
                            </children>
@@ -492,7 +493,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
                                  <children>
-                                    <TextField>
+                                    <TextField fx:id="dorsalField">
                                        <HBox.margin>
                                           <Insets right="15.0" />
                                        </HBox.margin>
@@ -516,7 +517,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
                                  <children>
-                                    <TextField>
+                                    <TextField fx:id="alturaField">
                                        <HBox.margin>
                                           <Insets right="15.0" />
                                        </HBox.margin>
@@ -540,7 +541,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
                                  <children>
-                                    <TextField>
+                                    <TextField fx:id="pesoField">
                                        <HBox.margin>
                                           <Insets right="15.0" />
                                        </HBox.margin>
@@ -564,7 +565,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
                                  <children>
-                                    <TextField>
+                                    <TextField fx:id="golesField">
                                        <HBox.margin>
                                           <Insets right="15.0" />
                                        </HBox.margin>
@@ -588,7 +589,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
                                  <children>
-                                    <TextField>
+                                    <TextField fx:id="partidosField">
                                        <HBox.margin>
                                           <Insets right="15.0" />
                                        </HBox.margin>
@@ -612,7 +613,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
                                  <children>
-                                    <TextField>
+                                    <TextField fx:id="minutosField">
                                        <HBox.margin>
                                           <Insets right="15.0" />
                                        </HBox.margin>
