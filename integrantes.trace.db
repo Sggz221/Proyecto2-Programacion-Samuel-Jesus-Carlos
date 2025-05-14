@@ -94,3 +94,123 @@ CREATE TABLE integrantes (
     updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     isDeleted BOOLEAN DEFAULT FALSE
 ) [42001-224]
+2025-05-14 22:36:07.847206+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "CREATE TABLE IF NOT EXISTS usuarios (\000a    username VARCHAR [*]30 PRIMARY KEY,\000a    password VARCHAR 60 NOT NULL \000a)"; se esperaba "(, ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS usuarios (\000a    username VARCHAR [*]30 PRIMARY KEY,\000a    password VARCHAR 60 NOT NULL \000a)"; expected "(, ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS usuarios (
+    username VARCHAR 30 PRIMARY KEY,
+    password VARCHAR 60 NOT NULL 
+) [42001-224]
+2025-05-14 22:36:07.851351+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "USUARIOS" no encontrada
+Table "USUARIOS" not found; SQL statement:
+INSERT INTO usuarios (username, password) VALUES ('admin', 'P@ssw0rd'), ('usuario', '1234') [42102-224]
+2025-05-14 22:36:07.852349+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcBatchUpdateException: Error de Sintaxis en sentencia SQL "CREATE TABLE IF NOT EXISTS usuarios (\000a    username VARCHAR [*]30 PRIMARY KEY,\000a    password VARCHAR 60 NOT NULL \000a)"; se esperaba "(, ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS usuarios (\000a    username VARCHAR [*]30 PRIMARY KEY,\000a    password VARCHAR 60 NOT NULL \000a)"; expected "(, ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS usuarios (
+    username VARCHAR 30 PRIMARY KEY,
+    password VARCHAR 60 NOT NULL 
+) [42001-224]
+	at com.h2database@2.2.224/org.h2.jdbc.JdbcStatement.executeBatch(JdbcStatement.java:816)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.statement.SqlLoggerUtil.wrap(SqlLoggerUtil.java:32)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.statement.Batch.execute(Batch.java:86)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.statement.Script.execute(Script.java:53)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.executeSqlScriptFromResources$lambda$5(JdbiManager.kt:45)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.HandleConsumer.lambda$asCallback$0(HandleConsumer.java:32)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.Jdbi.withHandle(Jdbi.java:422)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.Jdbi.useHandle(Jdbi.java:438)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.executeSqlScriptFromResources(JdbiManager.kt:44)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.<init>(JdbiManager.kt:28)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.<clinit>(JdbiManager.kt:14)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.di.Dependencies.provideDatabaseManager(Dependencies.kt:27)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.di.Dependencies.getIntegrantesService(Dependencies.kt:73)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.viewmodels.EquipoViewModel.<init>(EquipoViewModel.kt:14)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.di.Dependencies.provideViewModel(Dependencies.kt:81)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.controllers.NewTeamController.<init>(NewTeamController.kt:21)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processAttribute(FXMLLoader.java:941)
+	at javafx.fxml/javafx.fxml.FXMLLoader$InstanceDeclarationElement.processAttribute(FXMLLoader.java:983)
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processStartElement(FXMLLoader.java:230)
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:757)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2853)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2649)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2563)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2531)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.routes.RoutesManager.initMainStage(RoutesManager.kt:37)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.HelloApplication.start(HelloApplication.kt:18)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "CREATE TABLE IF NOT EXISTS usuarios (\000a    username VARCHAR [*]30 PRIMARY KEY,\000a    password VARCHAR 60 NOT NULL \000a)"; se esperaba "(, ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS usuarios (\000a    username VARCHAR [*]30 PRIMARY KEY,\000a    password VARCHAR 60 NOT NULL \000a)"; expected "(, ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS usuarios (
+    username VARCHAR 30 PRIMARY KEY,
+    password VARCHAR 60 NOT NULL 
+) [42001-224]
+	at com.h2database@2.2.224/org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at com.h2database@2.2.224/org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at com.h2database@2.2.224/org.h2.message.DbException.getSyntaxError(DbException.java:261)
+	at com.h2database@2.2.224/org.h2.command.ParserBase.getSyntaxError(ParserBase.java:750)
+	at com.h2database@2.2.224/org.h2.command.ParserBase.read(ParserBase.java:357)
+	at com.h2database@2.2.224/org.h2.command.ParserBase.readIfMore(ParserBase.java:625)
+	at com.h2database@2.2.224/org.h2.command.Parser.parseCreateTable(Parser.java:8940)
+	at com.h2database@2.2.224/org.h2.command.Parser.parseCreate(Parser.java:6404)
+	at com.h2database@2.2.224/org.h2.command.Parser.parsePrepared(Parser.java:666)
+	at com.h2database@2.2.224/org.h2.command.Parser.parse(Parser.java:592)
+	at com.h2database@2.2.224/org.h2.command.Parser.parse(Parser.java:569)
+	at com.h2database@2.2.224/org.h2.command.Parser.prepareCommand(Parser.java:483)
+	at com.h2database@2.2.224/org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:639)
+	at com.h2database@2.2.224/org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:559)
+	at com.h2database@2.2.224/org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166)
+	at com.h2database@2.2.224/org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:190)
+	at com.h2database@2.2.224/org.h2.jdbc.JdbcStatement.executeBatchElement(JdbcStatement.java:858)
+	at com.h2database@2.2.224/org.h2.jdbc.JdbcStatement.executeBatch(JdbcStatement.java:810)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.statement.SqlLoggerUtil.wrap(SqlLoggerUtil.java:32)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.statement.Batch.execute(Batch.java:86)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.statement.Script.execute(Script.java:53)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.executeSqlScriptFromResources$lambda$5(JdbiManager.kt:45)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.HandleConsumer.lambda$asCallback$0(HandleConsumer.java:32)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.Jdbi.withHandle(Jdbi.java:422)
+	at org.jdbi.v3.core@3.48.0/org.jdbi.v3.core.Jdbi.useHandle(Jdbi.java:438)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.executeSqlScriptFromResources(JdbiManager.kt:44)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.<init>(JdbiManager.kt:28)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.database.JdbiManager.<clinit>(JdbiManager.kt:14)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.di.Dependencies.provideDatabaseManager(Dependencies.kt:27)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.di.Dependencies.getIntegrantesService(Dependencies.kt:73)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.viewmodels.EquipoViewModel.<init>(EquipoViewModel.kt:14)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.di.Dependencies.provideViewModel(Dependencies.kt:81)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.gestion.controllers.NewTeamController.<init>(NewTeamController.kt:21)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processAttribute(FXMLLoader.java:941)
+	at javafx.fxml/javafx.fxml.FXMLLoader$InstanceDeclarationElement.processAttribute(FXMLLoader.java:983)
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processStartElement(FXMLLoader.java:230)
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:757)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2853)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2649)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2563)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2531)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.routes.RoutesManager.initMainStage(RoutesManager.kt:37)
+	at org.example.newteam@1.0-SNAPSHOT/org.example.newteam.HelloApplication.start(HelloApplication.kt:18)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "USUARIOS" no encontrada
+Table "USUARIOS" not found; SQL statement:
+INSERT INTO usuarios (username, password) VALUES ('admin', 'P@ssw0rd'), ('usuario', '1234') [42102-224]

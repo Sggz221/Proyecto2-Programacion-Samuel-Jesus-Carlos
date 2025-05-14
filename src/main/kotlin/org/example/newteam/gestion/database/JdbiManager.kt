@@ -13,7 +13,7 @@ class JdbiManager private constructor () { //private para que no se pueda instan
     companion object { //al instanciarlo en el companion object, seguimos el patrón singleton, solo habrá una instancia de la clase JdbiManager
         val instance: Jdbi = JdbiManager().jdbi
     }
-
+    
     private val jdbi = Jdbi.create(Configuration.configurationProperties.databaseUrl) //se crea la bbdd en base a la url del archivo config.properties
 
     init {
