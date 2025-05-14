@@ -10,6 +10,7 @@ import org.example.newteam.gestion.repositories.EquipoRepositoryImpl
 import org.example.newteam.gestion.service.EquipoServiceImpl
 import org.example.newteam.gestion.storage.EquipoStorageImpl
 import org.example.newteam.gestion.validator.IntegranteValidator
+import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import org.jdbi.v3.core.Jdbi
 import org.lighthousegames.logging.logging
 import java.util.concurrent.TimeUnit
@@ -74,5 +75,9 @@ object Dependencies {
             validator = provideIntegrantesValidator(),
             storage = provideIntegrantesStorage()
         )
+    }
+
+    fun provideViewModel(): EquipoViewModel {
+        return EquipoViewModel()
     }
 }

@@ -16,7 +16,6 @@ module org.example.newteam {
     requires kotlin.reflect;
     requires open;
 
-
     opens org.example.newteam to javafx.fxml, kotlin.reflect, org.jdbi.v3.core;
     opens org.example.newteam.gestion.dao to kotlin.reflect, org.jdbi.v3.core;
     opens org.example.newteam.gestion.controllers to javafx.fxml;

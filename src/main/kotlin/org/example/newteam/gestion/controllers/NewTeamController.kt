@@ -9,13 +9,17 @@ import javafx.scene.Cursor.WAIT
 import javafx.scene.control.*
 import javafx.scene.control.Alert.AlertType
 import javafx.stage.FileChooser
+import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
+import org.example.newteam.gestion.models.Especialidad
+import org.example.newteam.gestion.models.Integrante
 import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import org.example.newteam.routes.RoutesManager
+import org.lighthousegames.logging.logging
 
-class NewTeamController (
-    private var viewModel: EquipoViewModel
-) {
+class NewTeamController () {
+    private val logger = logging()
+    private var viewModel: EquipoViewModel = Dependencies.provideViewModel()
     /* Menu */
     @FXML
     lateinit var exitButton: MenuItem
@@ -90,15 +94,15 @@ class NewTeamController (
 
     /* Main */
     @FXML
-    lateinit var colSalario: TableColumn<Any, Any> // TODO: quitar los Any
+    lateinit var colSalario: TableColumn<Integrante, Double>
     @FXML
-    lateinit var colEspecialidad: TableColumn<Any, Any> // TODO: quitar los Any
+    lateinit var colEspecialidad: TableColumn<Integrante, Especialidad>
     @FXML
-    lateinit var colRol: TableColumn<Any, Any> // TODO: quitar los Any
+    lateinit var colRol: TableColumn<Integrante, String>
     @FXML
-    lateinit var colNombre: TableColumn<Any, Any> // TODO: quitar los Any
+    lateinit var colNombre: TableColumn<Integrante, String>
     @FXML
-    lateinit var listIntegrantes: TableView<Any> // TODO: quitar los Any
+    lateinit var listIntegrantes: TableView<Integrante>
     @FXML
     lateinit var sortBySalario: MenuItem
     @FXML
@@ -114,8 +118,7 @@ class NewTeamController (
     @FXML
     lateinit var searchBar: TextField
 
-
-
+    /* Lógica */
     fun initialize() {
         initEvents()
     }
@@ -131,12 +134,13 @@ class NewTeamController (
     }
 
     private fun onImportarCSVAction() {
+        logger.debug{ "Iniciando FileChooser" }
         FileChooser().run {
             title = "Importar integrantes"
             extensionFilters.add(FileChooser.ExtensionFilter("CSV", "*.csv"))
-            extensionFilters.add(FileChooser.ExtensionFilter("JSON", "*.json"))
-            extensionFilters.add(FileChooser.ExtensionFilter("XML", "*.xml"))
-            extensionFilters.add(FileChooser.ExtensionFilter("BIN", "*.bin"))
+            // extensionFilters.add(FileChooser.ExtensionFilter("JSON", "*.json"))
+            // extensionFilters.add(FileChooser.ExtensionFilter("XML", "*.xml"))
+            // extensionFilters.add(FileChooser.ExtensionFilter("BIN", "*.bin"))
             showOpenDialog(RoutesManager.activeStage)
         }?.let {
 
