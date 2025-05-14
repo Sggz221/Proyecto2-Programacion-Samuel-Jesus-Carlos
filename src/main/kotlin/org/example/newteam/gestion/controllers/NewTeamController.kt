@@ -2,7 +2,6 @@ package org.example.newteam.gestion.controllers
 
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
-import javafx.event.Event
 import javafx.fxml.FXML
 import javafx.scene.Cursor.DEFAULT
 import javafx.scene.Cursor.WAIT
@@ -24,21 +23,9 @@ class NewTeamController () {
     @FXML
     lateinit var exitButton: MenuItem
     @FXML
-    lateinit var exportBinButton: MenuItem
+    lateinit var exportButton: MenuItem
     @FXML
-    lateinit var exportXmlButton: MenuItem
-    @FXML
-    lateinit var exportJsonButton: MenuItem
-    @FXML
-    lateinit var exportCsvButton: MenuItem
-    @FXML
-    lateinit var importBinButton: MenuItem
-    @FXML
-    lateinit var importXmlButton: MenuItem
-    @FXML
-    lateinit var importJsonButton: MenuItem
-    @FXML
-    lateinit var importCsvButton: MenuItem
+    lateinit var importButton: MenuItem
     @FXML
     lateinit var aboutButton: MenuItem
 
@@ -130,7 +117,7 @@ class NewTeamController () {
         exitButton.setOnAction {
             RoutesManager.onAppExit()
         }
-        importCsvButton.setOnAction { onImportarCSVAction() }
+        importButton.setOnAction { onImportarCSVAction() }
     }
 
     private fun onImportarCSVAction() {
@@ -138,17 +125,16 @@ class NewTeamController () {
         FileChooser().run {
             title = "Importar integrantes"
             extensionFilters.add(FileChooser.ExtensionFilter("CSV", "*.csv"))
-            // extensionFilters.add(FileChooser.ExtensionFilter("JSON", "*.json"))
-            // extensionFilters.add(FileChooser.ExtensionFilter("XML", "*.xml"))
-            // extensionFilters.add(FileChooser.ExtensionFilter("BIN", "*.bin"))
+            extensionFilters.add(FileChooser.ExtensionFilter("JSON", "*.json"))
+            extensionFilters.add(FileChooser.ExtensionFilter("XML", "*.xml"))
+            extensionFilters.add(FileChooser.ExtensionFilter("BIN", "*.bin"))
             showOpenDialog(RoutesManager.activeStage)
         }?.let {
-
-            showAlertOperation(
+            /*showAlertOperation(
                 AlertType.INFORMATION,
                 "Importando datos del fichero CSV",
-
-            )
+                "Importando datos..."
+            )*/
             // Cambiar el cursor a espera
             RoutesManager.activeStage.scene.cursor = WAIT
             viewModel.loadIntegrantes(it)

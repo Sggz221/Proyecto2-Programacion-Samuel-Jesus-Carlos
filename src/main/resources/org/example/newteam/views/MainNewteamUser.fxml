@@ -61,44 +61,24 @@
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
-        <Menu mnemonicParsing="false" text="Archivo">
+        <Menu id="archivoMenu" mnemonicParsing="false" text="Archivo">
           <items>
-            <MenuItem mnemonicParsing="false">
+            <MenuItem fx:id="importButton" mnemonicParsing="false" text="Importar">
                      <graphic>
-                        <MenuButton contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT" text="Importar">
-                          <items>
-                            <MenuItem fx:id="importCsvButton" mnemonicParsing="false" text="CSV" />
-                            <MenuItem fx:id="importJsonButton" mnemonicParsing="false" text="JSON" />
-                              <MenuItem fx:id="importXmlButton" mnemonicParsing="false" text="XML" />
-                              <MenuItem fx:id="importBinButton" mnemonicParsing="false" text="BIN" />
-                          </items>
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../media/Import.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </MenuButton>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../media/Import.png" />
+                           </image>
+                        </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false">
+                  <MenuItem fx:id="exportButton" mnemonicParsing="false" text="Exportar">
                      <graphic>
-                        <MenuButton contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT" text="Exportar">
-                           <items>
-                              <MenuItem fx:id="exportCsvButton" mnemonicParsing="false" text="CSV" />
-                              <MenuItem fx:id="exportJsonButton" mnemonicParsing="false" text="JSON" />
-                              <MenuItem fx:id="exportXmlButton" mnemonicParsing="false" text="XML" />
-                              <MenuItem fx:id="exportBinButton" mnemonicParsing="false" text="BIN" />
-                           </items>
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../media/Export.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </MenuButton>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../media/Export.png" />
+                           </image>
+                        </ImageView>
                      </graphic>
                   </MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />

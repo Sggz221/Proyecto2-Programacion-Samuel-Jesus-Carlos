@@ -17,7 +17,9 @@ import java.net.URL
 
 object RoutesManager {
     private lateinit var mainStage: Stage // Escena principal de la app
-    lateinit var activeStage: Stage // Escena cargada actualmente en la vista
+    private lateinit var _activeStage: Stage // Escena cargada actualmente en la vista
+    val activeStage: Stage
+        get() = _activeStage
     lateinit var app: Application
 
     val logger = logging()
@@ -43,6 +45,7 @@ object RoutesManager {
         mainStage = stage // Escena principal...
         mainStage.isIconified = true
        //initSplashStage()
+        _activeStage = stage
         mainStage.show()
     }
 
