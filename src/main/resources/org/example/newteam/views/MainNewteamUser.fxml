@@ -372,20 +372,20 @@
                                           <Insets right="6.0" />
                                        </HBox.margin>
                                        <toggleGroup>
-                                          <ToggleGroup fx:id="Posicion" />
+                                          <ToggleGroup fx:id="posicion" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton fx:id="radioCentro" mnemonicParsing="false" text="Centro" toggleGroup="$Posicion">
+                                    <RadioButton fx:id="radioCentro" mnemonicParsing="false" text="Centro" toggleGroup="$posicion">
                                        <HBox.margin>
                                           <Insets right="6.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton fx:id="radioDefensa" mnemonicParsing="false" text="Defensa" toggleGroup="$Posicion">
+                                    <RadioButton fx:id="radioDefensa" mnemonicParsing="false" text="Defensa" toggleGroup="$posicion">
                                        <HBox.margin>
                                           <Insets right="6.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton fx:id="radioPortero" mnemonicParsing="false" text="Portero" toggleGroup="$Posicion" />
+                                    <RadioButton fx:id="radioPortero" mnemonicParsing="false" text="Portero" toggleGroup="$posicion" />
                                  </children>
                               </HBox>
                            </children>
