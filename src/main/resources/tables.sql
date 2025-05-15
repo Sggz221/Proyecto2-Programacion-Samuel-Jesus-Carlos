@@ -20,12 +20,10 @@ CREATE TABLE IF NOT EXISTS integrantes (
     minutos_jugados INT,
     createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    imagen VARCHAR (100) NOT NULL
+    imagen VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS usuarios (
-    username VARCHAR 30 PRIMARY KEY,
-    password VARCHAR 60 NOT NULL -- Bcrypt tiene una longitud de 60 caracteres
+    username VARCHAR(30) PRIMARY KEY,
+    password VARCHAR(60) NOT NULL -- Bcrypt tiene una longitud de 60 caracteres
 );
-
-INSERT INTO usuarios (username, password) VALUES ('admin', 'P@ssw0rd'), ('usuario', '1234');

@@ -4,6 +4,7 @@ import com.github.benmanes.caffeine.cache.Cache
 import com.github.benmanes.caffeine.cache.Caffeine
 import org.example.newteam.gestion.configuration.Configuration
 import org.example.newteam.gestion.dao.EquipoDAO
+import org.example.newteam.gestion.dao.UsuarioDAO
 import org.example.newteam.gestion.database.JdbiManager
 import org.example.newteam.gestion.models.Integrante
 import org.example.newteam.gestion.repositories.EquipoRepositoryImpl
@@ -78,6 +79,12 @@ object Dependencies {
     }
 
     fun provideViewModel(): EquipoViewModel {
+        logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando ViewModel" }
         return EquipoViewModel()
+    }
+
+    fun provideUserDao(jdbi: Jdbi = provideDatabaseManager()): UsuarioDAO {
+        logger.debug { "INYECCIÓN DEPENDENCIAS: Proporcionando DAO de Usuarios" }
+        return jdbi.onDemand(UsuarioDAO::class.java)
     }
 }

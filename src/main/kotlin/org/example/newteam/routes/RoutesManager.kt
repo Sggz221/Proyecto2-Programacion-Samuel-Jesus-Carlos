@@ -43,8 +43,6 @@ object RoutesManager {
         stage.centerOnScreen()
         stage.setOnCloseRequest { onAppExit(event = it) }
         mainStage = stage // Escena principal...
-        mainStage.isIconified = true
-       //initSplashStage()
         _activeStage = stage
         mainStage.show()
     }
@@ -81,6 +79,21 @@ object RoutesManager {
         stage.icons.add(Image(getResourceAsStream("media/app-icon.png")))
         stage.isResizable = false
         stage.show()
+    }
+
+    fun initLoginStage(stage: Stage) {
+        logger.debug { "Iniciando login stage" }
+        val fxmlLoader = FXMLLoader(getResource(Vistas.LOGIN.path))
+        val parentRoot = fxmlLoader.load<Pane>()
+        val scene = Scene(parentRoot, 400.0, 650.0)
+        stage.title = "Iniciar sesión"
+        stage.isResizable = false
+        stage.icons.add(Image(getResourceAsStream("media/app-icon.png")))
+        stage.scene = scene
+        stage.centerOnScreen()
+        mainStage = stage
+        _activeStage = stage
+        mainStage.show()
     }
 
     fun getResource(resource: String): URL {
