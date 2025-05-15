@@ -59,7 +59,7 @@ class NewTeamController () {
     @FXML
     lateinit var dorsalField: TextField
     @FXML
-    lateinit var Posicion: ToggleGroup
+    lateinit var posicion: ToggleGroup
     @FXML
     lateinit var radioPortero: RadioButton
     @FXML
@@ -108,6 +108,26 @@ class NewTeamController () {
     /* Lógica */
     fun initialize() {
         initEvents()
+        initBindings()
+    }
+
+    private fun initBindings(){
+        //Comunes
+        paisField.textProperty().bind(viewModel.state.map { it.integrante.pais })
+        salarioField.textProperty().bind(viewModel.state.map { it.integrante.salario.toString() })
+        incorporacionDP.valueProperty().bind(viewModel.state.map { it.integrante.fecha_incorporacion })
+        nacimientoDP.valueProperty().bind(viewModel.state.map { it.integrante.fecha_nacimiento })
+        apellidosField.textProperty().bind(viewModel.state.map { it.integrante.apellidos })
+        nombreField.textProperty().bind(viewModel.state.map { it.integrante.nombre })
+
+        //Jugador
+        minutosField.textProperty().bind(viewModel.state.map { it.integrante.minutos_jugados.toString() })
+        partidosField.textProperty().bind(viewModel.state.map { it.integrante.partidos_jugados.toString() })
+        golesField.textProperty().bind(viewModel.state.map { it.integrante.goles.toString() })
+        pesoField.textProperty().bind(viewModel.state.map { it.integrante.peso.toString() })
+        alturaField.textProperty().bind(viewModel.state.map { it.integrante.altura.toString() })
+        dorsalField.textProperty().bind(viewModel.state.map { it.integrante.dorsal.toString() })
+
     }
 
     private fun initEvents() {
@@ -137,7 +157,7 @@ class NewTeamController () {
             )*/
             // Cambiar el cursor a espera
             RoutesManager.activeStage.scene.cursor = WAIT
-            viewModel.loadIntegrantes(it)
+            viewModel.loadIntegrantesFromFile(it)
                 .onSuccess {
                     showAlertOperation(
                         title = "Datos importados",
