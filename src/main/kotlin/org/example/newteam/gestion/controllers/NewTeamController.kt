@@ -12,6 +12,7 @@ import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.models.Especialidad
 import org.example.newteam.gestion.models.Integrante
+import org.example.newteam.gestion.models.Jugador
 import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import org.example.newteam.routes.RoutesManager
 import org.lighthousegames.logging.logging
@@ -71,7 +72,7 @@ class NewTeamController () {
 
     // Entrenadores
     @FXML
-    lateinit var Especialidad: ToggleGroup
+    lateinit var especialidad: ToggleGroup
     @FXML
     lateinit var radioPorteros: RadioButton
     @FXML
@@ -127,6 +128,33 @@ class NewTeamController () {
         pesoField.textProperty().bind(viewModel.state.map { it.integrante.peso.toString() })
         alturaField.textProperty().bind(viewModel.state.map { it.integrante.altura.toString() })
         dorsalField.textProperty().bind(viewModel.state.map { it.integrante.dorsal.toString() })
+
+        viewModel.state.addListener{_,_, newValue ->
+            if (newValue.integrante.posicion == "CENTROCAMPISTA") {
+                radioCentro.isSelected = true
+            } else if (newValue.integrante.posicion == "DELANTERO") {
+                radioDelantero.isSelected = true
+            } else if (newValue.integrante.posicion == "DEFENSA") {
+                radioDefensa.isSelected = true
+            } else if (newValue.integrante.posicion == "PORTERO") {
+                radioPortero.isSelected = true
+            }
+        }
+
+
+
+        //Eentrenador
+        viewModel.state.addListener{_,_, newValue ->
+            if (newValue.integrante.especialidad == "ENTRENADOR_ASISTENTE") {
+                radioAsistente.isSelected = true
+            } else if (newValue.integrante.especialidad == "ENTRENADOR_PORTEROS") {
+                radioPorteros.isSelected = true
+            } else if (newValue.integrante.especialidad == "ENTRENADOR_PRINCIPAL") {
+                radioPrincipal.isSelected = true
+            }
+        }
+
+
 
     }
 
