@@ -12,6 +12,6 @@ interface UsuarioDAO {
     @SqlQuery("SELECT password FROM usuarios WHERE username = :username")
     fun getPassword(@Bind("username") username: String): String?
 
-    @SqlQuery("INSERT INTO usuarios (username, password) VALUES (:username, :password)")
+    @SqlUpdate("INSERT INTO usuarios (username, password) VALUES (:username, :password)")
     fun saveUser(@BindBean user: Usuario)
 }

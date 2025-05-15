@@ -5,8 +5,10 @@ import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
+import javafx.stage.Stage
 import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.routes.RoutesManager
+import org.mindrot.jbcrypt.BCrypt
 
 class LoginController {
     private val dao = Dependencies.provideUserDao()
@@ -31,7 +33,10 @@ class LoginController {
             RoutesManager.initAboutStage()
         }
         loginButton.setOnAction {
-            checkUserForm(userText.text, passwordText.text)
+            if (!validateForm(userText.text, passwordText.text)) showUserError()
+            if (userText.text == "admin" && BCrypt.checkpw(passwordText.text, dao.getPassword(userText.text))) RoutesManager.initAdminStage(userText.scene.window as Stage)
+            else if (userText.text == "user" && BCrypt.checkpw(passwordText.text, dao.getPassword(userText.text))) RoutesManager.initUserStage(userText.scene.window as Stage)
+            showUserError()
         }
         userText.textProperty().addListener { _, oldValue, newValue ->
             if (oldValue != newValue) {
@@ -49,13 +54,7 @@ class LoginController {
             }
         }
     }
-    private fun checkUserForm(username: String, password: String): Boolean {
-        if (username.isBlank() || password.isBlank()) {
-            showUserError()
-            return false
-        }
-        return true
-    }
+
     private fun showUserError() {
         errorMessage.style = "-fx-text-fill: #FF2C2C;"
         userText.style = "-fx-border-color: #FF2C2C;" +
@@ -67,6 +66,11 @@ class LoginController {
         errorMessage.text = "El usuario o la contraseña son incorrectos"
     }
 
+    private fun validateForm(username: String, password: String): Boolean {
+        val regex = """^[a-zA-Z0-9_@]+$""".toRegex()
+        if (!username.matches(regex) || !password.matches(regex)) return false
+        return true
+    }
 }
 
 

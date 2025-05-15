@@ -90,6 +90,10 @@ dependencies {
 
     // Reflexión de tipos genéricos, las versiones más recientes de JDBI no la incluyen por defecto
     implementation 'io.leangen.geantyref:geantyref:1.3.0'
+
+    //BCrypt
+    implementation("org.mindrot:jbcrypt:0.4")
+
 }
 
 test {

@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane
 import javafx.stage.Modality
 import javafx.stage.Stage
 import javafx.stage.WindowEvent
+import org.example.newteam.gestion.controllers.SplashController
 import org.lighthousegames.logging.logging
 import java.io.InputStream
 import java.net.URL
@@ -31,8 +32,8 @@ object RoutesManager {
         ABOUT("views/AboutNewTeam.fxml")
     }
 
-    fun initMainStage(stage: Stage) {
-        logger.debug { "Iniciando main stage" }
+    fun initAdminStage(stage: Stage) {
+        logger.debug { "Iniciando admin stage" }
         val fxmlLoader = FXMLLoader(getResource(Vistas.ADMIN.path))
         val parentRoot = fxmlLoader.load<Pane>() // Ponemos tipo Pane porque todos los contenedores de javaFX heredan de este
         val scene = Scene(parentRoot, 1200.0, 600.0)
@@ -47,21 +48,35 @@ object RoutesManager {
         mainStage.show()
     }
 
-    fun initSplashStage() {
+    fun initUserStage(stage: Stage) {
+        logger.debug { "Iniciando user stage" }
+        val fxmlLoader = FXMLLoader(getResource(Vistas.USER.path))
+        val parentRoot = fxmlLoader.load<Pane>()
+        val scene = Scene(parentRoot, 970.0, 600.0)
+        stage.title = "NewTeam Manager"
+        stage.isResizable = false
+        stage.icons.add(Image(getResourceAsStream("media/app-icon.png")))
+        stage.scene = scene
+        stage.centerOnScreen()
+        stage.setOnCloseRequest { onAppExit(event = it) }
+        mainStage = stage // Escena principal...
+        _activeStage = stage
+        mainStage.show()
+    }
+
+    fun initSplashStage(stage: Stage) {
         logger.debug { "Iniciando splash screen" }
         val fxmlLoader = FXMLLoader(getResource(Vistas.SPLASH.path))
         val parentRoot = fxmlLoader.load<Pane>()
         val myScene = Scene(parentRoot, 600.0, 330.0)
-        val stage = Stage()
         stage.title = "Cargando..."
         stage.scene = myScene
-        stage.initOwner(mainStage)
         stage.centerOnScreen()
-        stage.isIconified = false
-        stage.initModality(Modality.WINDOW_MODAL)
         stage.icons.add(Image(getResourceAsStream("media/app-icon.png")))
         stage.isResizable = false
-        stage.show()
+        mainStage = stage
+        _activeStage = stage
+        mainStage.show()
     }
 
     fun initAboutStage() {
