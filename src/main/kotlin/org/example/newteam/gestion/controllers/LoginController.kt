@@ -5,8 +5,10 @@ import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
+import javafx.scene.input.KeyCode
 import javafx.stage.Stage
 import org.example.newteam.gestion.di.Dependencies
+import org.example.newteam.gestion.sesion.Session
 import org.example.newteam.routes.RoutesManager
 import org.mindrot.jbcrypt.BCrypt
 
@@ -32,12 +34,15 @@ class LoginController {
         acercaDeButton.setOnAction {
             RoutesManager.initAboutStage()
         }
+
         loginButton.setOnAction {
-            if (!validateForm(userText.text, passwordText.text)) showUserError()
-            if (userText.text == "admin" && BCrypt.checkpw(passwordText.text, dao.getPassword(userText.text))) RoutesManager.initAdminStage(userText.scene.window as Stage)
-            else if (userText.text == "user" && BCrypt.checkpw(passwordText.text, dao.getPassword(userText.text))) RoutesManager.initUserStage(userText.scene.window as Stage)
-            showUserError()
+            handleLogin()
         }
+
+        loginButton.setOnKeyTyped { event ->
+            if(event.code == KeyCode.ENTER) handleLogin()
+        }
+
         userText.textProperty().addListener { _, oldValue, newValue ->
             if (oldValue != newValue) {
                 errorMessage.text = ""
@@ -53,6 +58,13 @@ class LoginController {
                 passwordText.style = "-fx-border-color: rgba(0,0,0,0);"
             }
         }
+    }
+
+    private fun handleLogin() {
+        if (!validateForm(userText.text, passwordText.text)) showUserError()
+        if (userText.text == "admin" && BCrypt.checkpw(passwordText.text, dao.getPassword(userText.text))) Session.launchAdmin(userText.text, passwordText.text, userText.scene.window as Stage)
+        else if (userText.text == "user" && BCrypt.checkpw(passwordText.text, dao.getPassword(userText.text))) Session.launchUser(userText.text, passwordText.text, userText.scene.window as Stage)
+        showUserError()
     }
 
     private fun showUserError() {

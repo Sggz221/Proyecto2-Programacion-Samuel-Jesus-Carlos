@@ -2,6 +2,7 @@ package org.example.newteam.gestion.controllers
 
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.scene.Cursor.DEFAULT
@@ -9,11 +10,13 @@ import javafx.scene.Cursor.WAIT
 import javafx.scene.control.*
 import javafx.scene.control.Alert.AlertType
 import javafx.stage.FileChooser
+import javafx.stage.Stage
 import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.models.Especialidad
 import org.example.newteam.gestion.models.Integrante
 import org.example.newteam.gestion.models.Jugador
+import org.example.newteam.gestion.sesion.Session
 import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import org.example.newteam.routes.RoutesManager
 import org.lighthousegames.logging.logging
@@ -21,6 +24,7 @@ import org.lighthousegames.logging.logging
 class NewTeamController () {
     private val logger = logging()
     private var viewModel: EquipoViewModel = Dependencies.provideViewModel()
+
     /* Menu */
     @FXML
     lateinit var exitButton: MenuItem
@@ -30,6 +34,18 @@ class NewTeamController () {
     lateinit var importButton: MenuItem
     @FXML
     lateinit var aboutButton: MenuItem
+    @FXML
+    lateinit var logoutButton: MenuItem
+
+    /* Master */
+    @FXML
+    lateinit var saveEntrenadorButton: Button
+    @FXML
+    lateinit var saveJugadorButton: Button
+    @FXML
+    lateinit var deleteAndCancelButton: Button
+    @FXML
+    lateinit var editAndSaveButton: Button
 
     /* Detalle */
 
@@ -172,6 +188,11 @@ class NewTeamController () {
         exitButton.setOnAction {
             RoutesManager.onAppExit()
         }
+
+        logoutButton.setOnAction {
+            showLogoutAlert()
+        }
+
         importButton.setOnAction { onImportarCSVAction() }
     }
 
@@ -213,5 +234,14 @@ class NewTeamController () {
             this.title = title
             this.contentText = mensaje
         }.showAndWait()
+    }
+
+    private fun showLogoutAlert(){
+        val alert = Alert(AlertType.CONFIRMATION).apply {
+            this.title = "Cerrar sesión"
+            this.contentText = "Si cierras la sesión perderás todos los datos no guardados. ¿Estás seguro de querer continuar?"
+        }.showAndWait().ifPresent { opcion ->
+            if (opcion == ButtonType.OK) Session.toLogin(paisField.scene.window as Stage)
+        }
     }
 }

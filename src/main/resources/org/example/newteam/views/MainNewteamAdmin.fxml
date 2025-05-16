@@ -58,7 +58,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.newteam.gestion.controllers.NewTeamController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="990.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.newteam.gestion.controllers.NewTeamController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -91,523 +91,532 @@
             <MenuItem fx:id="aboutButton" mnemonicParsing="false" text="Sobre NewTeam Manager" />
           </items>
         </Menu>
+            <Menu mnemonicParsing="false" text="Sesión">
+               <items>
+                  <MenuItem fx:id="logoutButton" mnemonicParsing="false" text="Cerrar sesión">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../media/Exit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+               </items>
+            </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.19251672240802672, 0.697324414715719" focusTraversable="true" prefHeight="323.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.19251672240802672" focusTraversable="true" prefHeight="323.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="220.0">
-          <children>
-                  <VBox alignment="CENTER" prefHeight="547.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                  <Label id="bigLabel" alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Master" textAlignment="CENTER" wrapText="false">
-                    <font>
-                      <Font size="18.0" fx:id="x1" />
-                    </font>
-                    <textFill>
-                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
-                    </textFill>
-                  </Label>
-                        <HBox alignment="CENTER" prefHeight="42.0" prefWidth="222.0">
-                           <children>
-                              <Button id="addButton" mnemonicParsing="false" text="Jugador">
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../media/Add.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets top="15.0" />
-                                 </HBox.margin></Button>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="42.0" prefWidth="222.0">
-                           <children>
-                              <Button id="addButton" mnemonicParsing="false" text="Entrenador">
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../media/Add.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets top="15.0" />
-                                 </HBox.margin></Button>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="42.0" prefWidth="222.0">
-                           <children>
-                              <Button id="editButton" mnemonicParsing="false" text="Editar">
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../media/Edit.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets top="15.0" />
-                                 </HBox.margin></Button>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="42.0" prefWidth="222.0">
-                           <children>
-                              <Button id="deleteButton" mnemonicParsing="false" text="Eliminar">
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../media/Delete.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets top="15.0" />
-                                 </HBox.margin></Button>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-          </children>
-        </AnchorPane>
-        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
-          <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="546.0" prefWidth="462.0">
-              <children>
-                        <VBox alignment="CENTER" layoutX="102.0" layoutY="99.0" prefHeight="546.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-136.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="34.0" prefWidth="443.0">
+            <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="612.0">
+               <children>
+              <ScrollPane>
+                <content>
+                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="546.0" prefWidth="462.0">
+                    <children>
+                              <VBox alignment="CENTER" layoutX="102.0" layoutY="99.0" prefHeight="546.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-136.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label id="bigLabel" alignment="CENTER" style="&#10;" text="Cuenta: " textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x11" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
-                                       </textFill>
-                                    </Label>
-                            <Label id="bigLabel" alignment="CENTER" font="$x1" style="&#10;" text="Admin" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="36.0" prefWidth="443.0">
-                                 <children>
-                                    <Label id="bigLabel" text="Buscar" />
-                                    <TextField fx:id="searchBar" prefWidth="250.0">
-                                       <HBox.margin>
-                                          <Insets left="3.0" right="10.0" />
-                                       </HBox.margin></TextField>
-                                    <MenuButton mnemonicParsing="false" text="Filtrar">
-                                      <items>
-                                          <MenuItem fx:id="filterByNothing" mnemonicParsing="false" text="Nada" />
-                                        <MenuItem fx:id="filterByJugadores" mnemonicParsing="false" text="Jugadores" />
-                                        <MenuItem fx:id="filterByEntrenadores" mnemonicParsing="false" text="Entrenadores" />
-                                      </items>
-                                    </MenuButton>
-                                    <MenuButton mnemonicParsing="false" text="Ordenar">
-                                       <items>
-                                          <MenuItem fx:id="sortByNothing" mnemonicParsing="false" text="Nada" />
-                                          <MenuItem fx:id="sortByNombre" mnemonicParsing="false" text="Nombre" />
-                                          <MenuItem fx:id="sortBySalario" mnemonicParsing="false" text="Salario" />
-                                       </items>
-                                    </MenuButton>
-                                 </children>
-                              </HBox>
-                              <ScrollPane prefHeight="490.0" prefWidth="504.0">
-                                <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="479.0" prefWidth="446.0">
+                                    <HBox alignment="CENTER" prefHeight="34.0" prefWidth="443.0">
                                        <children>
-                                          <TableView id="tableView" fx:id="listIntegrantes" prefHeight="479.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-152.0" AnchorPane.topAnchor="0.0">
-                                            <columns>
-                                              <TableColumn fx:id="colNombre" prefWidth="150.4000182747841" text="Nombre completo" />
-                                                <TableColumn fx:id="colRol" prefWidth="125.60006713867188" text="Rol" />
-                                                <TableColumn fx:id="colEspecialidad" prefWidth="203.20001220703125" text="Especialidad" />
-                                                <TableColumn fx:id="colSalario" prefWidth="126.4000244140625" text="Salario" />
-                                            </columns>
-                                          </TableView>
+                                          <Label id="bigLabel" alignment="CENTER" style="&#10;" text="Cuenta: " textAlignment="CENTER" wrapText="false">
+                                             <font>
+                                                <Font size="18.0" fx:id="x11" />
+                                             </font>
+                                             <textFill>
+                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
+                                             </textFill>
+                                          </Label>
+                                  <Label id="bigLabel" alignment="CENTER" style="&#10;" text="Admin" textAlignment="CENTER" wrapText="false">
+                                             <textFill>
+                                        <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+                                             </textFill>
+                                             <font>
+                                        <Font size="18.0" fx:id="x1" />
+                                             </font>
+                                          </Label>
                                        </children>
-                                    </AnchorPane>
-                                </content>
-                              </ScrollPane>
-                           </children>
-                        </VBox>
-              </children>
-            </AnchorPane>
-          </content>
-        </ScrollPane>
-            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="370.0">
-               <content>
-                  <VBox id="details" alignment="CENTER" prefHeight="900.0" prefWidth="348.0">
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="36.0" prefWidth="443.0">
+                                       <children>
+                                          <Label id="bigLabel" text="Buscar" />
+                                          <TextField fx:id="searchBar" prefWidth="250.0">
+                                             <HBox.margin>
+                                                <Insets left="3.0" right="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <MenuButton mnemonicParsing="false" text="Filtrar">
+                                            <items>
+                                                <MenuItem fx:id="filterByNothing" mnemonicParsing="false" text="Nada" />
+                                              <MenuItem fx:id="filterByJugadores" mnemonicParsing="false" text="Jugadores" />
+                                              <MenuItem fx:id="filterByEntrenadores" mnemonicParsing="false" text="Entrenadores" />
+                                            </items>
+                                          </MenuButton>
+                                          <MenuButton mnemonicParsing="false" text="Ordenar">
+                                             <items>
+                                                <MenuItem fx:id="sortByNothing" mnemonicParsing="false" text="Nada" />
+                                                <MenuItem fx:id="sortByNombre" mnemonicParsing="false" text="Nombre" />
+                                                <MenuItem fx:id="sortBySalario" mnemonicParsing="false" text="Salario" />
+                                             </items>
+                                          </MenuButton>
+                                       </children>
+                                    </HBox>
+                                    <ScrollPane prefHeight="490.0" prefWidth="504.0">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="479.0" prefWidth="446.0">
+                                             <children>
+                                                <TableView id="tableView" fx:id="listIntegrantes" prefHeight="479.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-152.0" AnchorPane.topAnchor="0.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="colNombre" prefWidth="150.4000182747841" text="Nombre completo" />
+                                                      <TableColumn fx:id="colRol" prefWidth="125.60006713867188" text="Rol" />
+                                                      <TableColumn fx:id="colEspecialidad" prefWidth="203.20001220703125" text="Especialidad" />
+                                                      <TableColumn fx:id="colSalario" prefWidth="126.4000244140625" text="Salario" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                    </children>
+                  </AnchorPane>
+                </content>
+              </ScrollPane>
+                  <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="200.0">
                      <children>
-                        <Label id="bigLabel" alignment="CENTER" style="&#10;" text="Detalles" textAlignment="CENTER" wrapText="false">
-                           <font>
-                              <Font size="18.0" fx:id="x12" />
-                           </font>
-                           <textFill>
-                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x22" />
-                           </textFill>
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../media/profile_picture.png" />
-                           </image>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                        </ImageView>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label prefHeight="19.0" prefWidth="114.0" text="Nombre" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
-                                 <children>
-                                    <TextField fx:id="nombreField">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label prefHeight="19.0" prefWidth="114.0" text="Apellidos" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
-                                 <children>
-                                    <TextField fx:id="apellidosField">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label prefHeight="19.0" prefWidth="114.0" text="Nacimiento" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
-                                 <children>
-                                    <DatePicker fx:id="nacimientoDP" prefWidth="120.0">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
-                                       </HBox.margin>
-                                    </DatePicker>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label prefHeight="19.0" prefWidth="114.0" text="Incorporación" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
-                                 <children>
-                                    <DatePicker fx:id="incorporacionDP" prefWidth="120.0">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
-                                       </HBox.margin>
-                                    </DatePicker>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label prefHeight="19.0" prefWidth="114.0" text="Salario" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
-                                 <children>
-                                    <TextField fx:id="salarioField">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label prefHeight="19.0" prefWidth="114.0" text="País" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
-                                 <children>
-                                    <TextField fx:id="paisField">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </HBox>
-                        <VBox alignment="CENTER" prefHeight="64.0" prefWidth="348.0">
-                           <children>
-                              <Label text="Especialidad" />
-                              <HBox alignment="CENTER" prefHeight="42.0" prefWidth="348.0">
-                                 <children>
-                                    <RadioButton fx:id="radioPrincipal" mnemonicParsing="false" text="Principal">
-                                       <HBox.margin>
-                                          <Insets right="6.0" />
-                                       </HBox.margin>
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="especialidad" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                    <RadioButton fx:id="radioAsistente" mnemonicParsing="false" text="Asistente" toggleGroup="$especialidad">
-                                       <HBox.margin>
-                                          <Insets right="6.0" />
-                                       </HBox.margin>
-                                    </RadioButton>
-                                    <RadioButton fx:id="radioPorteros" mnemonicParsing="false" text="Porteros" toggleGroup="$especialidad">
-                                       <HBox.margin>
-                                          <Insets right="6.0" />
-                                       </HBox.margin>
-                                    </RadioButton>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="64.0" prefWidth="348.0">
-                           <children>
-                              <Label text="Posición" />
-                              <HBox alignment="CENTER" prefHeight="42.0" prefWidth="348.0">
-                                 <children>
-                                    <RadioButton fx:id="radioDelantero" mnemonicParsing="false" text="Delantero">
-                                       <HBox.margin>
-                                          <Insets right="6.0" />
-                                       </HBox.margin>
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="posicion" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                    <RadioButton fx:id="radioCentro" mnemonicParsing="false" text="Centro" toggleGroup="$posicion">
-                                       <HBox.margin>
-                                          <Insets right="6.0" />
-                                       </HBox.margin>
-                                    </RadioButton>
-                                    <RadioButton fx:id="radioDefensa" mnemonicParsing="false" text="Defensa" toggleGroup="$posicion">
-                                       <HBox.margin>
-                                          <Insets right="6.0" />
-                                       </HBox.margin>
-                                    </RadioButton>
-                                    <RadioButton fx:id="radioPortero" mnemonicParsing="false" text="Portero" toggleGroup="$posicion" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label prefHeight="19.0" prefWidth="114.0" text="Dorsal" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
-                                 <children>
-                                    <TextField fx:id="dorsalField">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label prefHeight="19.0" prefWidth="114.0" text="Altura" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
-                                 <children>
-                                    <TextField fx:id="alturaField">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label prefHeight="19.0" prefWidth="114.0" text="Peso" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
-                                 <children>
-                                    <TextField fx:id="pesoField">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label prefHeight="19.0" prefWidth="114.0" text="Goles" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
-                                 <children>
-                                    <TextField fx:id="golesField">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label prefHeight="19.0" prefWidth="114.0" text="Partidos" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
-                                 <children>
-                                    <TextField fx:id="partidosField">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label prefHeight="19.0" prefWidth="114.0" text="Minutos" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
-                                 <children>
-                                    <TextField fx:id="minutosField">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </HBox>
+                        <Button id="addButton" fx:id="saveJugadorButton" mnemonicParsing="false" text="Jugador">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../media/Add.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button id="addButton" fx:id="saveEntrenadorButton" mnemonicParsing="false" text="Entrenador">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../media/Add.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </Button>
                      </children>
-                  </VBox>
-               </content>
-            </ScrollPane>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="370.0">
+                     <content>
+                        <VBox id="details" alignment="CENTER" prefHeight="900.0" prefWidth="348.0">
+                           <children>
+                              <Label id="bigLabel" alignment="CENTER" style="&#10;" text="Detalles" textAlignment="CENTER" wrapText="false">
+                                 <font>
+                                    <Font size="18.0" fx:id="x12" />
+                                 </font>
+                                 <textFill>
+                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x22" />
+                                 </textFill>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../media/profile_picture.png" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="114.0" text="Nombre" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
+                                       <children>
+                                          <TextField fx:id="nombreField">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="114.0" text="Apellidos" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
+                                       <children>
+                                          <TextField fx:id="apellidosField">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="114.0" text="Nacimiento" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
+                                       <children>
+                                          <DatePicker fx:id="nacimientoDP" prefWidth="120.0">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </DatePicker>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="114.0" text="Incorporación" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
+                                       <children>
+                                          <DatePicker fx:id="incorporacionDP" prefWidth="120.0">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </DatePicker>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="114.0" text="Salario" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
+                                       <children>
+                                          <TextField fx:id="salarioField">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="114.0" text="País" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
+                                       <children>
+                                          <TextField fx:id="paisField">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="348.0">
+                                 <children>
+                                    <Label text="Especialidad" />
+                                    <HBox alignment="CENTER" prefHeight="42.0" prefWidth="348.0">
+                                       <children>
+                                          <RadioButton fx:id="radioPrincipal" mnemonicParsing="false" text="Principal">
+                                             <HBox.margin>
+                                                <Insets right="6.0" />
+                                             </HBox.margin>
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="especialidad" />
+                                             </toggleGroup>
+                                          </RadioButton>
+                                          <RadioButton fx:id="radioAsistente" mnemonicParsing="false" text="Asistente" toggleGroup="$especialidad">
+                                             <HBox.margin>
+                                                <Insets right="6.0" />
+                                             </HBox.margin>
+                                          </RadioButton>
+                                          <RadioButton fx:id="radioPorteros" mnemonicParsing="false" text="Porteros" toggleGroup="$especialidad">
+                                             <HBox.margin>
+                                                <Insets right="6.0" />
+                                             </HBox.margin>
+                                          </RadioButton>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="348.0">
+                                 <children>
+                                    <Label text="Posición" />
+                                    <HBox alignment="CENTER" prefHeight="42.0" prefWidth="348.0">
+                                       <children>
+                                          <RadioButton fx:id="radioDelantero" mnemonicParsing="false" text="Delantero">
+                                             <HBox.margin>
+                                                <Insets right="6.0" />
+                                             </HBox.margin>
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="posicion" />
+                                             </toggleGroup>
+                                          </RadioButton>
+                                          <RadioButton fx:id="radioCentro" mnemonicParsing="false" text="Centro" toggleGroup="$posicion">
+                                             <HBox.margin>
+                                                <Insets right="6.0" />
+                                             </HBox.margin>
+                                          </RadioButton>
+                                          <RadioButton fx:id="radioDefensa" mnemonicParsing="false" text="Defensa" toggleGroup="$posicion">
+                                             <HBox.margin>
+                                                <Insets right="6.0" />
+                                             </HBox.margin>
+                                          </RadioButton>
+                                          <RadioButton fx:id="radioPortero" mnemonicParsing="false" text="Portero" toggleGroup="$posicion" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="114.0" text="Dorsal" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
+                                       <children>
+                                          <TextField fx:id="dorsalField">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="114.0" text="Altura" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
+                                       <children>
+                                          <TextField fx:id="alturaField">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="114.0" text="Peso" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
+                                       <children>
+                                          <TextField fx:id="pesoField">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="114.0" text="Goles" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
+                                       <children>
+                                          <TextField fx:id="golesField">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="114.0" text="Partidos" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
+                                       <children>
+                                          <TextField fx:id="partidosField">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="110.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="114.0" text="Minutos" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="198.0">
+                                       <children>
+                                          <TextField fx:id="minutosField">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="370.0">
+                     <children>
+                        <Button id="editButton" fx:id="editAndSaveButton" mnemonicParsing="false" text="Editar">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../media/Edit.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button id="deleteButton" fx:id="deleteAndCancelButton" mnemonicParsing="false" text="Eliminar">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../media/Delete.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
       </items>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">

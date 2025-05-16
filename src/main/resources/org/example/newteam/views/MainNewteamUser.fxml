@@ -82,7 +82,14 @@
                      </graphic>
                   </MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="exitButton" mnemonicParsing="false" text="Salir" />
+            <MenuItem fx:id="exitButton" mnemonicParsing="false" text="Salir">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../media/Exit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Ayuda">
@@ -90,6 +97,19 @@
             <MenuItem fx:id="aboutButton" mnemonicParsing="false" text="Sobre NewTeam Manager" />
           </items>
         </Menu>
+            <Menu mnemonicParsing="false" text="Sesión">
+               <items>
+                  <MenuItem fx:id="logoutButton" mnemonicParsing="false" text="Cerrar sesión">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../media/Exit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+               </items>
+            </Menu>
       </menus>
     </MenuBar>
     <SplitPane dividerPositions="0.6215937241948802" focusTraversable="true" prefHeight="323.0" prefWidth="900.0" VBox.vgrow="ALWAYS">

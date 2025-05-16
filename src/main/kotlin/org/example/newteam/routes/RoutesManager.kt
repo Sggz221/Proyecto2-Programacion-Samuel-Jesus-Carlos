@@ -36,7 +36,7 @@ object RoutesManager {
         logger.debug { "Iniciando admin stage" }
         val fxmlLoader = FXMLLoader(getResource(Vistas.ADMIN.path))
         val parentRoot = fxmlLoader.load<Pane>() // Ponemos tipo Pane porque todos los contenedores de javaFX heredan de este
-        val scene = Scene(parentRoot, 1200.0, 600.0)
+        val scene = Scene(parentRoot, 990.0, 675.0)
         stage.title = "NewTeam Manager"
         stage.isResizable = false
         stage.icons.add(Image(getResourceAsStream("media/app-icon.png")))
@@ -106,6 +106,7 @@ object RoutesManager {
         stage.icons.add(Image(getResourceAsStream("media/app-icon.png")))
         stage.scene = scene
         stage.centerOnScreen()
+        stage.setOnCloseRequest {  }
         mainStage = stage
         _activeStage = stage
         mainStage.show()
