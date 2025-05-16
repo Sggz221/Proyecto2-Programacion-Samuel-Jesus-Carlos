@@ -98,7 +98,13 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    finalizedBy(tasks.jacocoTestReport)
+    // finalizedBy(tasks.jacocoTestReport)
+    // Con abrimos junit para que pueda usar todo, incluso los de Kotlin
+    /* jvmArgs(
+             "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+             "--add-opens", "java.base/java.util=ALL-UNNAMED",
+             "--add-reads", "org.junit.jupiter.api=kotlin.stdlib"
+     )*/
 }
 
 jlink {
@@ -140,9 +146,9 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
-                    "**/models/**",
-                    "**/errors/**",
-                    "**/*Main*.*"
+                    "/models/",
+                    "/errors/",
+                    "/Main.*"
             ])
         }))
     }

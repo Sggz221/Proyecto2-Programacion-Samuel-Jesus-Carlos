@@ -58,12 +58,12 @@
 <?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="990.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.newteam.gestion.controllers.NewTeamController">
-  <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu id="archivoMenu" mnemonicParsing="false" text="Archivo">
-          <items>
-            <MenuItem fx:id="importButton" mnemonicParsing="false" text="Importar">
+   <children>
+      <MenuBar VBox.vgrow="NEVER">
+         <menus>
+            <Menu id="archivoMenu" mnemonicParsing="false" text="Archivo">
+               <items>
+                  <MenuItem fx:id="importButton" mnemonicParsing="false" text="Importar">
                      <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -81,15 +81,15 @@
                         </ImageView>
                      </graphic>
                   </MenuItem>
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="exitButton" mnemonicParsing="false" text="Salir" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Ayuda">
-          <items>
-            <MenuItem fx:id="aboutButton" mnemonicParsing="false" text="Sobre NewTeam Manager" />
-          </items>
-        </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="exitButton" mnemonicParsing="false" text="Salir" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Ayuda">
+               <items>
+                  <MenuItem fx:id="aboutButton" mnemonicParsing="false" text="Sobre NewTeam Manager" />
+               </items>
+            </Menu>
             <Menu mnemonicParsing="false" text="Sesión">
                <items>
                   <MenuItem fx:id="logoutButton" mnemonicParsing="false" text="Cerrar sesión">
@@ -103,16 +103,16 @@
                   </MenuItem>
                </items>
             </Menu>
-      </menus>
-    </MenuBar>
-    <SplitPane dividerPositions="0.19251672240802672" focusTraversable="true" prefHeight="323.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
-      <items>
+         </menus>
+      </MenuBar>
+      <SplitPane dividerPositions="0.19251672240802672" focusTraversable="true" prefHeight="323.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
+         <items>
             <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="612.0">
                <children>
-              <ScrollPane>
-                <content>
-                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="546.0" prefWidth="462.0">
-                    <children>
+                  <ScrollPane>
+                     <content>
+                        <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="546.0" prefWidth="462.0">
+                           <children>
                               <VBox alignment="CENTER" layoutX="102.0" layoutY="99.0" prefHeight="546.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-136.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <HBox alignment="CENTER" prefHeight="34.0" prefWidth="443.0">
@@ -125,12 +125,12 @@
                                                 <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
                                              </textFill>
                                           </Label>
-                                  <Label id="bigLabel" alignment="CENTER" style="&#10;" text="Admin" textAlignment="CENTER" wrapText="false">
+                                          <Label id="bigLabel" alignment="CENTER" style="&#10;" text="Admin" textAlignment="CENTER" wrapText="false">
                                              <textFill>
-                                        <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                                              </textFill>
                                              <font>
-                                        <Font size="18.0" fx:id="x1" />
+                                                <Font size="18.0" fx:id="x1" />
                                              </font>
                                           </Label>
                                        </children>
@@ -144,11 +144,11 @@
                                              </HBox.margin>
                                           </TextField>
                                           <MenuButton mnemonicParsing="false" text="Filtrar">
-                                            <items>
+                                             <items>
                                                 <MenuItem fx:id="filterByNothing" mnemonicParsing="false" text="Nada" />
-                                              <MenuItem fx:id="filterByJugadores" mnemonicParsing="false" text="Jugadores" />
-                                              <MenuItem fx:id="filterByEntrenadores" mnemonicParsing="false" text="Entrenadores" />
-                                            </items>
+                                                <MenuItem fx:id="filterByJugadores" mnemonicParsing="false" text="Jugadores" />
+                                                <MenuItem fx:id="filterByEntrenadores" mnemonicParsing="false" text="Entrenadores" />
+                                             </items>
                                           </MenuButton>
                                           <MenuButton mnemonicParsing="false" text="Ordenar">
                                              <items>
@@ -160,27 +160,27 @@
                                        </children>
                                     </HBox>
                                     <ScrollPane prefHeight="490.0" prefWidth="504.0">
-                                      <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="479.0" prefWidth="446.0">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="479.0" prefWidth="446.0">
                                              <children>
                                                 <TableView id="tableView" fx:id="listIntegrantes" prefHeight="479.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-152.0" AnchorPane.topAnchor="0.0">
-                                                  <columns>
-                                                    <TableColumn fx:id="colNombre" prefWidth="150.4000182747841" text="Nombre completo" />
+                                                   <columns>
+                                                      <TableColumn fx:id="colNombre" prefWidth="150.4000182747841" text="Nombre completo" />
                                                       <TableColumn fx:id="colRol" prefWidth="125.60006713867188" text="Rol" />
                                                       <TableColumn fx:id="colEspecialidad" prefWidth="203.20001220703125" text="Especialidad" />
                                                       <TableColumn fx:id="colSalario" prefWidth="126.4000244140625" text="Salario" />
-                                                  </columns>
+                                                   </columns>
                                                 </TableView>
                                              </children>
                                           </AnchorPane>
-                                      </content>
+                                       </content>
                                     </ScrollPane>
                                  </children>
                               </VBox>
-                    </children>
-                  </AnchorPane>
-                </content>
-              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
                   <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="200.0">
                      <children>
                         <Button id="addButton" fx:id="saveJugadorButton" mnemonicParsing="false" text="Jugador">
@@ -549,6 +549,11 @@
                                           <TextField fx:id="partidosField">
                                              <HBox.margin>
                                                 <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -611,83 +616,80 @@
                   </HBox>
                </children>
             </VBox>
-      </items>
-    </SplitPane>
-    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
-      <children>
-            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0">
+         </items>
+      </SplitPane>
+      <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+         <children>
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="590.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Goles promedio">
+                     <font>
+                        <Font size="11.0" fx:id="x3" />
+                     </font>
+                     <textFill>
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
+                     </textFill>
+                  </Label>
+                  <Label fx:id="golesAvg" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="0.0">
                      <font>
                         <Font size="11.0" fx:id="x31" />
                      </font>
                      <textFill>
                         <Color red="0.625" green="0.625" blue="0.625" fx:id="x41" />
                      </textFill>
-                  </Label>
-                  <Label fx:id="golesAvg" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="0.0">
-                     <font>
-                        <Font size="11.0" fx:id="x32" />
-                     </font>
-                     <textFill>
-                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x42" />
-                     </textFill>
                      <HBox.margin>
-                        <Insets right="8.0" />
+                        <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
                   <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Minutos promedio">
                      <font>
-                        <Font size="11.0" fx:id="x33" />
+                        <Font size="11.0" fx:id="x311" />
                      </font>
                      <textFill>
-                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x43" />
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x411" />
                      </textFill>
                   </Label>
                   <Label fx:id="minutosAvg" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="0.0">
                      <font>
-                        <Font size="11.0" fx:id="x331" />
+                        <Font size="11.0" fx:id="x312" />
                      </font>
                      <textFill>
-                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x431" />
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x412" />
                      </textFill>
                      <HBox.margin>
-                        <Insets right="8.0" />
+                        <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Coste total de la plantilla:">
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Coste total de la plantilla">
                      <font>
-                        <Font size="11.0" fx:id="x332" />
+                        <Font size="11.0" fx:id="x313" />
                      </font>
                      <textFill>
-                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x432" />
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x413" />
                      </textFill>
                   </Label>
-                  <Label fx:id="totalPlantilla" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="0">
+                  <Label fx:id="totalPlantilla" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="0.0">
                      <font>
-                        <Font size="11.0" fx:id="x333" />
+                        <Font size="11.0" fx:id="x314" />
                      </font>
                      <textFill>
-                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x433" />
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x414" />
                      </textFill>
-                     <HBox.margin>
-                        <Insets right="4.0" />
-                     </HBox.margin>
                   </Label>
                   <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="€">
                      <font>
-                        <Font size="11.0" fx:id="x3331" />
+                        <Font size="11.0" fx:id="x315" />
                      </font>
                      <textFill>
-                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x4331" />
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x415" />
                      </textFill>
                   </Label>
                </children>
             </HBox>
-      </children>
-      <padding>
-        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-      </padding>
-    </HBox>
-  </children>
+         </children>
+         <padding>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+         </padding>
+      </HBox>
+   </children>
 </VBox>
