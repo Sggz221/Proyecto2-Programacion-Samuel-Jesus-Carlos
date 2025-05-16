@@ -49,11 +49,11 @@ class EquipoServiceImpl(
      * Exporta un fichero de una ruta especificada por parametro y segun su extension llama al almacenamiento indicado para su correcto manipulamiento
      * @param filePath [String] Cadena de texto que indica la ruta de un archivo
      */
-    override fun exportToFile(filePath: String) {
+    override fun exportToFile(filePath: String): Result<Unit, GestionErrors> {
         logger.debug { "Exportando integrantes al fichero $filePath" }
 
         val file = File(filePath)
-        storage.fileWrite(repository.getAll(), file)
+        return storage.fileWrite(repository.getAll(), file)
 
     }
 

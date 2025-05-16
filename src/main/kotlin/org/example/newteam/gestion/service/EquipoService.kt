@@ -9,7 +9,7 @@ import org.example.newteam.gestion.models.Integrante
  */
 interface EquipoService {
     fun importFromFile(filePath: String): Result<List<Integrante>, GestionErrors>
-    fun exportToFile(filePath: String)
+    fun exportToFile(filePath: String): Result<Unit, GestionErrors>
 
     fun getAll(): List<Integrante>
     fun getById(id: Long): Result<Integrante, GestionErrors>
