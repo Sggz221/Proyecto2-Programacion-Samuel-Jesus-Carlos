@@ -27,7 +27,6 @@ class EquipoViewModel (
     )
 
     data class IntegranteState(
-        val id: Long = 0L,
         val nombre: String = "",
         val apellidos: String = "",
         val fecha_nacimiento: LocalDate = LocalDate.now(),
@@ -44,6 +43,11 @@ class EquipoViewModel (
         val partidos_jugados: Int = 0,
         val minutos_jugados: Int = 0
     )
+
+    fun saveIntegrante(integrante: Integrante) {
+        service.save(integrante)
+        updateState()
+    }
 
     private fun loadAllIntegrantes() {
         logger.debug { "Cargando los integrantes en el estado" }
