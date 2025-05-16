@@ -2,7 +2,6 @@ package org.example.newteam.gestion.controllers
 
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
-import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.scene.Cursor.DEFAULT
@@ -16,11 +15,11 @@ import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.models.Especialidad
 import org.example.newteam.gestion.models.Integrante
-import org.example.newteam.gestion.models.Jugador
 import org.example.newteam.gestion.sesion.Session
 import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import org.example.newteam.routes.RoutesManager
 import org.lighthousegames.logging.logging
+import java.io.File
 
 class NewTeamController () {
     private val logger = logging()
@@ -211,10 +210,40 @@ class NewTeamController () {
             showLogoutAlert()
         }
 
-        importButton.setOnAction { onImportarCSVAction() }
+        importButton.setOnAction { onImportarAction() }
+
+        exportButton.setOnAction { onExportarAction() }
     }
 
-    private fun onImportarCSVAction() {
+    private fun onExportarAction(){
+        logger.debug{ "Iniciando FileChooser" }
+        val fileChooser = FileChooser()
+        val file: File
+
+        FileChooser().run {
+            title = "Exportar integrantes"
+            extensionFilters.add(FileChooser.ExtensionFilter("CSV", "*.csv"))
+            extensionFilters.add(FileChooser.ExtensionFilter("JSON", "*.json"))
+            extensionFilters.add(FileChooser.ExtensionFilter("XML", "*.xml"))
+            extensionFilters.add(FileChooser.ExtensionFilter("BIN", "*.bin"))
+            showSaveDialog(RoutesManager.activeStage)
+        }?.let {
+            // Cambiar el cursor a espera
+            RoutesManager.activeStage.scene.cursor = WAIT
+            viewModel.exportIntegrantestoFile(it)
+                .onSuccess {
+                    showAlertOperation(
+                        title = "Datos exportados",
+                        mensaje = "Se han exportado los Integrantes."
+                    )
+                }.onFailure { error: GestionErrors->
+                    showAlertOperation(alerta = AlertType.ERROR, title = "Error al exportar", mensaje = error.message)
+                }
+            RoutesManager.activeStage.scene.cursor = DEFAULT
+        }
+    }
+
+    private fun onImportarAction() {
         logger.debug{ "Iniciando FileChooser" }
         FileChooser().run {
             title = "Importar integrantes"
@@ -224,11 +253,6 @@ class NewTeamController () {
             extensionFilters.add(FileChooser.ExtensionFilter("BIN", "*.bin"))
             showOpenDialog(RoutesManager.activeStage)
         }?.let {
-            /*showAlertOperation(
-                AlertType.INFORMATION,
-                "Importando datos del fichero CSV",
-                "Importando datos..."
-            )*/
             // Cambiar el cursor a espera
             RoutesManager.activeStage.scene.cursor = WAIT
             viewModel.loadIntegrantesFromFile(it)

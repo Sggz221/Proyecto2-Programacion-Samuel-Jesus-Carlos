@@ -64,6 +64,11 @@ class EquipoViewModel (
         )
     }
 
+    fun exportIntegrantestoFile(file: File) : Result<Unit, GestionErrors> {
+        logger.debug { "Exportando integrantes a fichero $file"}
+        return service.exportToFile(file.path)
+    }
+
     fun loadIntegrantesFromFile(file: File) : Result<List<Integrante>, GestionErrors> {
         logger.debug { "Cargando integrantes desde fichero $file"}
         return service.importFromFile(file.path).also { loadAllIntegrantes() }
