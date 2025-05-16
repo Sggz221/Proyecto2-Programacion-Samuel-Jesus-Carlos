@@ -8,6 +8,7 @@ import org.example.newteam.gestion.dto.IntegranteXmlDTO
 import org.example.newteam.gestion.models.Entrenador
 import org.example.newteam.gestion.models.Integrante
 import org.example.newteam.gestion.models.Jugador
+import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import java.time.LocalDate
 
 fun IntegranteEntity.toModel(): Integrante {
@@ -272,5 +273,37 @@ fun Jugador.toDto (): IntegranteDTO {
         partidos_jugados = partidos_jugados,
         minutos_jugados = minutos_jugados,
         imagen = imagen
+    )
+}
+
+fun EquipoViewModel.IntegranteState.toJugadorModel(): Integrante {
+    return Jugador(
+        nombre = this.nombre,
+        apellidos = this.apellidos,
+        fecha_nacimiento = this.fecha_nacimiento,
+        fecha_incorporacion = this.fecha_incorporacion,
+        salario = this.salario,
+        pais = this.pais,
+        imagen = this.imagen,
+        posicion = Posicion.valueOf(this.posicion),
+        dorsal = this.dorsal,
+        altura = this.altura,
+        peso = this.peso,
+        goles = this.goles,
+        partidos_jugados = this.partidos_jugados,
+        minutos_jugados = this.minutos_jugados,
+    )
+}
+
+fun EquipoViewModel.IntegranteState.toEntrenadorModel(): Integrante {
+    return Entrenador(
+        nombre = this.nombre,
+        apellidos = this.apellidos,
+        fecha_nacimiento = this.fecha_nacimiento,
+        fecha_incorporacion = this.fecha_incorporacion,
+        salario = this.salario,
+        pais = this.pais,
+        imagen = this.imagen,
+        especialidad = Especialidad.valueOf(this.posicion),
     )
 }

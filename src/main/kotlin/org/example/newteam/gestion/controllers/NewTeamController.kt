@@ -1,7 +1,6 @@
 package org.example.newteam.gestion.controllers
 
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
+import com.github.michaelbull.result.*
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.scene.Cursor.DEFAULT
@@ -13,13 +12,17 @@ import javafx.stage.FileChooser
 import javafx.stage.Stage
 import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
+import org.example.newteam.gestion.mapper.toEntrenadorModel
+import org.example.newteam.gestion.mapper.toJugadorModel
 import org.example.newteam.gestion.models.Especialidad
 import org.example.newteam.gestion.models.Integrante
+import org.example.newteam.gestion.models.Jugador
 import org.example.newteam.gestion.sesion.Session
 import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import org.example.newteam.routes.RoutesManager
 import org.lighthousegames.logging.logging
 import java.io.File
+import java.time.LocalDate
 
 class NewTeamController () {
     private val logger = logging()
@@ -213,12 +216,115 @@ class NewTeamController () {
         importButton.setOnAction { onImportarAction() }
 
         exportButton.setOnAction { onExportarAction() }
+
+        saveJugadorButton.setOnAction { onSaveIntegranteAction(true) }
+    }
+
+    private fun onSaveIntegranteAction(esJugador: Boolean) {
+        logger.debug { "Guardando nuevo jugador" }
+        validarJugador()
+
+        val newIntegrante: Integrante
+        if (esJugador) {
+            newIntegrante = viewModel.state.value.integrante.toJugadorModel()
+        } else {
+            newIntegrante = viewModel.state.value.integrante.toEntrenadorModel()
+        }
+
+        viewModel.saveIntegrante(newIntegrante)
+
+    }
+
+    private fun validarJugador (): Result<Unit, GestionErrors.InvalidoError> {
+        logger.debug { "Validando jugador" }
+
+        if (nombreField.text.isBlank()){
+            return Err(GestionErrors.InvalidoError("El nombre no puede estar vacío"))
+        }
+
+        if (apellidosField.text.isBlank()){
+            return Err(GestionErrors.InvalidoError("Los apellidos no pueden estar vacíos"))
+        }
+
+        if (nacimientoDP.value > LocalDate.now()){
+            return Err(GestionErrors.InvalidoError("La fecha de nacimiento no puede ser posterior a la fecha actual"))
+        }
+
+        if (incorporacionDP.value > LocalDate.now()){
+            return Err(GestionErrors.InvalidoError("La fecha de incorporación no puede ser posterior a la fecha actual"))
+        }
+
+        if (incorporacionDP.value < nacimientoDP.value) {
+            return Err(GestionErrors.InvalidoError("La fecha de incorporación no puede ser anterior a la fecha de nacimiento"))
+        }
+
+        if (salarioField.text.toDouble() < 0.0){
+            return Err(GestionErrors.InvalidoError("El salario no puede ser negativo"))
+        }
+
+        if (paisField.text.isBlank()){
+            return Err(GestionErrors.InvalidoError("El país de origen no puede estar en blanco"))
+        }
+
+        if (dorsalField.text.toInt() !in 1..99) {
+            return Err(GestionErrors.InvalidoError("El dorsal no puede ser menor a 1 ni mayor a 99"))
+        }
+
+        if (alturaField.text.toDouble() !in 0.0..3.0){
+            return Err(GestionErrors.InvalidoError("La altura no puede ser negativa ni superar los 3 metros"))
+        }
+
+        if (pesoField.text.toDouble() < 0.0) {
+            return Err(GestionErrors.InvalidoError("El peso no puede ser negativo"))
+        }
+
+        if (golesField.text.toInt() < 0) {
+            return Err(GestionErrors.InvalidoError("El número de goles no puede ser negativo"))
+        }
+
+        if (partidosField.text.toInt() < 0){
+            return Err(GestionErrors.InvalidoError("El número de partidos jugados no puede ser negativo"))
+        }
+
+        return Ok(Unit)
+    }
+
+    private fun validarEntrenador (): Result<Unit, GestionErrors.InvalidoError> {
+        logger.debug { "Validando entrenador" }
+        if (nombreField.text.isBlank()){
+            return Err(GestionErrors.InvalidoError("El nombre no puede estar vacío"))
+        }
+
+        if (apellidosField.text.isBlank()){
+            return Err(GestionErrors.InvalidoError("Los apellidos no pueden estar vacíos"))
+        }
+
+        if (nacimientoDP.value > LocalDate.now()){
+            return Err(GestionErrors.InvalidoError("La fecha de nacimiento no puede ser posterior a la fecha actual"))
+        }
+
+        if (incorporacionDP.value > LocalDate.now()){
+            return Err(GestionErrors.InvalidoError("La fecha de incorporación no puede ser posterior a la fecha actual"))
+        }
+
+        if (incorporacionDP.value < nacimientoDP.value) {
+            return Err(GestionErrors.InvalidoError("La fecha de incorporación no puede ser anterior a la fecha de nacimiento"))
+        }
+
+        if (salarioField.text.toDouble() < 0.0){
+            return Err(GestionErrors.InvalidoError("El salario no puede ser negativo"))
+        }
+
+        if (paisField.text.isBlank()){
+            return Err(GestionErrors.InvalidoError("El país de origen no puede estar en blanco"))
+        }
+
+        return Ok(Unit)
+
     }
 
     private fun onExportarAction(){
         logger.debug{ "Iniciando FileChooser" }
-        val fileChooser = FileChooser()
-        val file: File
 
         FileChooser().run {
             title = "Exportar integrantes"
