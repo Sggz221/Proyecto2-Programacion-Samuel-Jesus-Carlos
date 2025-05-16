@@ -53,7 +53,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
@@ -550,11 +549,6 @@
                                           <TextField fx:id="partidosField">
                                              <HBox.margin>
                                                 <Insets right="15.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                       </children>
-                                    </HBox>
-                                 </children>
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -621,16 +615,75 @@
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
-          <font>
-            <Font size="11.0" fx:id="x3" />
-          </font>
-          <textFill>
-            <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
-          </textFill>
-        </Label>
-        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0">
+               <children>
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Goles promedio">
+                     <font>
+                        <Font size="11.0" fx:id="x31" />
+                     </font>
+                     <textFill>
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x41" />
+                     </textFill>
+                  </Label>
+                  <Label fx:id="golesAvg" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="0.0">
+                     <font>
+                        <Font size="11.0" fx:id="x32" />
+                     </font>
+                     <textFill>
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x42" />
+                     </textFill>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Minutos promedio">
+                     <font>
+                        <Font size="11.0" fx:id="x33" />
+                     </font>
+                     <textFill>
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x43" />
+                     </textFill>
+                  </Label>
+                  <Label fx:id="minutosAvg" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="0.0">
+                     <font>
+                        <Font size="11.0" fx:id="x331" />
+                     </font>
+                     <textFill>
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x431" />
+                     </textFill>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Coste total de la plantilla:">
+                     <font>
+                        <Font size="11.0" fx:id="x332" />
+                     </font>
+                     <textFill>
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x432" />
+                     </textFill>
+                  </Label>
+                  <Label fx:id="totalPlantilla" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="0">
+                     <font>
+                        <Font size="11.0" fx:id="x333" />
+                     </font>
+                     <textFill>
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x433" />
+                     </textFill>
+                     <HBox.margin>
+                        <Insets right="4.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="€">
+                     <font>
+                        <Font size="11.0" fx:id="x3331" />
+                     </font>
+                     <textFill>
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x4331" />
+                     </textFill>
+                  </Label>
+               </children>
+            </HBox>
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

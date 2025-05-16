@@ -124,6 +124,14 @@ class NewTeamController () {
     @FXML
     lateinit var searchBar: TextField
 
+    /* Footer */
+    @FXML
+    lateinit var totalPlantilla: Label
+    @FXML
+    lateinit var minutosAvg: Label
+    @FXML
+    lateinit var golesAvg: Label
+
     /* Lógica */
     fun initialize() {
         initEvents()
@@ -185,8 +193,10 @@ class NewTeamController () {
             if (listIntegrantes.items != newValue.integrantes) listIntegrantes.items = FXCollections.observableArrayList(newValue.integrantes)
 
         }
-
-
+        //Footer
+        golesAvg.textProperty().bind(viewModel.state.map { it.goalAvg })
+        minutosAvg.textProperty().bind(viewModel.state.map { it.minutesAvg })
+        totalPlantilla.textProperty().bind(viewModel.state.map { it.totalCost })
     }
 
     private fun initEvents() {

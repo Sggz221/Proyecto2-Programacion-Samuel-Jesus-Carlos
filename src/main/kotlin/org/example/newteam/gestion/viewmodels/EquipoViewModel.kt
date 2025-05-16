@@ -22,7 +22,8 @@ class EquipoViewModel (
         var integrantes: List<Integrante> = emptyList(), //lista de todos los integrantes
         val integrante: IntegranteState = IntegranteState(), //el integrante seleccionado
         val goalAvg: String = "0.0", //goles promedio
-        val minutesAvg: String = "0.0" //minutos jugados promedio
+        val minutesAvg: String = "0.0", //minutos jugados promedio
+        val totalCost: String = "0.0" // Coste total de la plantilla
     )
 
     data class IntegranteState(
@@ -53,10 +54,12 @@ class EquipoViewModel (
     private fun updateState() {
         val goalAvg = state.value.integrantes.filterIsInstance<Jugador>().map { it.goles }.average().toString()
         val minutesAvg = state.value.integrantes.filterIsInstance<Jugador>().map { it.minutos_jugados }.average().toString()
+        val totalCost = state.value.integrantes.sumOf { it.salario }.toString()
 
         state.value = state.value.copy(
             goalAvg = goalAvg,
             minutesAvg = minutesAvg,
+            totalCost = totalCost,
             integrante = IntegranteState()
         )
     }
