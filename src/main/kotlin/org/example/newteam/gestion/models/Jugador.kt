@@ -45,4 +45,8 @@ class Jugador(
     override fun toString(): String {
         return "Jugador(id= $id, nombre= $nombre, apellidos= $apellidos, fecha_nacimiento= $fecha_nacimiento, fecha_incorporacion= $fecha_incorporacion, salario= $salario, pais = $pais, createdAt= $createdAt, updatedAt= $updatedAt, posicion= $posicion, dorsal= $dorsal, altura= $altura, peso= $peso, goles= $goles, partidos_jugados= $partidos_jugados, minutos_jugados = $minutos_jugados, imagen = $imagen)"
     }
+
+    val rol: String = "Jugador"
+
+    val miEspecialidad = posicion.toString()
 }

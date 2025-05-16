@@ -20,7 +20,7 @@ module org.example.newteam {
     opens org.example.newteam to javafx.fxml, kotlin.reflect, org.jdbi.v3.core;
     opens org.example.newteam.gestion.dao to kotlin.reflect, org.jdbi.v3.core;
     opens org.example.newteam.gestion.controllers to javafx.fxml;
-    opens org.example.newteam.gestion.models to org.jdbi.v3.core; // Si no esta esto revienta leyendo los modelos
+    opens org.example.newteam.gestion.models to org.jdbi.v3.core, javafx.fxml, javafx.base; // Si no esta esto revienta leyendo los modelos
 
 
     exports org.example.newteam;

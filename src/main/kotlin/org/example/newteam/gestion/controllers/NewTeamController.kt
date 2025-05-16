@@ -9,6 +9,7 @@ import javafx.scene.Cursor.DEFAULT
 import javafx.scene.Cursor.WAIT
 import javafx.scene.control.*
 import javafx.scene.control.Alert.AlertType
+import javafx.scene.control.cell.PropertyValueFactory
 import javafx.stage.FileChooser
 import javafx.stage.Stage
 import org.example.newteam.gestion.di.Dependencies
@@ -131,6 +132,13 @@ class NewTeamController () {
     }
 
     private fun initDefaultValues() {
+        //Tabla
+        listIntegrantes.items = FXCollections.observableArrayList(viewModel.state.value.integrantes)
+        //Columnas, ya se bindean solas en base al contenido de la tabla
+        colNombre.cellValueFactory =PropertyValueFactory("nombreCompleto")
+        colSalario.cellValueFactory =PropertyValueFactory("salario")
+        colRol.cellValueFactory = PropertyValueFactory("rol")
+        colEspecialidad.cellValueFactory = PropertyValueFactory("miEspecialidad")
     }
 
     private fun initBindings(){

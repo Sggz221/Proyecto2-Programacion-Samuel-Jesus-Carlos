@@ -19,7 +19,7 @@ class EquipoViewModel (
     val state: SimpleObjectProperty<GeneralState> = SimpleObjectProperty(GeneralState())
 
     data class GeneralState(
-        val integrantes: List<Integrante> = emptyList(), //lista de todos los integrantes
+        var integrantes: List<Integrante> = emptyList(), //lista de todos los integrantes
         val integrante: IntegranteState = IntegranteState(), //el integrante seleccionado
         val goalAvg: String = "0.0", //goles promedio
         val minutesAvg: String = "0.0" //minutos jugados promedio
@@ -46,9 +46,8 @@ class EquipoViewModel (
 
     private fun loadAllIntegrantes() {
         logger.debug { "Cargando los integrantes en el estado" }
-        service.getAll().forEach {
-            state.value.integrantes.toMutableList().add(it)
-        }
+        val newIntegrantes = service.getAll()
+        state.value.integrantes = newIntegrantes
         updateState()
     }
     private fun updateState() {
@@ -64,6 +63,6 @@ class EquipoViewModel (
 
     fun loadIntegrantesFromFile(file: File) : Result<List<Integrante>, GestionErrors> {
         logger.debug { "Cargando integrantes desde fichero $file"}
-        return service.importFromFile(file.path)
+        return service.importFromFile(file.path).also { loadAllIntegrantes() }
     }
 }
