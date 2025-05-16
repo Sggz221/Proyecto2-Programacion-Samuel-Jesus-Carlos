@@ -92,9 +92,9 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.6178330522765598, 0.6245784148397976" focusTraversable="true" prefHeight="323.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.6215937241948802" focusTraversable="true" prefHeight="323.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
       <items>
-        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+        <ScrollPane>
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="546.0" prefWidth="462.0">
               <children>
@@ -116,7 +116,8 @@
                                        </font>
                                        <textFill>
                                   <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
-                                       </textFill></Label>
+                                       </textFill>
+                                    </Label>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="36.0" prefWidth="443.0">
@@ -125,7 +126,8 @@
                                     <TextField fx:id="searchBar" prefWidth="250.0">
                                        <HBox.margin>
                                           <Insets left="3.0" right="10.0" />
-                                       </HBox.margin></TextField>
+                                       </HBox.margin>
+                                    </TextField>
                                     <MenuButton mnemonicParsing="false" text="Filtrar">
                                       <items>
                                           <MenuItem fx:id="filterByNothing" mnemonicParsing="false" text="Nada" />
@@ -164,8 +166,7 @@
             </AnchorPane>
           </content>
         </ScrollPane>
-        <AnchorPane id="details" />
-            <ScrollPane prefHeight="547.0" prefWidth="294.0">
+            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="370.0">
                <content>
                   <VBox id="details" alignment="CENTER" prefHeight="900.0" prefWidth="348.0">
                      <children>

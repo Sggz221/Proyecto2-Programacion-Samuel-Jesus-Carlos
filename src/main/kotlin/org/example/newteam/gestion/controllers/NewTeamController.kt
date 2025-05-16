@@ -2,6 +2,7 @@ package org.example.newteam.gestion.controllers
 
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.scene.Cursor.DEFAULT
 import javafx.scene.Cursor.WAIT
@@ -110,6 +111,10 @@ class NewTeamController () {
     fun initialize() {
         initEvents()
         initBindings()
+        initDefaultValues()
+    }
+
+    private fun initDefaultValues() {
     }
 
     private fun initBindings(){
@@ -141,9 +146,7 @@ class NewTeamController () {
             }
         }
 
-
-
-        //Eentrenador
+        //Entrenador
         viewModel.state.addListener{_,_, newValue ->
             if (newValue.integrante.especialidad == "ENTRENADOR_ASISTENTE") {
                 radioAsistente.isSelected = true
@@ -154,6 +157,10 @@ class NewTeamController () {
             }
         }
 
+        viewModel.state.addListener {_, _, newValue ->
+            if (listIntegrantes.items != newValue.integrantes) listIntegrantes.items = FXCollections.observableArrayList(newValue.integrantes)
+
+        }
 
 
     }

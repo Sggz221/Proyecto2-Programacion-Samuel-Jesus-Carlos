@@ -93,9 +93,9 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.19251672240802672, 0.697324414715719, 0.5" focusTraversable="true" prefHeight="323.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.19251672240802672, 0.697324414715719" focusTraversable="true" prefHeight="323.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane prefHeight="547.0" prefWidth="45.0">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="220.0">
           <children>
                   <VBox alignment="CENTER" prefHeight="547.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -235,8 +235,7 @@
             </AnchorPane>
           </content>
         </ScrollPane>
-        <AnchorPane id="details" />
-            <ScrollPane prefHeight="547.0" prefWidth="294.0">
+            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="370.0">
                <content>
                   <VBox id="details" alignment="CENTER" prefHeight="900.0" prefWidth="348.0">
                      <children>
