@@ -4,6 +4,7 @@ import com.github.michaelbull.result.Result
 import javafx.beans.property.SimpleObjectProperty
 import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
+import org.example.newteam.gestion.extensions.redondearA2Decimales
 import org.example.newteam.gestion.models.Entrenador
 import org.example.newteam.gestion.models.Especialidad
 import org.example.newteam.gestion.models.Integrante
@@ -58,9 +59,9 @@ class EquipoViewModel (
         updateState()
     }
     private fun updateState() {
-        val goalAvg = state.value.integrantes.filterIsInstance<Jugador>().map { it.goles }.average().toString()
-        val minutesAvg = state.value.integrantes.filterIsInstance<Jugador>().map { it.minutos_jugados }.average().toString()
-        val totalCost = state.value.integrantes.sumOf { it.salario }.toString()
+        val goalAvg = state.value.integrantes.filterIsInstance<Jugador>().map { it.goles }.average().redondearA2Decimales().toString()
+        val minutesAvg = state.value.integrantes.filterIsInstance<Jugador>().map { it.minutos_jugados }.average().redondearA2Decimales().toString()
+        val totalCost = state.value.integrantes.sumOf { it.salario }.redondearA2Decimales().toString()
 
         state.value = state.value.copy(
             goalAvg = goalAvg,

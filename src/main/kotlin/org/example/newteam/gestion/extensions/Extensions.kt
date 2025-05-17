@@ -6,6 +6,8 @@ import org.example.newteam.gestion.models.Jugador
 import org.example.newteam.gestion.models.Posicion
 import java.time.LocalDate
 import java.time.LocalDateTime
+import kotlin.math.pow
+import kotlin.math.round
 
 /**
  * Crea una copia de un objeto de la clase Jugador
@@ -102,4 +104,9 @@ fun Entrenador.copy(
         especialidad = newEspecialidad,
         imagen = new_imagen,
     )
+}
+
+fun Double.redondearA2Decimales(): Double {
+    val factor = 10.0.pow(2)
+    return round(this * factor) / factor
 }
