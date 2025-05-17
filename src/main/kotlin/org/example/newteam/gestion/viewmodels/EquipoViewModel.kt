@@ -71,6 +71,12 @@ class EquipoViewModel (
         )
     }
 
+    fun sortIntegrantes(integrantesOrdenados: List<Integrante>) {
+        logger.debug { "Ordenando la lista de integrantes" }
+
+        state.value = state.value.copy(integrantes = integrantesOrdenados)
+    }
+
     fun exportIntegrantestoFile(file: File) : Result<Unit, GestionErrors> {
         logger.debug { "Exportando integrantes a fichero $file"}
         return service.exportToFile(file.path)
