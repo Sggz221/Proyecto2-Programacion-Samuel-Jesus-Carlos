@@ -135,6 +135,10 @@ class NewTeamAdminController () {
     /* Lógica */
     private var isEditButton: Boolean = true
 
+    private var nombreAscending: Boolean = true
+
+    private var salarioAscending: Boolean = true
+
     fun initialize() {
         initEvents()
         initBindings()
@@ -265,6 +269,42 @@ class NewTeamAdminController () {
         deleteAndCancelButton.setOnAction {
             onCheckDeleteState()
         }
+
+        sortByNombre.setOnAction { onSortByNombreAction() }
+
+        sortBySalario.setOnAction { onSortBySalarioAction() }
+    }
+
+    private fun onSortBySalarioAction(){
+        logger.debug { "Ordenando integrantes por salario" }
+
+        val integrantesOrdenados: List<Integrante>
+
+        if (salarioAscending) {
+            integrantesOrdenados = viewModel.state.value.integrantes.sortedBy { it.salario }
+            salarioAscending = false
+        } else {
+            integrantesOrdenados = viewModel.state.value.integrantes.sortedByDescending { it.salario }
+            salarioAscending = true
+        }
+
+        viewModel.sortIntegrantes(integrantesOrdenados)
+    }
+
+    private fun onSortByNombreAction() {
+        logger.debug { "Ordenando integrantes por nombre" }
+
+        val integrantesOrdenados: List<Integrante>
+
+        if (nombreAscending) {
+            integrantesOrdenados = viewModel.state.value.integrantes.sortedBy { it.apellidos }
+            nombreAscending = false
+        } else {
+            integrantesOrdenados = viewModel.state.value.integrantes.sortedByDescending { it.apellidos }
+            nombreAscending = true
+        }
+
+        viewModel.sortIntegrantes(integrantesOrdenados)
     }
 
     private fun onCheckDeleteState() {
