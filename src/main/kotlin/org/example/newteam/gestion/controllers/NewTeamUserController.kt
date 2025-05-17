@@ -152,6 +152,11 @@ class NewTeamUserController () {
     }
 
     private fun initBindings(){
+        //Barra de búqueda
+        searchBar.textProperty().addListener { _, _, newValue ->
+            filterByName(newValue)
+        }
+
         //Reflejar cambios del estado en el detalle
         viewModel.state.addListener { _, _, newValue ->
 
@@ -286,10 +291,20 @@ class NewTeamUserController () {
 
     }
 
+    private fun filterByName (cadena: String){
+        logger.debug { "Filtrando integrantes por nombre" }
+
+        viewModel.quitarFiltros()
+
+        val integrantesFiltradosPorNombre = viewModel.state.value.integrantes.filter { it.nombreCompleto.lowercase().contains(cadena.lowercase()) }
+        viewModel.filterIntegrantes(integrantesFiltradosPorNombre)
+    }
+
     private fun onFilterByNothingAction() {
         logger.debug { "Quitando filtros de jugador y entrenador" }
 
         viewModel.quitarFiltros()
+        alreadyFiltered = false
 
     }
 

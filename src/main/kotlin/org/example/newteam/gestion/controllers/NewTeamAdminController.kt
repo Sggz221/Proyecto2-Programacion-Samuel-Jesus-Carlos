@@ -204,6 +204,10 @@ class NewTeamAdminController () {
             if(newvalue != viewModel.state.value.integrante.dorsal.toString()) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(dorsal = newvalue.toIntOrNull() ?: 0))
         }*/
 
+        //Barra de búqueda
+        searchBar.textProperty().addListener { _, _, newValue ->
+            filterByName(newValue)
+        }
 
         //Reflejar cambios del estado en el detalle
         viewModel.state.addListener { _, _, newValue ->
@@ -305,12 +309,23 @@ class NewTeamAdminController () {
         filterByEntrenadores.setOnAction { onFilterByEntrenadoresAction() }
 
         filterByNothing.setOnAction { onFilterByNothingAction() }
+
+    }
+
+    private fun filterByName (cadena: String){
+        logger.debug { "Filtrando integrantes por nombre" }
+
+        viewModel.quitarFiltros()
+
+        val integrantesFiltradosPorNombre = viewModel.state.value.integrantes.filter { it.nombreCompleto.lowercase().contains(cadena.lowercase()) }
+        viewModel.filterIntegrantes(integrantesFiltradosPorNombre)
     }
 
     private fun onFilterByNothingAction() {
         logger.debug { "Quitando filtros de jugador y entrenador" }
 
         viewModel.quitarFiltros()
+        alreadyFiltered = false
 
     }
 
