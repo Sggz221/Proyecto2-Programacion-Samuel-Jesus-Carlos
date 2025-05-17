@@ -4,6 +4,8 @@ import com.github.michaelbull.result.Result
 import javafx.beans.property.SimpleObjectProperty
 import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
+import org.example.newteam.gestion.models.Entrenador
+import org.example.newteam.gestion.models.Especialidad
 import org.example.newteam.gestion.models.Integrante
 import org.example.newteam.gestion.models.Jugador
 import org.example.newteam.gestion.service.EquipoServiceImpl
@@ -36,7 +38,7 @@ class EquipoViewModel (
         val imagen: String = "",
         val especialidad: String = "",
         val posicion: String = "",
-        val dorsal: Int = 99,
+        val dorsal: Int = 0,
         val altura: Double = 0.0,
         val peso: Double = 0.0,
         val goles: Int = 0,
@@ -76,5 +78,42 @@ class EquipoViewModel (
     fun loadIntegrantesFromFile(file: File) : Result<List<Integrante>, GestionErrors> {
         logger.debug { "Cargando integrantes desde fichero $file"}
         return service.importFromFile(file.path).also { loadAllIntegrantes() }
+    }
+
+    fun updateIntegranteSelected(integrante: Integrante) {
+        if (integrante is Jugador){
+            state.value = state.value.copy(
+                integrante = IntegranteState(
+                    nombre = integrante.nombre,
+                    apellidos = integrante.apellidos,
+                    fecha_nacimiento = integrante.fecha_nacimiento,
+                    fecha_incorporacion = integrante.fecha_incorporacion,
+                    salario = integrante.salario,
+                    pais = integrante.pais,
+                    imagen = integrante.imagen,
+                    posicion = integrante.posicion.toString(),
+                    dorsal = integrante.dorsal,
+                    altura = integrante.altura,
+                    peso = integrante.peso,
+                    goles = integrante.goles,
+                    partidos_jugados = integrante.partidos_jugados,
+                    minutos_jugados = integrante.minutos_jugados
+                )
+            )
+        }
+        else if (integrante is Entrenador){
+            state.value = state.value.copy(
+                integrante = IntegranteState(
+                    nombre = integrante.nombre,
+                    apellidos = integrante.apellidos,
+                    fecha_nacimiento = integrante.fecha_nacimiento,
+                    fecha_incorporacion = integrante.fecha_incorporacion,
+                    salario = integrante.salario,
+                    pais = integrante.pais,
+                    imagen = integrante.imagen,
+                    especialidad = integrante.especialidad.toString()
+                )
+            )
+        }
     }
 }

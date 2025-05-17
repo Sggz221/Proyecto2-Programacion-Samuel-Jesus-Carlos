@@ -16,15 +16,13 @@ import org.example.newteam.gestion.mapper.toEntrenadorModel
 import org.example.newteam.gestion.mapper.toJugadorModel
 import org.example.newteam.gestion.models.Especialidad
 import org.example.newteam.gestion.models.Integrante
-import org.example.newteam.gestion.models.Jugador
 import org.example.newteam.gestion.sesion.Session
 import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import org.example.newteam.routes.RoutesManager
 import org.lighthousegames.logging.logging
-import java.io.File
 import java.time.LocalDate
 
-class NewTeamController () {
+class NewTeamUserController () {
     private val logger = logging()
     private var viewModel: EquipoViewModel = Dependencies.provideViewModel()
 
@@ -39,16 +37,6 @@ class NewTeamController () {
     lateinit var aboutButton: MenuItem
     @FXML
     lateinit var logoutButton: MenuItem
-
-    /* Master */
-    @FXML
-    lateinit var saveEntrenadorButton: Button
-    @FXML
-    lateinit var saveJugadorButton: Button
-    @FXML
-    lateinit var deleteAndCancelButton: Button
-    @FXML
-    lateinit var editAndSaveButton: Button
 
     /* Detalle */
 
@@ -190,15 +178,25 @@ class NewTeamController () {
                 radioPrincipal.isSelected = true
             }
         }
-
+        //Tabla
         viewModel.state.addListener {_, _, newValue ->
             if (listIntegrantes.items != newValue.integrantes) listIntegrantes.items = FXCollections.observableArrayList(newValue.integrantes)
 
         }
+
+        listIntegrantes.selectionModel.selectedItemProperty().addListener { _, _, newValue ->
+            newValue?.let { onTablaSelected(newValue) }
+        }
+
         //Footer
         golesAvg.textProperty().bind(viewModel.state.map { it.goalAvg })
         minutosAvg.textProperty().bind(viewModel.state.map { it.minutesAvg })
         totalPlantilla.textProperty().bind(viewModel.state.map { it.totalCost })
+    }
+
+    private fun onTablaSelected(newValue: Integrante) {
+        logger.debug { " Integrante seleccionado en la tabla: $newValue " }
+        viewModel.updateIntegranteSelected(newValue)
     }
 
     private fun initEvents() {
@@ -216,111 +214,6 @@ class NewTeamController () {
         importButton.setOnAction { onImportarAction() }
 
         exportButton.setOnAction { onExportarAction() }
-
-        saveJugadorButton.setOnAction { onSaveIntegranteAction(true) }
-    }
-
-    private fun onSaveIntegranteAction(esJugador: Boolean) {
-        logger.debug { "Guardando nuevo jugador" }
-        validarJugador()
-
-        val newIntegrante: Integrante
-        if (esJugador) {
-            newIntegrante = viewModel.state.value.integrante.toJugadorModel()
-        } else {
-            newIntegrante = viewModel.state.value.integrante.toEntrenadorModel()
-        }
-
-        viewModel.saveIntegrante(newIntegrante)
-
-    }
-
-    private fun validarJugador (): Result<Unit, GestionErrors.InvalidoError> {
-        logger.debug { "Validando jugador" }
-
-        if (nombreField.text.isBlank()){
-            return Err(GestionErrors.InvalidoError("El nombre no puede estar vacío"))
-        }
-
-        if (apellidosField.text.isBlank()){
-            return Err(GestionErrors.InvalidoError("Los apellidos no pueden estar vacíos"))
-        }
-
-        if (nacimientoDP.value > LocalDate.now()){
-            return Err(GestionErrors.InvalidoError("La fecha de nacimiento no puede ser posterior a la fecha actual"))
-        }
-
-        if (incorporacionDP.value > LocalDate.now()){
-            return Err(GestionErrors.InvalidoError("La fecha de incorporación no puede ser posterior a la fecha actual"))
-        }
-
-        if (incorporacionDP.value < nacimientoDP.value) {
-            return Err(GestionErrors.InvalidoError("La fecha de incorporación no puede ser anterior a la fecha de nacimiento"))
-        }
-
-        if (salarioField.text.toDouble() < 0.0){
-            return Err(GestionErrors.InvalidoError("El salario no puede ser negativo"))
-        }
-
-        if (paisField.text.isBlank()){
-            return Err(GestionErrors.InvalidoError("El país de origen no puede estar en blanco"))
-        }
-
-        if (dorsalField.text.toInt() !in 1..99) {
-            return Err(GestionErrors.InvalidoError("El dorsal no puede ser menor a 1 ni mayor a 99"))
-        }
-
-        if (alturaField.text.toDouble() !in 0.0..3.0){
-            return Err(GestionErrors.InvalidoError("La altura no puede ser negativa ni superar los 3 metros"))
-        }
-
-        if (pesoField.text.toDouble() < 0.0) {
-            return Err(GestionErrors.InvalidoError("El peso no puede ser negativo"))
-        }
-
-        if (golesField.text.toInt() < 0) {
-            return Err(GestionErrors.InvalidoError("El número de goles no puede ser negativo"))
-        }
-
-        if (partidosField.text.toInt() < 0){
-            return Err(GestionErrors.InvalidoError("El número de partidos jugados no puede ser negativo"))
-        }
-
-        return Ok(Unit)
-    }
-
-    private fun validarEntrenador (): Result<Unit, GestionErrors.InvalidoError> {
-        logger.debug { "Validando entrenador" }
-        if (nombreField.text.isBlank()){
-            return Err(GestionErrors.InvalidoError("El nombre no puede estar vacío"))
-        }
-
-        if (apellidosField.text.isBlank()){
-            return Err(GestionErrors.InvalidoError("Los apellidos no pueden estar vacíos"))
-        }
-
-        if (nacimientoDP.value > LocalDate.now()){
-            return Err(GestionErrors.InvalidoError("La fecha de nacimiento no puede ser posterior a la fecha actual"))
-        }
-
-        if (incorporacionDP.value > LocalDate.now()){
-            return Err(GestionErrors.InvalidoError("La fecha de incorporación no puede ser posterior a la fecha actual"))
-        }
-
-        if (incorporacionDP.value < nacimientoDP.value) {
-            return Err(GestionErrors.InvalidoError("La fecha de incorporación no puede ser anterior a la fecha de nacimiento"))
-        }
-
-        if (salarioField.text.toDouble() < 0.0){
-            return Err(GestionErrors.InvalidoError("El salario no puede ser negativo"))
-        }
-
-        if (paisField.text.isBlank()){
-            return Err(GestionErrors.InvalidoError("El país de origen no puede estar en blanco"))
-        }
-
-        return Ok(Unit)
-
     }
 
     private fun onExportarAction(){

@@ -56,7 +56,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="970.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.newteam.gestion.controllers.NewTeamController">
+<VBox prefHeight="600.0" prefWidth="970.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.newteam.gestion.controllers.NewTeamUserController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
