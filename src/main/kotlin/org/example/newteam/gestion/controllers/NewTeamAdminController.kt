@@ -273,6 +273,17 @@ class NewTeamAdminController () {
         sortByNombre.setOnAction { onSortByNombreAction() }
 
         sortBySalario.setOnAction { onSortBySalarioAction() }
+
+        sortByNothing.setOnAction { onSortByNothingAction() }
+    }
+
+    private fun onSortByNothingAction() {
+        logger.debug { "Quitando filtros de ordenación" }
+
+        val integrantesSinOrden: List<Integrante> = viewModel.state.value.integrantes.shuffled()
+
+        viewModel.sortIntegrantes(integrantesSinOrden)
+
     }
 
     private fun onSortBySalarioAction(){
