@@ -14,8 +14,10 @@ import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.mapper.toEntrenadorModel
 import org.example.newteam.gestion.mapper.toJugadorModel
+import org.example.newteam.gestion.models.Entrenador
 import org.example.newteam.gestion.models.Especialidad
 import org.example.newteam.gestion.models.Integrante
+import org.example.newteam.gestion.models.Jugador
 import org.example.newteam.gestion.sesion.Session
 import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import org.example.newteam.routes.RoutesManager
@@ -139,6 +141,8 @@ class NewTeamAdminController () {
 
     private var salarioAscending: Boolean = true
 
+    private var alreadyFiltered: Boolean = false
+
     fun initialize() {
         initEvents()
         initBindings()
@@ -149,7 +153,7 @@ class NewTeamAdminController () {
         disableAll()
         
         //Tabla
-        listIntegrantes.items = FXCollections.observableArrayList(viewModel.state.value.integrantes)
+        listIntegrantes.items = viewModel.state.value.integrantes
         //Columnas, ya se bindean solas en base al contenido de la tabla
         colNombre.cellValueFactory =PropertyValueFactory("nombreCompleto")
         colSalario.cellValueFactory =PropertyValueFactory("salario")
@@ -159,8 +163,9 @@ class NewTeamAdminController () {
 
     private fun initBindings(){
         //Comunes
-        // Con Binding no deja escribir!!
-        paisField.textProperty().addListener{_,_,newvalue ->
+        // De interfaz a ViewModel
+
+        /*paisField.textProperty().addListener{_,_,newvalue ->
             if(newvalue != viewModel.state.value.integrante.pais) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(pais = newvalue))
         }
         salarioField.textProperty().addListener{_,_,newvalue ->
@@ -197,35 +202,54 @@ class NewTeamAdminController () {
         }
         dorsalField.textProperty().addListener{_,_,newvalue ->
             if(newvalue != viewModel.state.value.integrante.dorsal.toString()) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(dorsal = newvalue.toIntOrNull() ?: 0))
-        }
+        }*/
 
-        viewModel.state.addListener{_,_, newValue ->
+
+        //Reflejar cambios del estado en el detalle
+        viewModel.state.addListener { _, _, newValue ->
+
+            //Comunes
+            if (newValue.integrante.nombre != nombreField.text) nombreField.text = newValue.integrante.nombre
+            if (newValue.integrante.apellidos != apellidosField.text) apellidosField.text = newValue.integrante.apellidos
+            if (newValue.integrante.pais != paisField.text) paisField.text = newValue.integrante.pais
+            if (newValue.integrante.salario.toString() != salarioField.text) salarioField.text = newValue.integrante.salario.toString()
+            if (newValue.integrante.fecha_incorporacion != incorporacionDP.value) incorporacionDP.value = newValue.integrante.fecha_incorporacion
+            if (newValue.integrante.fecha_nacimiento != nacimientoDP.value) nacimientoDP.value = newValue.integrante.fecha_nacimiento
+
+            //Jugador
+            if (newValue.integrante.minutos_jugados.toString() != minutosField.text) minutosField.text = newValue.integrante.minutos_jugados.toString()
+            if (newValue.integrante.partidos_jugados.toString() != partidosField.text) partidosField.text = newValue.integrante.partidos_jugados.toString()
+            if (newValue.integrante.goles.toString() != golesField.text) golesField.text = newValue.integrante.goles.toString()
+            if (newValue.integrante.peso.toString() != pesoField.text) pesoField.text = newValue.integrante.peso.toString()
+            if (newValue.integrante.altura.toString() != alturaField.text) alturaField.text = newValue.integrante.altura.toString()
+            if (newValue.integrante.dorsal.toString() != dorsalField.text) dorsalField.text = newValue.integrante.dorsal.toString()
             if (newValue.integrante.posicion == "CENTROCAMPISTA") {
                 radioCentro.isSelected = true
+                desmarcarEspecialidadesEntrenador()
             } else if (newValue.integrante.posicion == "DELANTERO") {
                 radioDelantero.isSelected = true
+                desmarcarEspecialidadesEntrenador()
             } else if (newValue.integrante.posicion == "DEFENSA") {
                 radioDefensa.isSelected = true
+                desmarcarEspecialidadesEntrenador()
             } else if (newValue.integrante.posicion == "PORTERO") {
                 radioPortero.isSelected = true
+                desmarcarEspecialidadesEntrenador()
             }
-        }
 
-        //Entrenador
-        viewModel.state.addListener{_,_, newValue ->
+            //Entrenador
             if (newValue.integrante.especialidad == "ENTRENADOR_ASISTENTE") {
                 radioAsistente.isSelected = true
+                desmarcarPosicionesJugador()
             } else if (newValue.integrante.especialidad == "ENTRENADOR_PORTEROS") {
                 radioPorteros.isSelected = true
+                desmarcarPosicionesJugador()
             } else if (newValue.integrante.especialidad == "ENTRENADOR_PRINCIPAL") {
                 radioPrincipal.isSelected = true
+                desmarcarPosicionesJugador()
             }
         }
-        //Tabla
-        viewModel.state.addListener {_, _, newValue ->
-            if (listIntegrantes.items != newValue.integrantes) listIntegrantes.items = FXCollections.observableArrayList(newValue.integrantes)
 
-        }
 
         listIntegrantes.selectionModel.selectedItemProperty().addListener { _, _, newValue ->
             newValue?.let { onTablaSelected(newValue) }
@@ -275,6 +299,39 @@ class NewTeamAdminController () {
         sortBySalario.setOnAction { onSortBySalarioAction() }
 
         sortByNothing.setOnAction { onSortByNothingAction() }
+
+        filterByJugadores.setOnAction { onFilterByJugadoresAction() }
+
+        filterByEntrenadores.setOnAction { onFilterByEntrenadoresAction() }
+
+        filterByNothing.setOnAction { onFilterByNothingAction() }
+    }
+
+    private fun onFilterByNothingAction() {
+        logger.debug { "Quitando filtros de jugador y entrenador" }
+
+        viewModel.quitarFiltros()
+
+    }
+
+    private fun onFilterByEntrenadoresAction() {
+        logger.debug { "Filtrando los jugadores" }
+
+        if (alreadyFiltered) viewModel.loadAllIntegrantes()
+
+        val entrenadoresFiltrados: List<Integrante> = viewModel.state.value.integrantes.filterIsInstance<Entrenador>()
+        viewModel.filterIntegrantes(entrenadoresFiltrados)
+        alreadyFiltered = true
+    }
+
+    private fun onFilterByJugadoresAction() {
+        logger.debug { "Filtrando los jugadores" }
+
+        if (alreadyFiltered) viewModel.loadAllIntegrantes()
+
+        val jugadoresFiltrados: List<Integrante> = viewModel.state.value.integrantes.filterIsInstance<Jugador>()
+        viewModel.filterIntegrantes(jugadoresFiltrados)
+        alreadyFiltered = true
     }
 
     private fun onSortByNothingAction() {
@@ -420,6 +477,19 @@ class NewTeamAdminController () {
         alturaField.isDisable = false
         dorsalField.isDisable = false
         posicion.toggles.forEach { (it as RadioButton).isDisable = false }
+    }
+
+    private fun desmarcarEspecialidadesEntrenador() {
+        radioAsistente.isSelected = false
+        radioPorteros.isSelected = false
+        radioPrincipal.isSelected = false
+    }
+
+    private fun desmarcarPosicionesJugador() {
+        radioCentro.isSelected = false
+        radioDelantero.isSelected = false
+        radioDefensa.isSelected = false
+        radioPortero.isSelected = false
     }
 
     private fun enableEntrenador(){
