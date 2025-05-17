@@ -2,6 +2,8 @@ package org.example.newteam.gestion.viewmodels
 
 import com.github.michaelbull.result.Result
 import javafx.beans.property.SimpleObjectProperty
+import javafx.collections.FXCollections
+import javafx.collections.ObservableList
 import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.extensions.redondearA2Decimales
@@ -19,10 +21,12 @@ class EquipoViewModel (
 ) {
     private val logger = logging()
 
+    private var allIntegrantes: List<Integrante> = emptyList()
+
     val state: SimpleObjectProperty<GeneralState> = SimpleObjectProperty(GeneralState())
 
     data class GeneralState(
-        var integrantes: List<Integrante> = emptyList(), //lista de todos los integrantes
+        var integrantes: ObservableList<Integrante> = FXCollections.observableArrayList(), //lista de todos los integrantes
         val integrante: IntegranteState = IntegranteState(), //el integrante seleccionado
         val goalAvg: String = "0.0", //goles promedio
         val minutesAvg: String = "0.0", //minutos jugados promedio
@@ -52,10 +56,10 @@ class EquipoViewModel (
         updateState()
     }
 
-    private fun loadAllIntegrantes() {
+    fun loadAllIntegrantes() {
         logger.debug { "Cargando los integrantes en el estado" }
         val newIntegrantes = service.getAll()
-        state.value.integrantes = newIntegrantes
+        state.value.integrantes.setAll(newIntegrantes)
         updateState()
     }
     private fun updateState() {
@@ -66,15 +70,30 @@ class EquipoViewModel (
         state.value = state.value.copy(
             goalAvg = goalAvg,
             minutesAvg = minutesAvg,
-            totalCost = totalCost,
-            integrante = IntegranteState()
+            totalCost = totalCost
         )
     }
 
     fun sortIntegrantes(integrantesOrdenados: List<Integrante>) {
         logger.debug { "Ordenando la lista de integrantes" }
 
-        state.value = state.value.copy(integrantes = integrantesOrdenados)
+        state.value.integrantes.setAll(integrantesOrdenados)
+    }
+
+    fun filterIntegrantes(integrantesFiltrados: List<Integrante>) {
+        logger.debug { "Filtrando la lista de integrantes" }
+
+        state.value.integrantes.setAll(integrantesFiltrados)
+        updateState()
+
+    }
+
+    fun quitarFiltros() {
+        logger.debug { "Quitando filtros" }
+
+        allIntegrantes = service.getAll()
+        filterIntegrantes(allIntegrantes)
+        updateState()
     }
 
     fun exportIntegrantestoFile(file: File) : Result<Unit, GestionErrors> {

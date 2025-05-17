@@ -14,8 +14,10 @@ import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.mapper.toEntrenadorModel
 import org.example.newteam.gestion.mapper.toJugadorModel
+import org.example.newteam.gestion.models.Entrenador
 import org.example.newteam.gestion.models.Especialidad
 import org.example.newteam.gestion.models.Integrante
+import org.example.newteam.gestion.models.Jugador
 import org.example.newteam.gestion.sesion.Session
 import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import org.example.newteam.routes.RoutesManager
@@ -123,9 +125,12 @@ class NewTeamUserController () {
     lateinit var golesAvg: Label
 
     /* Lógica */
+
     private var nombreAscending: Boolean = true
 
     private var salarioAscending: Boolean = true
+
+    private var alreadyFiltered: Boolean = false
 
 
     fun initialize() {
@@ -135,60 +140,68 @@ class NewTeamUserController () {
     }
 
     private fun initDefaultValues() {
+        disableAll()
+
         //Tabla
-        listIntegrantes.items = FXCollections.observableArrayList(viewModel.state.value.integrantes)
+        listIntegrantes.items = viewModel.state.value.integrantes
         //Columnas, ya se bindean solas en base al contenido de la tabla
         colNombre.cellValueFactory =PropertyValueFactory("nombreCompleto")
         colSalario.cellValueFactory =PropertyValueFactory("salario")
         colRol.cellValueFactory = PropertyValueFactory("rol")
         colEspecialidad.cellValueFactory = PropertyValueFactory("miEspecialidad")
-        disableAll()
     }
 
     private fun initBindings(){
-        //Comunes
-        paisField.textProperty().bind(viewModel.state.map { it.integrante.pais })
-        salarioField.textProperty().bind(viewModel.state.map { it.integrante.salario.toString() })
-        incorporacionDP.valueProperty().bind(viewModel.state.map { it.integrante.fecha_incorporacion })
-        nacimientoDP.valueProperty().bind(viewModel.state.map { it.integrante.fecha_nacimiento })
-        apellidosField.textProperty().bind(viewModel.state.map { it.integrante.apellidos })
-        nombreField.textProperty().bind(viewModel.state.map { it.integrante.nombre })
+        //Barra de búqueda
+        searchBar.textProperty().addListener { _, _, newValue ->
+            filterByName(newValue)
+        }
 
-        //Jugador
-        minutosField.textProperty().bind(viewModel.state.map { it.integrante.minutos_jugados.toString() })
-        partidosField.textProperty().bind(viewModel.state.map { it.integrante.partidos_jugados.toString() })
-        golesField.textProperty().bind(viewModel.state.map { it.integrante.goles.toString() })
-        pesoField.textProperty().bind(viewModel.state.map { it.integrante.peso.toString() })
-        alturaField.textProperty().bind(viewModel.state.map { it.integrante.altura.toString() })
-        dorsalField.textProperty().bind(viewModel.state.map { it.integrante.dorsal.toString() })
+        //Reflejar cambios del estado en el detalle
+        viewModel.state.addListener { _, _, newValue ->
 
-        viewModel.state.addListener{_,_, newValue ->
+            //Comunes
+            if (newValue.integrante.nombre != nombreField.text) nombreField.text = newValue.integrante.nombre
+            if (newValue.integrante.apellidos != apellidosField.text) apellidosField.text = newValue.integrante.apellidos
+            if (newValue.integrante.pais != paisField.text) paisField.text = newValue.integrante.pais
+            if (newValue.integrante.salario.toString() != salarioField.text) salarioField.text = newValue.integrante.salario.toString()
+            if (newValue.integrante.fecha_incorporacion != incorporacionDP.value) incorporacionDP.value = newValue.integrante.fecha_incorporacion
+            if (newValue.integrante.fecha_nacimiento != nacimientoDP.value) nacimientoDP.value = newValue.integrante.fecha_nacimiento
+
+            //Jugador
+            if (newValue.integrante.minutos_jugados.toString() != minutosField.text) minutosField.text = newValue.integrante.minutos_jugados.toString()
+            if (newValue.integrante.partidos_jugados.toString() != partidosField.text) partidosField.text = newValue.integrante.partidos_jugados.toString()
+            if (newValue.integrante.goles.toString() != golesField.text) golesField.text = newValue.integrante.goles.toString()
+            if (newValue.integrante.peso.toString() != pesoField.text) pesoField.text = newValue.integrante.peso.toString()
+            if (newValue.integrante.altura.toString() != alturaField.text) alturaField.text = newValue.integrante.altura.toString()
+            if (newValue.integrante.dorsal.toString() != dorsalField.text) dorsalField.text = newValue.integrante.dorsal.toString()
             if (newValue.integrante.posicion == "CENTROCAMPISTA") {
                 radioCentro.isSelected = true
+                desmarcarEspecialidadesEntrenador()
             } else if (newValue.integrante.posicion == "DELANTERO") {
                 radioDelantero.isSelected = true
+                desmarcarEspecialidadesEntrenador()
             } else if (newValue.integrante.posicion == "DEFENSA") {
                 radioDefensa.isSelected = true
+                desmarcarEspecialidadesEntrenador()
             } else if (newValue.integrante.posicion == "PORTERO") {
                 radioPortero.isSelected = true
+                desmarcarEspecialidadesEntrenador()
             }
-        }
 
-        //Entrenador
-        viewModel.state.addListener{_,_, newValue ->
+            //Entrenador
             if (newValue.integrante.especialidad == "ENTRENADOR_ASISTENTE") {
                 radioAsistente.isSelected = true
+                desmarcarPosicionesJugador()
             } else if (newValue.integrante.especialidad == "ENTRENADOR_PORTEROS") {
                 radioPorteros.isSelected = true
+                desmarcarPosicionesJugador()
             } else if (newValue.integrante.especialidad == "ENTRENADOR_PRINCIPAL") {
                 radioPrincipal.isSelected = true
+                desmarcarPosicionesJugador()
             }
         }
-        //Tabla
-        viewModel.state.addListener {_, _, newValue ->
-            if (listIntegrantes.items != newValue.integrantes) listIntegrantes.items = FXCollections.observableArrayList(newValue.integrantes)
 
-        }
 
         listIntegrantes.selectionModel.selectedItemProperty().addListener { _, _, newValue ->
             newValue?.let { onTablaSelected(newValue) }
@@ -199,6 +212,7 @@ class NewTeamUserController () {
         minutosAvg.textProperty().bind(viewModel.state.map { it.minutesAvg })
         totalPlantilla.textProperty().bind(viewModel.state.map { it.totalCost })
     }
+
 
     private fun disableAll() {
         disableComunes()
@@ -229,6 +243,19 @@ class NewTeamUserController () {
         especialidad.toggles.forEach { (it as RadioButton).isDisable = true }
     }
 
+    private fun desmarcarEspecialidadesEntrenador() {
+        radioAsistente.isSelected = false
+        radioPorteros.isSelected = false
+        radioPrincipal.isSelected = false
+    }
+
+    private fun desmarcarPosicionesJugador() {
+        radioCentro.isSelected = false
+        radioDelantero.isSelected = false
+        radioDefensa.isSelected = false
+        radioPortero.isSelected = false
+    }
+
     private fun onTablaSelected(newValue: Integrante) {
         logger.debug { " Integrante seleccionado en la tabla: $newValue " }
         viewModel.updateIntegranteSelected(newValue)
@@ -256,6 +283,49 @@ class NewTeamUserController () {
 
         sortByNothing.setOnAction { onSortByNothingAction() }
 
+        filterByJugadores.setOnAction { onFilterByJugadoresAction() }
+
+        filterByEntrenadores.setOnAction { onFilterByEntrenadoresAction() }
+
+        filterByNothing.setOnAction { onFilterByNothingAction() }
+
+    }
+
+    private fun filterByName (cadena: String){
+        logger.debug { "Filtrando integrantes por nombre" }
+
+        viewModel.quitarFiltros()
+
+        val integrantesFiltradosPorNombre = viewModel.state.value.integrantes.filter { it.nombreCompleto.lowercase().contains(cadena.lowercase()) }
+        viewModel.filterIntegrantes(integrantesFiltradosPorNombre)
+    }
+
+    private fun onFilterByNothingAction() {
+        logger.debug { "Quitando filtros de jugador y entrenador" }
+
+        viewModel.quitarFiltros()
+        alreadyFiltered = false
+
+    }
+
+    private fun onFilterByEntrenadoresAction() {
+        logger.debug { "Filtrando los jugadores" }
+
+        if (alreadyFiltered) viewModel.loadAllIntegrantes()
+
+        val entrenadoresFiltrados: List<Integrante> = viewModel.state.value.integrantes.filterIsInstance<Entrenador>()
+        viewModel.filterIntegrantes(entrenadoresFiltrados)
+        alreadyFiltered = true
+    }
+
+    private fun onFilterByJugadoresAction() {
+        logger.debug { "Filtrando los jugadores" }
+
+        if (alreadyFiltered) viewModel.loadAllIntegrantes()
+
+        val jugadoresFiltrados: List<Integrante> = viewModel.state.value.integrantes.filterIsInstance<Jugador>()
+        viewModel.filterIntegrantes(jugadoresFiltrados)
+        alreadyFiltered = true
     }
 
     private fun onSortByNothingAction() {
