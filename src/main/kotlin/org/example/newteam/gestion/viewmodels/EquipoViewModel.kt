@@ -72,7 +72,7 @@ class EquipoViewModel (
     }
 
     fun sortIntegrantes(integrantesOrdenados: List<Integrante>) {
-        logger.debug { "Ordenando lista de integrantes" }
+        logger.debug { "Ordenando la lista de integrantes" }
 
         state.value = state.value.copy(integrantes = integrantesOrdenados)
     }
