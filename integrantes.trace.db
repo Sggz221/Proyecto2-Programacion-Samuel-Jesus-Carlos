@@ -1414,3 +1414,9 @@ CREATE TABLE IF NOT EXISTS usuarios (
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "USUARIOS" no encontrada
 Table "USUARIOS" not found; SQL statement:
 INSERT INTO usuarios (username, password) VALUES ('admin', 'P@ssw0rd'), ('usuario', '1234') [42102-224]
+2025-05-17 13:23:42.183190+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIOS" not found (this database is empty); SQL statement:
+INSERT INTO usuarios (username, password) VALUES (?, ?) [42104-224]
+2025-05-17 13:24:42.708903+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIOS" not found (this database is empty); SQL statement:
+SELECT password FROM usuarios WHERE username = ? [42104-224]

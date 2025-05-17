@@ -133,6 +133,8 @@ class NewTeamAdminController () {
     lateinit var golesAvg: Label
 
     /* Lógica */
+    private var isEditButton: Boolean = true
+
     fun initialize() {
         initEvents()
         initBindings()
@@ -140,6 +142,8 @@ class NewTeamAdminController () {
     }
 
     private fun initDefaultValues() {
+        disableAll()
+        
         //Tabla
         listIntegrantes.items = FXCollections.observableArrayList(viewModel.state.value.integrantes)
         //Columnas, ya se bindean solas en base al contenido de la tabla
@@ -151,20 +155,45 @@ class NewTeamAdminController () {
 
     private fun initBindings(){
         //Comunes
-        paisField.textProperty().bind(viewModel.state.map { it.integrante.pais })
-        salarioField.textProperty().bind(viewModel.state.map { it.integrante.salario.toString() })
-        incorporacionDP.valueProperty().bind(viewModel.state.map { it.integrante.fecha_incorporacion })
-        nacimientoDP.valueProperty().bind(viewModel.state.map { it.integrante.fecha_nacimiento })
-        apellidosField.textProperty().bind(viewModel.state.map { it.integrante.apellidos })
-        nombreField.textProperty().bind(viewModel.state.map { it.integrante.nombre })
+        // Con Binding no deja escribir!!
+        paisField.textProperty().addListener{_,_,newvalue ->
+            if(newvalue != viewModel.state.value.integrante.pais) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(pais = newvalue))
+        }
+        salarioField.textProperty().addListener{_,_,newvalue ->
+            if(newvalue != viewModel.state.value.integrante.salario.toString()) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(salario = newvalue.toDoubleOrNull() ?: 0.0))
+        }
+        incorporacionDP.valueProperty().addListener{_,_,newvalue ->
+            if(newvalue != viewModel.state.value.integrante.fecha_incorporacion) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(fecha_incorporacion = newvalue))
+        }
+        nacimientoDP.valueProperty().addListener{_,_,newvalue ->
+            if(newvalue != viewModel.state.value.integrante.fecha_nacimiento) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(fecha_nacimiento = newvalue))
+        }
+        apellidosField.textProperty().addListener{_,_,newvalue ->
+            if(newvalue != viewModel.state.value.integrante.apellidos) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(apellidos = newvalue))
+        }
+        nombreField.textProperty().addListener{_,_,newvalue ->
+            if(newvalue != viewModel.state.value.integrante.nombre) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(nombre = newvalue))
+        }
 
         //Jugador
-        minutosField.textProperty().bind(viewModel.state.map { it.integrante.minutos_jugados.toString() })
-        partidosField.textProperty().bind(viewModel.state.map { it.integrante.partidos_jugados.toString() })
-        golesField.textProperty().bind(viewModel.state.map { it.integrante.goles.toString() })
-        pesoField.textProperty().bind(viewModel.state.map { it.integrante.peso.toString() })
-        alturaField.textProperty().bind(viewModel.state.map { it.integrante.altura.toString() })
-        dorsalField.textProperty().bind(viewModel.state.map { it.integrante.dorsal.toString() })
+        minutosField.textProperty().addListener{_,_,newvalue ->
+            if(newvalue != viewModel.state.value.integrante.minutos_jugados.toString()) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(minutos_jugados = newvalue.toIntOrNull() ?: 0))
+        }
+        partidosField.textProperty().addListener{_,_,newvalue ->
+            if(newvalue != viewModel.state.value.integrante.partidos_jugados.toString()) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(partidos_jugados = newvalue.toIntOrNull() ?: 0))
+        }
+        golesField.textProperty().addListener{_,_,newvalue ->
+            if(newvalue != viewModel.state.value.integrante.goles.toString()) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(goles = newvalue.toIntOrNull() ?: 0))
+        }
+        minutosField.textProperty().addListener{_,_,newvalue ->
+            if(newvalue != viewModel.state.value.integrante.minutos_jugados.toString()) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(minutos_jugados = newvalue.toIntOrNull() ?: 0))
+        }
+        alturaField.textProperty().addListener{_,_,newvalue ->
+            if(newvalue != viewModel.state.value.integrante.altura.toString()) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(altura = newvalue.toDoubleOrNull() ?: 0.0))
+        }
+        dorsalField.textProperty().addListener{_,_,newvalue ->
+            if(newvalue != viewModel.state.value.integrante.dorsal.toString()) viewModel.state.value = viewModel.state.value.copy(integrante = EquipoViewModel.IntegranteState(dorsal = newvalue.toIntOrNull() ?: 0))
+        }
 
         viewModel.state.addListener{_,_, newValue ->
             if (newValue.integrante.posicion == "CENTROCAMPISTA") {
@@ -206,6 +235,7 @@ class NewTeamAdminController () {
 
     private fun onTablaSelected(newValue: Integrante) {
         logger.debug { " Integrante seleccionado en la tabla: $newValue " }
+        disableAll()
         viewModel.updateIntegranteSelected(newValue)
     }
 
@@ -225,7 +255,139 @@ class NewTeamAdminController () {
 
         exportButton.setOnAction { onExportarAction() }
 
-        saveJugadorButton.setOnAction { onSaveIntegranteAction(true) }
+        saveJugadorButton.setOnAction { onCreateJugadorAction() }
+
+        saveEntrenadorButton.setOnAction { onCreateEntrenadorAction() }
+
+        editAndSaveButton.setOnAction {
+            onCheckEditState()
+        }
+        deleteAndCancelButton.setOnAction {
+            onCheckDeleteState()
+        }
+    }
+
+    private fun onCheckDeleteState() {
+        if (isEditButton) editFunction()
+        else cancelFunction()
+    }
+
+    private fun onCheckEditState() {
+        if (isEditButton) editFunction()
+        else saveFunction(viewModel.state.value.integrante.especialidad == "") // Si no tiene especialidad, es Jugador
+    }
+
+    private fun cancelFunction() {
+        styleToEditButton()
+        styleToDeleteButton()
+        isEditButton = true
+    }
+
+    private fun saveFunction(esJugador: Boolean) {
+        styleToEditButton()
+        styleToDeleteButton()
+        onSaveIntegranteAction(esJugador)
+        isEditButton = true
+    }
+
+    private fun editFunction(){
+        styleToSaveButton()
+        styleToCancelButton()
+        if(viewModel.state.value.integrante.especialidad == "") enableJugador()
+        else enableEntrenador()
+        isEditButton = false
+    }
+
+    /**
+     * Cambia el estilo del boton a el de un boton de editar
+     */
+    private fun styleToEditButton() {
+        editAndSaveButton.style = "-fx-background-color: #be9407"
+        editAndSaveButton.text = "Editar"
+        // CAMBIAR FOTO
+    }
+    private fun styleToSaveButton() {
+        editAndSaveButton.style = "-fx-background-color: #33b3ff"
+        editAndSaveButton.text = "Guardar"
+        // CAMBIAR FOTO
+    }
+    private fun styleToDeleteButton() {
+        deleteAndCancelButton.style = "-fx-background-color: #FF2C2C"
+        deleteAndCancelButton.text = "Eliminar"
+        // CAMBIAR FOTO
+    }
+    private fun styleToCancelButton() {
+        deleteAndCancelButton.style = "-fx-background-color: #e59111"
+        deleteAndCancelButton.text = "Cancelar"
+        // CAMBIAR FOTO
+    }
+
+    private fun disableAll() {
+        disableComunes()
+        disableJugador()
+        disableEntrenador()
+    }
+
+    private fun disableComunes(){
+        paisField.isDisable = true
+        salarioField.isDisable = true
+        incorporacionDP.isDisable = true
+        nacimientoDP.isDisable = true
+        apellidosField.isDisable = true
+        nombreField.isDisable = true
+    }
+
+    private fun disableJugador(){
+        minutosField.isDisable = true
+        partidosField.isDisable = true
+        golesField.isDisable = true
+        pesoField.isDisable = true
+        alturaField.isDisable = true
+        dorsalField.isDisable = true
+        posicion.toggles.forEach { (it as RadioButton).isDisable = true }
+    }
+
+    private fun disableEntrenador(){
+        especialidad.toggles.forEach { (it as RadioButton).isDisable = true }
+    }
+
+    private fun enableComunes(){
+        paisField.isDisable = false
+        salarioField.isDisable = false
+        incorporacionDP.isDisable = false
+        nacimientoDP.isDisable = false
+        apellidosField.isDisable = false
+        nombreField.isDisable = false
+    }
+
+    private fun enableJugador(){
+        enableComunes()
+        minutosField.isDisable = false
+        partidosField.isDisable = false
+        golesField.isDisable = false // P@ssw0rd
+        pesoField.isDisable = false
+        alturaField.isDisable = false
+        dorsalField.isDisable = false
+        posicion.toggles.forEach { (it as RadioButton).isDisable = false }
+    }
+
+    private fun enableEntrenador(){
+        enableComunes()
+        especialidad.toggles.forEach { (it as RadioButton).isDisable = false }
+    }
+    private fun onCreateEntrenadorAction(){
+        logger.debug { "Creando Jugador" }
+        enableEntrenador()
+        disableJugador()
+        val emptyJugador = EquipoViewModel.IntegranteState()
+        viewModel.createEmptyIntegrante(emptyJugador)
+    }
+    private fun onCreateJugadorAction() {
+        logger.debug { "Creando Jugador" }
+        enableJugador()
+        disableEntrenador()
+        val emptyJugador = EquipoViewModel.IntegranteState()
+        viewModel.createEmptyIntegrante(emptyJugador)
     }
 
     private fun onSaveIntegranteAction(esJugador: Boolean) {

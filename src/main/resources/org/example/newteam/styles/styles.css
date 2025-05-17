@@ -50,29 +50,23 @@
     -fx-padding: 5 15;
 }
 #addButton {
-    -fx-background-color: #3C9D2A;
-    -fx-border-width: 3px;
-    -fx-border-color: #6db960;
+    -fx-background-color: #11b642;
 }
 #editButton {
-    -fx-background-color: #c9900a;
-    -fx-border-width: 3px;
-    -fx-border-color: #dcb663;
+    -fx-background-color: #d2a005;
 }
 #deleteButton {
-    -fx-background-color: #b72222;
-    -fx-border-width: 3px;
-    -fx-border-color: #dc6363;
+    -fx-background-color: #FF2C2C;
 }
 
 #addButton:hover {
-    -fx-background-color: #50ab3e;
+    -fx-background-color: #0f9b3a;
 }
 #editButton:hover {
-    -fx-background-color: #cc9f2e;
+    -fx-background-color: #856703;
 }
 #deleteButton:hover {
-    -fx-background-color: #bb3838;
+    -fx-background-color: #8c0505;
 }
 .button:hover {
     -fx-background-color: #2980b9;

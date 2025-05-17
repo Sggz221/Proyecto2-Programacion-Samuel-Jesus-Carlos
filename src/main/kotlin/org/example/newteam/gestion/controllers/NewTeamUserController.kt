@@ -137,6 +137,7 @@ class NewTeamUserController () {
         colSalario.cellValueFactory =PropertyValueFactory("salario")
         colRol.cellValueFactory = PropertyValueFactory("rol")
         colEspecialidad.cellValueFactory = PropertyValueFactory("miEspecialidad")
+        disableAll()
     }
 
     private fun initBindings(){
@@ -192,6 +193,35 @@ class NewTeamUserController () {
         golesAvg.textProperty().bind(viewModel.state.map { it.goalAvg })
         minutosAvg.textProperty().bind(viewModel.state.map { it.minutesAvg })
         totalPlantilla.textProperty().bind(viewModel.state.map { it.totalCost })
+    }
+
+    private fun disableAll() {
+        disableComunes()
+        disableJugador()
+        disableEntrenador()
+    }
+
+    private fun disableComunes(){
+        paisField.isDisable = true
+        salarioField.isDisable = true
+        incorporacionDP.isDisable = true
+        nacimientoDP.isDisable = true
+        apellidosField.isDisable = true
+        nombreField.isDisable = true
+    }
+
+    private fun disableJugador(){
+        minutosField.isDisable = true
+        partidosField.isDisable = true
+        golesField.isDisable = true
+        pesoField.isDisable = true
+        alturaField.isDisable = true
+        dorsalField.isDisable = true
+        posicion.toggles.forEach { (it as RadioButton).isDisable = true }
+    }
+
+    private fun disableEntrenador(){
+        especialidad.toggles.forEach { (it as RadioButton).isDisable = true }
     }
 
     private fun onTablaSelected(newValue: Integrante) {

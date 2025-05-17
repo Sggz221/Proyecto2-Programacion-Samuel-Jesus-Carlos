@@ -80,6 +80,10 @@ class EquipoViewModel (
         return service.importFromFile(file.path).also { loadAllIntegrantes() }
     }
 
+    fun createEmptyIntegrante(emptyIntegrante: IntegranteState) {
+        state.value = state.value.copy(integrante = emptyIntegrante)
+    }
+
     fun updateIntegranteSelected(integrante: Integrante) {
         if (integrante is Jugador){
             state.value = state.value.copy(
