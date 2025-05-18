@@ -1420,3 +1420,7 @@ INSERT INTO usuarios (username, password) VALUES (?, ?) [42104-224]
 2025-05-17 13:24:42.708903+02:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIOS" not found (this database is empty); SQL statement:
 SELECT password FROM usuarios WHERE username = ? [42104-224]
+2025-05-18 22:30:50.807038+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGEN CHARACTER VARYING(100)": "'file:/C:/Users/carlo/Desktop/proyecto2/Proyecto2-Programacion-Samuel-Jesus-Carl... (108)"
+Value too long for column "IMAGEN CHARACTER VARYING(100)": "'file:/C:/Users/carlo/Desktop/proyecto2/Proyecto2-Programacion-Samuel-Jesus-Carl... (108)"; SQL statement:
+INSERT INTO integrantes (nombre, apellidos, fecha_nacimiento, fecha_incorporacion, salario, pais, rol, especialidad, posicion, dorsal, altura, peso, goles, partidos_jugados, minutos_jugados, createdAt, updatedAt, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-224]

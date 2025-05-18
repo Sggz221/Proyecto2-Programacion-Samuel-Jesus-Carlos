@@ -43,18 +43,24 @@ object Configuration {
             directorioBackupProperties = "backup"
         }
 
+        var directorioImagenesProperties: String? = propiedades.getProperty("images.directory")
+        if (directorioBackupProperties.isNullOrEmpty()) {
+            directorioBackupProperties = "images"
+        }
+
 
         val directorioData = Path.of(directorioActual, directorioDataProperties).pathString
         val directorioBackup = Path.of(directorioActual, directorioBackupProperties).pathString
+        val directorioImagenes = Path.of(directorioActual, directorioImagenesProperties).pathString
         val databaseUrl = propiedades.getProperty("database.url")
         val databaseInitTables = propiedades.getProperty("database.init.tables").toBoolean()
         val cacheSize = propiedades.getProperty("cache.size").toLong()
         val cacheExpiration = propiedades.getProperty("cache.expiration").toLong()
 
 
-        crearDirectorios(directorioData, directorioBackup)
+        crearDirectorios(directorioData, directorioBackup, directorioImagenes)
 
-        return ConfigurationProperties(directorioData, directorioBackup, databaseUrl, databaseInitTables, cacheSize, cacheExpiration)
+        return ConfigurationProperties(directorioData, directorioBackup, directorioImagenes, databaseUrl, databaseInitTables, cacheSize, cacheExpiration)
 
 
     }

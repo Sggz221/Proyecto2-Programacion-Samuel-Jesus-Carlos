@@ -6,9 +6,12 @@ import javafx.beans.property.SimpleObjectProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.scene.image.Image
+import org.example.newteam.gestion.configuration.Configuration
 import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.extensions.redondearA2Decimales
+import org.example.newteam.gestion.mapper.toEntrenadorModel
+import org.example.newteam.gestion.mapper.toJugadorModel
 import org.example.newteam.gestion.models.Entrenador
 import org.example.newteam.gestion.models.Especialidad
 import org.example.newteam.gestion.models.Integrante
@@ -48,7 +51,7 @@ class EquipoViewModel (
         val fecha_incorporacion: LocalDate = LocalDate.now(),
         val salario: Double = 0.0,
         val pais: String = "",
-        val imagen: String = "",
+        val imagen: String = "media/profile_picture.png",
         val especialidad: String = "",
         val posicion: String = "",
         val dorsal: Int = 0,
@@ -170,14 +173,22 @@ class EquipoViewModel (
 
     fun updateImageIntegrante(fileName: File) {
         logger.debug { "Guardando imagen $fileName" }
+
         val newName = getImagenName(fileName)
-        val newFileImage = File("media/$newName")
+        val newFileImage = File(Configuration.configurationProperties.imagesDirectory, newName)
+
+        logger.debug { "Copiando a: ${newFileImage.absolutePath}" }
+
         Files.copy(fileName.toPath(), newFileImage.toPath(), StandardCopyOption.REPLACE_EXISTING)
+
         state.value = state.value.copy(
             integrante = state.value.integrante.copy(
                 imagen = newFileImage.toURI().toString()
             )
         )
+
+        if (state.value.integrante.especialidad == "") saveIntegrante(state.value.integrante.toJugadorModel())
+        else saveIntegrante(state.value.integrante.toEntrenadorModel())
     }
 
     private fun getImagenName(newFileImage: File): String {
