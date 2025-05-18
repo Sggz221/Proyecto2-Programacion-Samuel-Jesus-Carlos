@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleObjectProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.scene.image.Image
+import org.example.newteam.gestion.configuration.Configuration
 import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.extensions.redondearA2Decimales
@@ -170,9 +171,14 @@ class EquipoViewModel (
 
     fun updateImageIntegrante(fileName: File) {
         logger.debug { "Guardando imagen $fileName" }
+
         val newName = getImagenName(fileName)
-        val newFileImage = File("media/$newName")
+        val newFileImage = File(Configuration.configurationProperties.imagesDirectory, newName)
+
+        logger.debug { "Copiando a: ${newFileImage.absolutePath}" }
+
         Files.copy(fileName.toPath(), newFileImage.toPath(), StandardCopyOption.REPLACE_EXISTING)
+
         state.value = state.value.copy(
             integrante = state.value.integrante.copy(
                 imagen = newFileImage.toURI().toString()

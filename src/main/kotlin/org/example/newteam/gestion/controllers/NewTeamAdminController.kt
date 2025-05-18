@@ -220,7 +220,12 @@ class NewTeamAdminController () {
         viewModel.state.addListener { _, _, newValue ->
 
             //Comunes
-            if(newValue.integrante.imagen != profilePicture.image.url) profilePicture.image = Image(RoutesManager.getResourceAsStream(newValue.integrante.imagen))
+            if(newValue.integrante.imagen != profilePicture.image.url) profilePicture.image =
+                if(isExternalImage(newValue.integrante.imagen)){
+                    Image(newValue.integrante.imagen)
+                } else {
+                    Image(RoutesManager.getResourceAsStream(newValue.integrante.imagen))
+                }
             if (newValue.integrante.nombre != nombreField.text) nombreField.text = newValue.integrante.nombre
             if (newValue.integrante.apellidos != apellidosField.text) apellidosField.text = newValue.integrante.apellidos
             if (newValue.integrante.pais != paisField.text) paisField.text = newValue.integrante.pais
@@ -271,6 +276,13 @@ class NewTeamAdminController () {
         golesAvg.textProperty().bind(viewModel.state.map { it.goalAvg })
         minutosAvg.textProperty().bind(viewModel.state.map { it.minutesAvg })
         totalPlantilla.textProperty().bind(viewModel.state.map { it.totalCost })
+    }
+
+    private fun isExternalImage(path: String):Boolean {
+        if (path.startsWith("file:/"))
+            return true
+        else
+            return false
     }
 
     private fun onTablaSelected(newValue: Integrante) {
