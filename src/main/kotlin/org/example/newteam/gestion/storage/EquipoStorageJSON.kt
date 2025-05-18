@@ -3,6 +3,7 @@ package org.example.newteam.gestion.storage
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import org.example.newteam.gestion.dto.IntegranteDTO
 import org.example.newteam.gestion.errors.GestionErrors
@@ -63,7 +64,7 @@ class EquipoStorageJSON: EquipoStorage {
                 else -> null
             }
         }  // Convertir integrantes a DTOs segun el modelo
-        val jsonString: String = json.encodeToString(listaIntegrantesDTO)  // Serializar a JSON
+        val jsonString: String = json.encodeToString(ListSerializer(IntegranteDTO.serializer()), listaIntegrantesDTO)  // Serializar a JSON
         file.writeText(jsonString)  // Guardar en el archivo
         return Ok(Unit)
     }
