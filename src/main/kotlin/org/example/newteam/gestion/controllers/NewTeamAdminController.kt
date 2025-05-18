@@ -402,8 +402,17 @@ class NewTeamAdminController () {
     }
 
     private fun onCheckDeleteState() {
-        if (isEditButton) editFunction()
+        if (isEditButton) deleteFunction()
         else cancelFunction()
+    }
+
+    private fun deleteFunction() {
+        onDeleteIntegranteAction()
+    }
+
+    private fun onDeleteIntegranteAction() {
+        val id = viewModel.state.value.integrante.id
+        viewModel.deleteIntegrante(id)
     }
 
     private fun onCheckEditState() {

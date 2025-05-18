@@ -35,6 +35,7 @@ class EquipoViewModel (
     )
 
     data class IntegranteState(
+        val id: Long = 0L,
         val nombre: String = "",
         val apellidos: String = "",
         val fecha_nacimiento: LocalDate = LocalDate.now(),
@@ -58,6 +59,15 @@ class EquipoViewModel (
         }
         updateState()
     }
+
+    fun deleteIntegrante(id: Long) {
+        service.delete(id).onSuccess {
+            state.value.integrantes.removeIf { it.id == id }
+        }
+        updateState()
+    }
+
+
 
     fun loadAllIntegrantes() {
         logger.debug { "Cargando los integrantes en el estado" }
@@ -117,6 +127,7 @@ class EquipoViewModel (
         if (integrante is Jugador){
             state.value = state.value.copy(
                 integrante = IntegranteState(
+                    id = integrante.id,
                     nombre = integrante.nombre,
                     apellidos = integrante.apellidos,
                     fecha_nacimiento = integrante.fecha_nacimiento,
@@ -137,6 +148,7 @@ class EquipoViewModel (
         else if (integrante is Entrenador){
             state.value = state.value.copy(
                 integrante = IntegranteState(
+                    id = integrante.id,
                     nombre = integrante.nombre,
                     apellidos = integrante.apellidos,
                     fecha_nacimiento = integrante.fecha_nacimiento,
