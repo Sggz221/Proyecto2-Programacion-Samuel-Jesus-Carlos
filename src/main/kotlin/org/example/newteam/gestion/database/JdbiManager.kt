@@ -7,14 +7,16 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.lighthousegames.logging.logging
 import java.io.File
 
-class JdbiManager private constructor () { //private para que no se pueda instanciar desde fuera
+class JdbiManager (val isForTest: Boolean = false) {
     private val logger = logging()
 
     companion object { //al instanciarlo en el companion object, seguimos el patrón singleton, solo habrá una instancia de la clase JdbiManager
         val instance: Jdbi = JdbiManager().jdbi
     }
-    
-    private val jdbi = Jdbi.create(Configuration.configurationProperties.databaseUrl) //se crea la bbdd en base a la url del archivo config.properties
+    val urlNormal = Configuration.configurationProperties.databaseUrl
+    val urlForTest = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"
+    val urlFinal = if(isForTest) urlForTest else urlNormal
+    val jdbi = Jdbi.create(urlFinal) //se crea la bbdd en base a la url del archivo config.properties
 
     init {
         logger.debug { "Inicializando JdbiManager" }
