@@ -16,7 +16,7 @@
         "goles": null,
         "partidos_jugados": null,
         "minutos_jugados": null,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/entrenador1.png"
     },
     {
         "id": 2,
@@ -35,7 +35,7 @@
         "goles": 70,
         "partidos_jugados": 150,
         "minutos_jugados": 13245,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador1.png"
     },
     {
         "id": 3,
@@ -54,7 +54,7 @@
         "goles": 0,
         "partidos_jugados": 200,
         "minutos_jugados": 14500,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador2.png"
     },
     {
         "id": 4,
@@ -73,7 +73,7 @@
         "goles": null,
         "partidos_jugados": null,
         "minutos_jugados": null,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/entrenador2.png"
     },
     {
         "id": 5,
@@ -92,7 +92,7 @@
         "goles": 30,
         "partidos_jugados": 140,
         "minutos_jugados": 12100,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador3.png"
     },
     {
         "id": 6,
@@ -111,7 +111,7 @@
         "goles": 5,
         "partidos_jugados": 180,
         "minutos_jugados": 13400,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador4.png"
     },
     {
         "id": 7,
@@ -130,7 +130,7 @@
         "goles": null,
         "partidos_jugados": null,
         "minutos_jugados": null,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/entrenador1.png"
     },
     {
         "id": 8,
@@ -149,7 +149,7 @@
         "goles": 10,
         "partidos_jugados": 160,
         "minutos_jugados": 12930,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador1.png"
     },
     {
         "id": 9,
@@ -168,7 +168,7 @@
         "goles": 15,
         "partidos_jugados": 130,
         "minutos_jugados": 11650,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador2.png"
     },
     {
         "id": 10,
@@ -187,7 +187,7 @@
         "goles": null,
         "partidos_jugados": null,
         "minutos_jugados": null,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/entrenador2.png"
     },
     {
         "id": 11,
@@ -206,7 +206,7 @@
         "goles": 40,
         "partidos_jugados": 145,
         "minutos_jugados": 12050,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador3.png"
     },
     {
         "id": 12,
@@ -225,7 +225,7 @@
         "goles": 0,
         "partidos_jugados": 180,
         "minutos_jugados": 14000,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador4.png"
     },
     {
         "id": 13,
@@ -244,7 +244,7 @@
         "goles": 25,
         "partidos_jugados": 135,
         "minutos_jugados": 11720,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador2.png"
     },
     {
         "id": 14,
@@ -263,7 +263,7 @@
         "goles": 20,
         "partidos_jugados": 125,
         "minutos_jugados": 10840,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador3.png"
     },
     {
         "id": 15,
@@ -282,7 +282,7 @@
         "goles": 8,
         "partidos_jugados": 155,
         "minutos_jugados": 12400,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador3.png"
     },
     {
         "id": 16,
@@ -301,7 +301,7 @@
         "goles": 0,
         "partidos_jugados": 170,
         "minutos_jugados": 13110,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador1.png"
     },
     {
         "id": 17,
@@ -320,7 +320,7 @@
         "goles": 22,
         "partidos_jugados": 140,
         "minutos_jugados": 11980,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador4.png"
     },
     {
         "id": 18,
@@ -339,7 +339,7 @@
         "goles": 18,
         "partidos_jugados": 115,
         "minutos_jugados": 10350,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador2.png"
     },
     {
         "id": 19,
@@ -358,7 +358,7 @@
         "goles": 6,
         "partidos_jugados": 150,
         "minutos_jugados": 12770,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador3.png"
     },
     {
         "id": 20,
@@ -377,6 +377,6 @@
         "goles": 0,
         "partidos_jugados": 160,
         "minutos_jugados": 13300,
-        "imagen": "resources/org/example/newteam/media/profile_picture.png"
+        "imagen": "media/jugador4.png"
     }
 ]

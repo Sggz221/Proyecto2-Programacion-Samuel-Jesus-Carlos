@@ -455,6 +455,7 @@ class NewTeamAdminController () {
     private fun cancelFunction() {
         styleToEditButton()
         styleToDeleteButton()
+        disableAll()
         isEditButton = true
     }
 
@@ -504,6 +505,7 @@ class NewTeamAdminController () {
     }
 
     private fun disableComunes(){
+        profilePicture.isDisable = true
         paisField.isDisable = true
         salarioField.isDisable = true
         incorporacionDP.isDisable = true
@@ -527,6 +529,7 @@ class NewTeamAdminController () {
     }
 
     private fun enableComunes(){
+        profilePicture.isDisable = false
         paisField.isDisable = false
         salarioField.isDisable = false
         incorporacionDP.isDisable = false
@@ -601,7 +604,7 @@ class NewTeamAdminController () {
                     fecha_incorporacion = incorporacionDP.value,
                     salario = salarioField.text.toDoubleOrNull() ?: 0.0,
                     pais = paisField.text,
-                    //imagen =
+                    imagen = profilePicture.image.url,
                     posicion = getPosicionFromView(),
                     dorsal = dorsalField.text.toIntOrNull() ?: 0,
                     altura = alturaField.text.toDoubleOrNull() ?: 0.0,
@@ -621,7 +624,7 @@ class NewTeamAdminController () {
                     fecha_incorporacion = incorporacionDP.value,
                     salario = salarioField.text.toDoubleOrNull() ?: 0.0,
                     pais = paisField.text,
-                    //imagen =
+                    imagen = profilePicture.image.url,
                     especialidad = getEspecialidadFromView()
                 )
             )

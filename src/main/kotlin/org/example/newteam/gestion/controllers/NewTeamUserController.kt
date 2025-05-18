@@ -8,6 +8,8 @@ import javafx.scene.Cursor.WAIT
 import javafx.scene.control.*
 import javafx.scene.control.Alert.AlertType
 import javafx.scene.control.cell.PropertyValueFactory
+import javafx.scene.image.Image
+import javafx.scene.image.ImageView
 import javafx.stage.FileChooser
 import javafx.stage.Stage
 import org.example.newteam.gestion.di.Dependencies
@@ -32,10 +34,6 @@ class NewTeamUserController () {
     @FXML
     lateinit var exitButton: MenuItem
     @FXML
-    lateinit var exportButton: MenuItem
-    @FXML
-    lateinit var importButton: MenuItem
-    @FXML
     lateinit var aboutButton: MenuItem
     @FXML
     lateinit var logoutButton: MenuItem
@@ -43,6 +41,8 @@ class NewTeamUserController () {
     /* Detalle */
 
     // Comunes
+    @FXML
+    lateinit var profilePicture: ImageView
     @FXML
     lateinit var paisField: TextField
     @FXML
@@ -134,6 +134,7 @@ class NewTeamUserController () {
 
 
     fun initialize() {
+        viewModel.loadAllIntegrantes()
         initEvents()
         initBindings()
         initDefaultValues()
@@ -161,6 +162,12 @@ class NewTeamUserController () {
         viewModel.state.addListener { _, _, newValue ->
 
             //Comunes
+            if(newValue.integrante.imagen != profilePicture.image.url) profilePicture.image =
+                if(isExternalImage(newValue.integrante.imagen)){
+                    Image(newValue.integrante.imagen)
+                } else {
+                    Image(RoutesManager.getResourceAsStream(newValue.integrante.imagen))
+                }
             if (newValue.integrante.nombre != nombreField.text) nombreField.text = newValue.integrante.nombre
             if (newValue.integrante.apellidos != apellidosField.text) apellidosField.text = newValue.integrante.apellidos
             if (newValue.integrante.pais != paisField.text) paisField.text = newValue.integrante.pais
@@ -213,6 +220,12 @@ class NewTeamUserController () {
         totalPlantilla.textProperty().bind(viewModel.state.map { it.totalCost })
     }
 
+    private fun isExternalImage(path: String):Boolean {
+        if (path.startsWith("file:/"))
+            return true
+        else
+            return false
+    }
 
     private fun disableAll() {
         disableComunes()
@@ -272,10 +285,6 @@ class NewTeamUserController () {
         logoutButton.setOnAction {
             showLogoutAlert()
         }
-
-        importButton.setOnAction { onImportarAction() }
-
-        exportButton.setOnAction { onExportarAction() }
 
         sortByNombre.setOnAction { onSortByNombreAction() }
 

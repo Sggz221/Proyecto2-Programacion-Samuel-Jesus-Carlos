@@ -41,7 +41,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -62,25 +61,6 @@
       <menus>
         <Menu id="archivoMenu" mnemonicParsing="false" text="Archivo">
           <items>
-            <MenuItem fx:id="importButton" mnemonicParsing="false" text="Importar">
-                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../media/Import.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem fx:id="exportButton" mnemonicParsing="false" text="Exportar">
-                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../media/Export.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </MenuItem>
-            <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="exitButton" mnemonicParsing="false" text="Salir">
                      <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
@@ -129,7 +109,7 @@
                                           <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
                                        </textFill>
                                     </Label>
-                            <Label id="bigLabel" alignment="CENTER" style="&#10;" text="Admin" textAlignment="CENTER" wrapText="false">
+                            <Label id="bigLabel" alignment="CENTER" style="&#10;" text="User" textAlignment="CENTER" wrapText="false">
                                        <font>
                                   <Font size="18.0" fx:id="x1" />
                                        </font>
@@ -200,7 +180,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="profilePicture" fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../media/profile_picture.png" />
                            </image>

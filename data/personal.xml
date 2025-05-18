@@ -15,7 +15,7 @@
         <goles></goles>
         <partidosJugados></partidosJugados>
         <minutos_jugados></minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/entrenador1.png</imagen>
     </personal>
     <personal id="2">
         <tipo>Jugador</tipo>
@@ -33,7 +33,7 @@
         <goles>70</goles>
         <partidosJugados>150</partidosJugados>
         <minutos_jugados>13245</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador1.png</imagen>
     </personal>
     <personal id="3">
         <tipo>Jugador</tipo>
@@ -51,7 +51,7 @@
         <goles>0</goles>
         <partidosJugados>200</partidosJugados>
         <minutos_jugados>14500</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador2.png</imagen>
     </personal>
     <personal id="4">
         <tipo>Entrenador</tipo>
@@ -69,7 +69,7 @@
         <goles></goles>
         <partidosJugados></partidosJugados>
         <minutos_jugados></minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/entrenador2.png</imagen>
     </personal>
     <personal id="5">
         <tipo>Jugador</tipo>
@@ -87,7 +87,7 @@
         <goles>30</goles>
         <partidosJugados>140</partidosJugados>
         <minutos_jugados>12100</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador3.png</imagen>
     </personal>
     <personal id="6">
         <tipo>Jugador</tipo>
@@ -105,7 +105,7 @@
         <goles>5</goles>
         <partidosJugados>180</partidosJugados>
         <minutos_jugados>13400</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador4.png</imagen>
     </personal>
     <personal id="7">
         <tipo>Entrenador</tipo>
@@ -123,7 +123,7 @@
         <goles></goles>
         <partidosJugados></partidosJugados>
         <minutos_jugados></minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/entrenador1.png</imagen>
     </personal>
     <personal id="8">
         <tipo>Jugador</tipo>
@@ -141,7 +141,7 @@
         <goles>10</goles>
         <partidosJugados>160</partidosJugados>
         <minutos_jugados>12930</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador1.png</imagen>
     </personal>
     <personal id="9">
         <tipo>Jugador</tipo>
@@ -159,7 +159,7 @@
         <goles>15</goles>
         <partidosJugados>130</partidosJugados>
         <minutos_jugados>11650</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador2.png</imagen>
     </personal>
     <personal id="10">
         <tipo>Entrenador</tipo>
@@ -177,7 +177,7 @@
         <goles></goles>
         <partidosJugados></partidosJugados>
         <minutos_jugados></minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/entrenador2.png</imagen>
     </personal>
     <personal id="11">
         <tipo>Jugador</tipo>
@@ -195,7 +195,7 @@
         <goles>40</goles>
         <partidosJugados>145</partidosJugados>
         <minutos_jugados>12050</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador3.png</imagen>
     </personal>
     <personal id="12">
         <tipo>Jugador</tipo>
@@ -213,7 +213,7 @@
         <goles>0</goles>
         <partidosJugados>180</partidosJugados>
         <minutos_jugados>14000</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador4.png</imagen>
     </personal>
     <personal id="13">
         <tipo>Jugador</tipo>
@@ -231,7 +231,7 @@
         <goles>25</goles>
         <partidosJugados>135</partidosJugados>
         <minutos_jugados>11720</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador2.png</imagen>
     </personal>
     <personal id="14">
         <tipo>Jugador</tipo>
@@ -249,7 +249,7 @@
         <goles>20</goles>
         <partidosJugados>125</partidosJugados>
         <minutos_jugados>10840</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador3.png</imagen>
     </personal>
     <personal id="15">
         <tipo>Jugador</tipo>
@@ -267,7 +267,7 @@
         <goles>8</goles>
         <partidosJugados>155</partidosJugados>
         <minutos_jugados>12400</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador3.png</imagen>
     </personal>
     <personal id="16">
         <tipo>Jugador</tipo>
@@ -285,7 +285,7 @@
         <goles>0</goles>
         <partidosJugados>170</partidosJugados>
         <minutos_jugados>13110</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador1.png</imagen>
     </personal>
     <personal id="17">
         <tipo>Jugador</tipo>
@@ -303,7 +303,7 @@
         <goles>22</goles>
         <partidosJugados>140</partidosJugados>
         <minutos_jugados>11980</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador4.png</imagen>
     </personal>
     <personal id="18">
         <tipo>Jugador</tipo>
@@ -321,7 +321,7 @@
         <goles>18</goles>
         <partidosJugados>115</partidosJugados>
         <minutos_jugados>10350</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador2.png</imagen>
     </personal>
     <personal id="19">
         <tipo>Jugador</tipo>
@@ -339,7 +339,7 @@
         <goles>6</goles>
         <partidosJugados>150</partidosJugados>
         <minutos_jugados>12770</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador3.png</imagen>
     </personal>
     <personal id="20">
         <tipo>Jugador</tipo>
@@ -357,6 +357,6 @@
         <goles>0</goles>
         <partidosJugados>160</partidosJugados>
         <minutos_jugados>13300</minutos_jugados>
-        <imagen>resources/org/example/newteam/media/profile_picture.png</imagen>
+        <imagen>media/jugador4.png</imagen>
     </personal>
 </equipo>

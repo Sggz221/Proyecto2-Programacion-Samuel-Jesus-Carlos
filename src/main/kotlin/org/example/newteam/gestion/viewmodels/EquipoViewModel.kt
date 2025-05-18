@@ -186,9 +186,15 @@ class EquipoViewModel (
                 imagen = newFileImage.toURI().toString()
             )
         )
-
-        if (state.value.integrante.especialidad == "") saveIntegrante(state.value.integrante.toJugadorModel())
-        else saveIntegrante(state.value.integrante.toEntrenadorModel())
+        val id = state.value.integrante.id
+        if (state.value.integrante.especialidad == "") {
+            service.update(id, state.value.integrante.toJugadorModel()).onSuccess {
+                state.value.integrantes.find { it.id == id }?.let {it.imagen = newFileImage.toURI().toString()}
+            }
+        }
+        else service.update(id, state.value.integrante.toEntrenadorModel()).onSuccess {
+            state.value.integrantes.find { it.id == id }?.let {it.imagen = newFileImage.toURI().toString()}
+        }
     }
 
     private fun getImagenName(newFileImage: File): String {
