@@ -17,7 +17,7 @@ class HelloApplication : Application() {
         }
         thread{
             val dao = Dependencies.provideUserDao()
-            val hashAdmin = BCrypt.hashpw("P@ssw0rd", BCrypt.gensalt())
+            val hashAdmin = BCrypt.hashpw("1234", BCrypt.gensalt())
             val hashUser = BCrypt.hashpw("1234", BCrypt.gensalt())
             val a = Usuario("admin", hashAdmin)
             val u = Usuario("user", hashUser)

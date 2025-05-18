@@ -304,6 +304,6 @@ fun EquipoViewModel.IntegranteState.toEntrenadorModel(): Integrante {
         salario = this.salario,
         pais = this.pais,
         imagen = this.imagen,
-        especialidad = Especialidad.valueOf(this.posicion),
+        especialidad = Especialidad.valueOf(this.especialidad),
     )
 }

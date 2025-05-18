@@ -1,6 +1,7 @@
 package org.example.newteam.gestion.viewmodels
 
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onSuccess
 import javafx.beans.property.SimpleObjectProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
@@ -52,7 +53,9 @@ class EquipoViewModel (
     )
 
     fun saveIntegrante(integrante: Integrante) {
-        service.save(integrante)
+        service.save(integrante).onSuccess {
+            state.value.integrantes.addAll(it)
+        }
         updateState()
     }
 

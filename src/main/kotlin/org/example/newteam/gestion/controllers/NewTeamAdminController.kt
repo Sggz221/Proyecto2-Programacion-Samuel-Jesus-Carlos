@@ -1,6 +1,7 @@
 package org.example.newteam.gestion.controllers
 
 import com.github.michaelbull.result.*
+import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.scene.Cursor.DEFAULT
@@ -23,6 +24,7 @@ import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import org.example.newteam.routes.RoutesManager
 import org.lighthousegames.logging.logging
 import java.time.LocalDate
+import kotlin.concurrent.thread
 
 class NewTeamAdminController () {
     private val logger = logging()
@@ -269,6 +271,7 @@ class NewTeamAdminController () {
         logger.debug { " Integrante seleccionado en la tabla: $newValue " }
         disableAll()
         viewModel.updateIntegranteSelected(newValue)
+        logger.debug { "IntegranteState selected: ${viewModel.state.value.integrante}" }
     }
 
     private fun initEvents() {
@@ -287,9 +290,17 @@ class NewTeamAdminController () {
 
         exportButton.setOnAction { onExportarAction() }
 
-        saveJugadorButton.setOnAction { onCreateJugadorAction() }
+        saveJugadorButton.setOnAction {
+            especialidad.toggles.forEach{ it.isSelected = false }
+            onCheckEditState()
+            onCreateJugadorAction()
+        }
 
-        saveEntrenadorButton.setOnAction { onCreateEntrenadorAction() }
+        saveEntrenadorButton.setOnAction {
+            posicion.toggles.forEach{ it.isSelected = false }
+            onCheckEditState()
+            onCreateEntrenadorAction()
+        }
 
         editAndSaveButton.setOnAction {
             onCheckEditState()
@@ -512,11 +523,11 @@ class NewTeamAdminController () {
         especialidad.toggles.forEach { (it as RadioButton).isDisable = false }
     }
     private fun onCreateEntrenadorAction(){
-        logger.debug { "Creando Jugador" }
+        logger.debug { "Creando Entrenador" }
         enableEntrenador()
         disableJugador()
-        val emptyJugador = EquipoViewModel.IntegranteState()
-        viewModel.createEmptyIntegrante(emptyJugador)
+        val emptyEntrenador = EquipoViewModel.IntegranteState(especialidad = "ENTRENADOR_PORTEROS")
+        viewModel.createEmptyIntegrante(emptyEntrenador)
     }
     private fun onCreateJugadorAction() {
         logger.debug { "Creando Jugador" }
@@ -529,16 +540,66 @@ class NewTeamAdminController () {
     private fun onSaveIntegranteAction(esJugador: Boolean) {
         logger.debug { "Guardando nuevo jugador" }
         validarJugador()
-
+        parseViewToIntegrante(esJugador) // Actualizamos el integrante seleccionado con los datos de la vista
         val newIntegrante: Integrante
-        if (esJugador) {
-            newIntegrante = viewModel.state.value.integrante.toJugadorModel()
-        } else {
-            newIntegrante = viewModel.state.value.integrante.toEntrenadorModel()
-        }
+        logger.debug { "Mapeando integrante" }
+        if (esJugador) newIntegrante = viewModel.state.value.integrante.toJugadorModel()
+        else newIntegrante = viewModel.state.value.integrante.toEntrenadorModel()
 
         viewModel.saveIntegrante(newIntegrante)
 
+    }
+
+    private fun parseViewToIntegrante(esJugador: Boolean) {
+        if (esJugador) {
+            viewModel.state.value = viewModel.state.value.copy(
+                integrante = EquipoViewModel.IntegranteState(
+                    nombre = nombreField.text,
+                    apellidos = apellidosField.text,
+                    fecha_nacimiento = nacimientoDP.value,
+                    fecha_incorporacion = incorporacionDP.value,
+                    salario = salarioField.text.toDoubleOrNull() ?: 0.0,
+                    pais = paisField.text,
+                    //imagen =
+                    posicion = getPosicionFromView(),
+                    dorsal = dorsalField.text.toIntOrNull() ?: 0,
+                    altura = alturaField.text.toDoubleOrNull() ?: 0.0,
+                    peso = pesoField.text.toDoubleOrNull() ?: 0.0,
+                    goles = golesField.text.toIntOrNull() ?: 0,
+                    partidos_jugados = partidosField.text.toIntOrNull() ?: 0,
+                    minutos_jugados = minutosField.text.toIntOrNull() ?: 0,
+                )
+            )
+        }
+        else {
+            viewModel.state.value = viewModel.state.value.copy(
+                integrante = EquipoViewModel.IntegranteState(
+                    nombre = nombreField.text,
+                    apellidos = apellidosField.text,
+                    fecha_nacimiento = nacimientoDP.value,
+                    fecha_incorporacion = incorporacionDP.value,
+                    salario = salarioField.text.toDoubleOrNull() ?: 0.0,
+                    pais = paisField.text,
+                    //imagen =
+                    especialidad = getEspecialidadFromView()
+                )
+            )
+        }
+        logger.debug { "Integrante parseado al estado: ${viewModel.state.value.integrante}" }
+    }
+
+    private fun getPosicionFromView(): String {
+        if(radioDelantero.isSelected) return "DELANTERO"
+        else if (radioCentro.isSelected) return "CENTROCAMPISTA"
+        else if (radioDefensa.isSelected) return "DEFENSA"
+        else if (radioPortero.isSelected) return "PORTERO"
+        else return "FALLO"
+    }
+    private fun getEspecialidadFromView(): String {
+        if(radioPrincipal.isSelected) return "ENTRENADOR_PRINCIPAL"
+        else if (radioAsistente.isSelected) return "ENTRENADOR_ASISTENTE"
+        else if (radioPorteros.isSelected) return "ENTRENADOR_PORTEROS"
+        else return "FALLO"
     }
 
     private fun validarJugador (): Result<Unit, GestionErrors.InvalidoError> {
@@ -642,16 +703,18 @@ class NewTeamAdminController () {
         }?.let {
             // Cambiar el cursor a espera
             RoutesManager.activeStage.scene.cursor = WAIT
-            viewModel.exportIntegrantestoFile(it)
-                .onSuccess {
-                    showAlertOperation(
-                        title = "Datos exportados",
-                        mensaje = "Se han exportado los Integrantes."
-                    )
-                }.onFailure { error: GestionErrors->
-                    showAlertOperation(alerta = AlertType.ERROR, title = "Error al exportar", mensaje = error.message)
-                }
-            RoutesManager.activeStage.scene.cursor = DEFAULT
+            Platform.runLater {
+                viewModel.exportIntegrantestoFile(it)
+                    .onSuccess {
+                        showAlertOperation(
+                            title = "Datos exportados",
+                            mensaje = "Se han exportado los Integrantes."
+                        )
+                    }.onFailure { error: GestionErrors->
+                        showAlertOperation(alerta = AlertType.ERROR, title = "Error al exportar", mensaje = error.message)
+                    }
+                RoutesManager.activeStage.scene.cursor = DEFAULT
+            }
         }
     }
 
@@ -667,16 +730,18 @@ class NewTeamAdminController () {
         }?.let {
             // Cambiar el cursor a espera
             RoutesManager.activeStage.scene.cursor = WAIT
-            viewModel.loadIntegrantesFromFile(it)
-                .onSuccess {
-                    showAlertOperation(
-                        title = "Datos importados",
-                        mensaje = "Se han importado los Integrantes."
-                    )
-                }.onFailure { error: GestionErrors->
-                    showAlertOperation(alerta = AlertType.ERROR, title = "Error al importar", mensaje = error.message)
-                }
-            RoutesManager.activeStage.scene.cursor = DEFAULT
+            Platform.runLater {
+                viewModel.loadIntegrantesFromFile(it)
+                    .onSuccess {
+                        showAlertOperation(
+                            title = "Datos importados",
+                            mensaje = "Se han importado los Integrantes."
+                        )
+                    }.onFailure { error: GestionErrors->
+                        showAlertOperation(alerta = AlertType.ERROR, title = "Error al importar", mensaje = error.message)
+                    }
+                RoutesManager.activeStage.scene.cursor = DEFAULT
+            }
         }
     }
     private fun showAlertOperation(
