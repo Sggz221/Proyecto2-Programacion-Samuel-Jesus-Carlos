@@ -228,7 +228,7 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="profilePicture" fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../media/profile_picture.png" />
                                  </image>

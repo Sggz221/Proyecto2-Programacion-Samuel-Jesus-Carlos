@@ -9,6 +9,8 @@ import javafx.scene.Cursor.WAIT
 import javafx.scene.control.*
 import javafx.scene.control.Alert.AlertType
 import javafx.scene.control.cell.PropertyValueFactory
+import javafx.scene.image.Image
+import javafx.scene.image.ImageView
 import javafx.stage.FileChooser
 import javafx.stage.Stage
 import org.example.newteam.gestion.di.Dependencies
@@ -27,6 +29,7 @@ import java.time.LocalDate
 import kotlin.concurrent.thread
 
 class NewTeamAdminController () {
+
     private val logger = logging()
     private var viewModel: EquipoViewModel = Dependencies.provideViewModel()
 
@@ -55,6 +58,8 @@ class NewTeamAdminController () {
     /* Detalle */
 
     // Comunes
+    @FXML
+    lateinit var profilePicture: ImageView
     @FXML
     lateinit var paisField: TextField
     @FXML
@@ -215,6 +220,7 @@ class NewTeamAdminController () {
         viewModel.state.addListener { _, _, newValue ->
 
             //Comunes
+            if(newValue.integrante.imagen != profilePicture.image.url) profilePicture.image = Image(RoutesManager.getResourceAsStream(newValue.integrante.imagen))
             if (newValue.integrante.nombre != nombreField.text) nombreField.text = newValue.integrante.nombre
             if (newValue.integrante.apellidos != apellidosField.text) apellidosField.text = newValue.integrante.apellidos
             if (newValue.integrante.pais != paisField.text) paisField.text = newValue.integrante.pais
@@ -309,6 +315,10 @@ class NewTeamAdminController () {
             onCheckDeleteState()
         }
 
+        profilePicture.setOnMouseClicked {
+            onImageSelectAction()
+        }
+
         sortByNombre.setOnAction { onSortByNombreAction() }
 
         sortBySalario.setOnAction { onSortBySalarioAction() }
@@ -321,6 +331,16 @@ class NewTeamAdminController () {
 
         filterByNothing.setOnAction { onFilterByNothingAction() }
 
+    }
+
+    private fun onImageSelectAction() {
+        FileChooser().run {
+            title = "Selecciona una imagen para el integrante"
+            extensionFilters.addAll(FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg"))
+            showOpenDialog(RoutesManager.activeStage)
+        }?.let {
+            viewModel.updateImageIntegrante(it)
+        }
     }
 
     private fun filterByName (cadena: String){

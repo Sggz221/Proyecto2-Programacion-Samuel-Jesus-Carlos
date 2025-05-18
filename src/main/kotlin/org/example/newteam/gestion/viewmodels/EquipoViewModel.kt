@@ -5,6 +5,7 @@ import com.github.michaelbull.result.onSuccess
 import javafx.beans.property.SimpleObjectProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
+import javafx.scene.image.Image
 import org.example.newteam.gestion.di.Dependencies
 import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.extensions.redondearA2Decimales
@@ -15,7 +16,12 @@ import org.example.newteam.gestion.models.Jugador
 import org.example.newteam.gestion.service.EquipoServiceImpl
 import org.lighthousegames.logging.logging
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
+import java.time.Instant
 import java.time.LocalDate
+import kotlin.concurrent.thread
+
 //
 class EquipoViewModel (
     private val service: EquipoServiceImpl = Dependencies.getIntegrantesService()
@@ -161,4 +167,23 @@ class EquipoViewModel (
             )
         }
     }
+
+    fun updateImageIntegrante(fileName: File) {
+        logger.debug { "Guardando imagen $fileName" }
+        val newName = getImagenName(fileName)
+        val newFileImage = File("media/$newName")
+        Files.copy(fileName.toPath(), newFileImage.toPath(), StandardCopyOption.REPLACE_EXISTING)
+        state.value = state.value.copy(
+            integrante = state.value.integrante.copy(
+                imagen = newFileImage.toURI().toString()
+            )
+        )
+    }
+
+    private fun getImagenName(newFileImage: File): String {
+        val name = newFileImage.name
+        val extension = name.substring(name.lastIndexOf(".") + 1)
+        return "${Instant.now().toEpochMilli()}.$extension"
+    }
+
 }
