@@ -23,8 +23,7 @@ class EquipoStorageXML: EquipoStorage {
     /**
      * Permite leer de un archivo una lista de [Integrante]
      * Lee el archivo como una lista de DTO de integrante y lo mapea al modelo segun va leyendo
-     * @throws [Exceptions.StorageException] Si el fichero no existe, no es un fichero o no se tienen permisos de lectura
-     * @return Lista de integrantes
+     *  @return [Result] de [List] [Integrante] o [GestionErrors.StorageError]
      */
     override fun fileRead(file: File): Result<List<Integrante>, GestionErrors> {
         logger.debug { "Leyendo fichero XML" }
@@ -45,6 +44,7 @@ class EquipoStorageXML: EquipoStorage {
      * Escribe en un fichero dada una lista de [Integrante] y una ruta especificada
      * @param equipo La lista de integrantes
      * @param file El archivo donde se escribira la lista
+     * @return [Result] de [List] [Integrante] o [GestionErrors.StorageError]
      */
     override fun fileWrite(equipo: List<Integrante>, file: File): Result<Unit, GestionErrors> {
         logger.debug { "Escribiendo en fichero XML" }

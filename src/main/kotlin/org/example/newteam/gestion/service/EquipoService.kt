@@ -5,7 +5,7 @@ import org.example.newteam.gestion.errors.GestionErrors
 import org.example.newteam.gestion.models.Integrante
 
 /**
- * Interfaz que crea el contrato para crear el servicio para gestionar un equipo de futbol en memoria y en el almacenamiento local
+ * Interfaz que crea el contrato para crear el servicio para gestionar un equipo de futbol en una base de datos y en el almacenamiento local
  */
 interface EquipoService {
     fun importFromFile(filePath: String): Result<List<Integrante>, GestionErrors>

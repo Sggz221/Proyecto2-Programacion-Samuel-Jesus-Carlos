@@ -11,6 +11,9 @@ import org.example.newteam.gestion.models.Jugador
 import org.example.newteam.gestion.viewmodels.EquipoViewModel
 import java.time.LocalDate
 
+/**
+ * Convierte un [IntegranteEntity] en un [Integrante]
+ */
 fun IntegranteEntity.toModel(): Integrante {
     return if(this.rol == "Jugador"){
         Jugador(
@@ -50,6 +53,9 @@ fun IntegranteEntity.toModel(): Integrante {
     }
 }
 
+/**
+ * Convierte un [Jugador] en un [IntegranteEntity]
+ */
 fun Jugador.toEntity(): IntegranteEntity {
     return IntegranteEntity(
         id = id,
@@ -73,7 +79,9 @@ fun Jugador.toEntity(): IntegranteEntity {
         imagen = imagen
     )
 }
-
+/**
+ * Convierte un [Entrenador] en un [IntegranteEntity]
+ */
 fun Entrenador.toEntity(): IntegranteEntity {
     return IntegranteEntity(
         id = id,
@@ -275,7 +283,9 @@ fun Jugador.toDto (): IntegranteDTO {
         imagen = imagen
     )
 }
-
+/**
+ * Convierte un [EquipoViewModel.IntegranteState] en un [Jugador]
+ */
 fun EquipoViewModel.IntegranteState.toJugadorModel(): Integrante {
     return Jugador(
         nombre = this.nombre,
@@ -294,7 +304,9 @@ fun EquipoViewModel.IntegranteState.toJugadorModel(): Integrante {
         minutos_jugados = this.minutos_jugados,
     )
 }
-
+/**
+ * Convierte un [EquipoViewModel.IntegranteState] en un [Entrenador]
+ */
 fun EquipoViewModel.IntegranteState.toEntrenadorModel(): Integrante {
     return Entrenador(
         nombre = this.nombre,
