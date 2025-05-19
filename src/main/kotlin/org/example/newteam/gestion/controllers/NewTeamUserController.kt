@@ -377,57 +377,6 @@ class NewTeamUserController () {
 
         viewModel.sortIntegrantes(integrantesOrdenados)
     }
-
-    private fun onExportarAction(){
-        logger.debug{ "Iniciando FileChooser" }
-
-        FileChooser().run {
-            title = "Exportar integrantes"
-            extensionFilters.add(FileChooser.ExtensionFilter("CSV", "*.csv"))
-            extensionFilters.add(FileChooser.ExtensionFilter("JSON", "*.json"))
-            extensionFilters.add(FileChooser.ExtensionFilter("XML", "*.xml"))
-            extensionFilters.add(FileChooser.ExtensionFilter("BIN", "*.bin"))
-            showSaveDialog(RoutesManager.activeStage)
-        }?.let {
-            // Cambiar el cursor a espera
-            RoutesManager.activeStage.scene.cursor = WAIT
-            viewModel.exportIntegrantestoFile(it)
-                .onSuccess {
-                    showAlertOperation(
-                        title = "Datos exportados",
-                        mensaje = "Se han exportado los Integrantes."
-                    )
-                }.onFailure { error: GestionErrors->
-                    showAlertOperation(alerta = AlertType.ERROR, title = "Error al exportar", mensaje = error.message)
-                }
-            RoutesManager.activeStage.scene.cursor = DEFAULT
-        }
-    }
-
-    private fun onImportarAction() {
-        logger.debug{ "Iniciando FileChooser" }
-        FileChooser().run {
-            title = "Importar integrantes"
-            extensionFilters.add(FileChooser.ExtensionFilter("CSV", "*.csv"))
-            extensionFilters.add(FileChooser.ExtensionFilter("JSON", "*.json"))
-            extensionFilters.add(FileChooser.ExtensionFilter("XML", "*.xml"))
-            extensionFilters.add(FileChooser.ExtensionFilter("BIN", "*.bin"))
-            showOpenDialog(RoutesManager.activeStage)
-        }?.let {
-            // Cambiar el cursor a espera
-            RoutesManager.activeStage.scene.cursor = WAIT
-            viewModel.loadIntegrantesFromFile(it)
-                .onSuccess {
-                    showAlertOperation(
-                        title = "Datos importados",
-                        mensaje = "Se han importado los Integrantes."
-                    )
-                }.onFailure { error: GestionErrors->
-                    showAlertOperation(alerta = AlertType.ERROR, title = "Error al importar", mensaje = error.message)
-                }
-            RoutesManager.activeStage.scene.cursor = DEFAULT
-        }
-    }
     private fun showAlertOperation(
         alerta: AlertType = AlertType.CONFIRMATION,
         title: String = "",
