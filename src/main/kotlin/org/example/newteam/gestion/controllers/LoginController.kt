@@ -12,6 +12,15 @@ import org.example.newteam.gestion.sesion.Session
 import org.example.newteam.routes.RoutesManager
 import org.mindrot.jbcrypt.BCrypt
 
+/**
+ * Controlador de Login
+ * @property dao DAO que interviene con la base de datos
+ * @property acercaDeButton [Button] Boton 'Acerca de'
+ * @property errorMessage [Label] Label que saca un mensaje de error
+ * @property passwordText [PasswordField] Campo que recoge la contraseña
+ * @property userText [TextField] Campo que recoge el usuario
+ * @property loginButton [Button] boton que procesa el inicio de sesion
+ */
 class LoginController {
     private val dao = Dependencies.provideUserDao()
     @FXML

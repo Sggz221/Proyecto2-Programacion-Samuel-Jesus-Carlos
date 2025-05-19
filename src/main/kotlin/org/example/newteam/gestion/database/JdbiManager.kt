@@ -7,6 +7,15 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.lighthousegames.logging.logging
 import java.io.File
 
+/**
+ * Clase que representa el JDBI, para simplificar las interacciones con la base de datos.
+ * @property isForTest parámetro para distinguir si la base de datos a ejecutar va a ser en memoria (para test) o en archivo (para el funcionamiento normal de la app).
+ * @property instance instancia del JDBI.
+ * @property urlNormal url de creación de la base de datos de uso normal.
+ * @property urlForTest url de creación de la base de datos para uso en tests.
+ * @property urlFinal url definitiva a partir de la cuál se crea la base de datos.
+ * @see [Configuration]
+ */
 class JdbiManager (val isForTest: Boolean = false) {
     private val logger = logging()
 
@@ -31,6 +40,9 @@ class JdbiManager (val isForTest: Boolean = false) {
         }
     }
 
+    /**
+     * Ejecuta un script SQL.
+     */
     fun executeSqlScript(scriptFilePath: String) {
         logger.debug { "Ejecutando script SQL: $scriptFilePath" }
         val script = File(scriptFilePath).readText()
@@ -39,6 +51,9 @@ class JdbiManager (val isForTest: Boolean = false) {
         }
     }
 
+    /**
+     * Ejecuta un script SQL desde la carpeta resources del proyecto.
+     */
     fun executeSqlScriptFromResources(resourcePath: String) {
         logger.debug { "Ejecutando script SQL desde recursos: $resourcePath" }
         val inputStream = ClassLoader.getSystemResourceAsStream(resourcePath)?.bufferedReader()!!

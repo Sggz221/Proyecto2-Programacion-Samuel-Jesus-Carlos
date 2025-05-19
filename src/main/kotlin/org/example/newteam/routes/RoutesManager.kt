@@ -16,6 +16,12 @@ import org.lighthousegames.logging.logging
 import java.io.InputStream
 import java.net.URL
 
+/**
+ * Objeto que maneja las llamadas a las vistas del programa
+ * @property mainStage [Stage] escena principal de la app
+ * @property activeStage [Stage] escena cargada actualmente en la vista
+ * @property
+ */
 object RoutesManager {
     private lateinit var mainStage: Stage // Escena principal de la app
     private lateinit var _activeStage: Stage // Escena cargada actualmente en la vista
@@ -24,6 +30,16 @@ object RoutesManager {
     lateinit var app: Application
 
     val logger = logging()
+
+    /**
+     * Clase que almacena las rutas de las vistas
+     * @param path La ruta a especificar
+     * @property ADMIN Vista de administrador
+     * @property USER Vista de usuario
+     * @property LOGIN Vista de inicio de sesion
+     * @property ABOUT Vista de Sobre nosotros
+     * @property SPLASH Vista de splash screen al incio de la app
+     */
     enum class Vistas(val path: String) {
         ADMIN("views/MainNewteamAdmin.fxml"),
         USER("views/MainNewteamUser.fxml"),
@@ -32,6 +48,11 @@ object RoutesManager {
         ABOUT("views/AboutNewTeam.fxml")
     }
 
+    /**
+     * Inicia la vista de administrador
+     * @param stage [Stage] vista de administrador
+     * @see [Vistas.ADMIN]
+     */
     fun initAdminStage(stage: Stage) {
         logger.debug { "Iniciando admin stage" }
         val fxmlLoader = FXMLLoader(getResource(Vistas.ADMIN.path))
@@ -48,6 +69,11 @@ object RoutesManager {
         mainStage.show()
     }
 
+    /**
+     * Inicia la vista del usuario
+     * @param stage [Stage] vista del usuario
+     * @see [Vistas.USER]
+     */
     fun initUserStage(stage: Stage) {
         logger.debug { "Iniciando user stage" }
         val fxmlLoader = FXMLLoader(getResource(Vistas.USER.path))
@@ -64,6 +90,11 @@ object RoutesManager {
         mainStage.show()
     }
 
+    /**
+     * Funcion que llama a el Splash Screen y lo muestra
+     * @param stage [Stage]
+     * @see [Vistas.SPLASH]
+     */
     fun initSplashStage(stage: Stage) {
         logger.debug { "Iniciando splash screen" }
         val fxmlLoader = FXMLLoader(getResource(Vistas.SPLASH.path))
@@ -79,6 +110,11 @@ object RoutesManager {
         mainStage.show()
     }
 
+    /**
+     * Inicia la vista de acerca de
+     * @param stage [Stage] vista de acerca de
+     * @see [Vistas.ABOUT]
+     */
     fun initAboutStage() {
         logger.debug { "Iniciando about" }
         val fxmlLoader = FXMLLoader(getResource(Vistas.ABOUT.path))
@@ -95,7 +131,11 @@ object RoutesManager {
         stage.isResizable = false
         stage.show()
     }
-
+    /**
+     * Funcion que llama al Login y lo muestra
+     * @param stage [Stage]
+     * @see [Vistas.LOGIN]
+     */
     fun initLoginStage(stage: Stage) {
         logger.debug { "Iniciando login stage" }
         val fxmlLoader = FXMLLoader(getResource(Vistas.LOGIN.path))
@@ -112,16 +152,34 @@ object RoutesManager {
         mainStage.show()
     }
 
+    /**
+     * Recupera un recurso a partir de la ruta del mismo
+     * @param resource Ruta del recurso a recuperar
+     * @return el recurso recuperado
+     */
     fun getResource(resource: String): URL {
         return app::class.java.getResource(resource)
             ?: throw RuntimeException("No se ha encontrado el recurso: $resource")
     }
 
+    /**
+     * Funcion que recibe por parametro la ruta de un archivo y lo devuelve como un Stream de datos
+     * @param resource [String] La ruta del recurso almacenada en resources
+     * @return [InputStream] El recurso
+     * @throws RuntimeException
+     */
     fun getResourceAsStream(resource: String): InputStream {
         return app::class.java.getResourceAsStream(resource)
             ?: throw RuntimeException("No se ha encontrado el recurso como stream: $resource")
     }
 
+    /**
+     * Inicia una ventana modal que pide confirmación para salir de la aplicación
+     * @param title título de la ventana
+     * @param headerText texto de la cabecera de la ventana
+     * @param contentText texto del contenido de la ventana
+     * @param event evento de la ventana
+     */
     fun onAppExit(
         title: String = "Salir de ${mainStage.title}?",
         headerText: String = "¿Estás seguro de que quieres salir de ${mainStage.title}?",

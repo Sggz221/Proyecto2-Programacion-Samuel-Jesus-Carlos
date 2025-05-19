@@ -15,6 +15,7 @@ import java.time.LocalDateTime
  * @param updatedAt [LocalDateTime] Fecha y hora a la que se actualizo el objeto por ultima vez
  * @param isDeleted [Boolean] Campo que identifica si esta operativo o no
  * @param especialidad [Especialidad] Especializacion del entrenador
+ * @property rol [String] Con valor "Entrenador"
  */
 class Entrenador(
     id: Long = 0L,

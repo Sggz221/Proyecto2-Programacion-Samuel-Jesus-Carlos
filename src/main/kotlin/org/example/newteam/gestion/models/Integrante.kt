@@ -13,7 +13,8 @@ import java.time.LocalDateTime
  * @param pais [String] Pais de origen
  * @param createdAt [LocalDateTime] Fecha y hora a la que se creo el objeto
  * @param updatedAt [LocalDateTime] Fecha y hora a la que se actualizo el objeto por ultima vez
- * @param isDeleted [Boolean] Campo que identifica si esta operativo o no
+ * @param imagen [String] Imagen de perfil del integrante
+ * @property nombreCompleto Campo calculado que fusiona los apellidos y el nombre
  */
 abstract class Integrante (
     val id: Long = 0L,

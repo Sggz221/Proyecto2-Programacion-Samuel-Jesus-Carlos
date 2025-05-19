@@ -20,6 +20,8 @@ import java.time.LocalDateTime
  * @property peso Peso del integrante
  * @property goles Numero de goles que ha marcado el integrante
  * @property partidos_jugados Numero de partidos jugados por el integrante
+ * @property minutos_jugados Numero de minutos jugados por el integrante
+ * @property imagen imagen de perfil asignada al integrante
  */
 @Serializable
 @SerialName("personal")

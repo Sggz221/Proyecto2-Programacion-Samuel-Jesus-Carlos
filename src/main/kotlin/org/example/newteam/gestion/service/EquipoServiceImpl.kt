@@ -17,12 +17,9 @@ import java.io.File
 /**
  * Clase Servicio que implementa [EquipoService] y se le inyecta la Cache, almacenamiento, repositorio y validador
  * @param repository [EquipoRepositoryImpl] Repositiorio de un equipo de futbol
- * @param cache [CacheImpl] Cache que agiliza las consultas en memoria
+ * @param cache [Cache] Cache que agiliza las consultas en memoria
  * @param validator [IntegranteValidator] Validador de un [Integrante]
- * @param storageCSV [EquipoStorageCSV] Almacenamiento encargado de gestionar las operaciones con ficheros CSV
- * @param storageJSON [EquipoStorageJSON] Almacenamiento encargado de gestionar las operaciones con ficheros JSON
- * @param storageXML [EquipoStorageXML] Almacenamiento encargado de gestionar las operaciones con ficheros XML
- * @param storageBIN [EquipoStorageBIN] Almacenamiento encargado de gestionar las operaciones con ficheros BIN
+ * @param storage [EquipoStorageImpl] Storage que unifica todos los tipos  de archivos que maneja la aplicacion
  */
 class EquipoServiceImpl(
     private val repository: EquipoRepositoryImpl,
@@ -35,6 +32,7 @@ class EquipoServiceImpl(
     /**
      * Importa un fichero de una ruta especificada por parametro y segun su extension llama al almacenamiento indicado para su correcto manipulamiento
      * @param filePath [String] Cadena de texto que indica la ruta de un archivo
+     * @return Un [Result] de la lista de [Integrante] importada o un [GestionErrors.StorageError]
      */
     override fun importFromFile(filePath: String): Result<List<Integrante>, GestionErrors> {
         logger.debug { "Importando integrantes del fichero $filePath" }
@@ -48,6 +46,7 @@ class EquipoServiceImpl(
     /**
      * Exporta un fichero de una ruta especificada por parametro y segun su extension llama al almacenamiento indicado para su correcto manipulamiento
      * @param filePath [String] Cadena de texto que indica la ruta de un archivo
+     * @return [Result] de [Unit] o [GestionErrors.StorageError]
      */
     override fun exportToFile(filePath: String): Result<Unit, GestionErrors> {
         logger.debug { "Exportando integrantes al fichero $filePath" }
@@ -58,7 +57,7 @@ class EquipoServiceImpl(
     }
 
     /**
-     * Llama al repositiorio y devuelve una lista con todos los integrantes del equipo en memoria
+     * Llama al repositiorio y devuelve una lista con todos los integrantes del equipo en la base de datos
      * @return [List] de [Integrante]
      */
     override fun getAll(): List<Integrante> {
@@ -71,8 +70,6 @@ class EquipoServiceImpl(
      * @param id [Long] Identificador del objeto
      * @return [GestionErrors.NotFoundError] Si no encuentra al integrante
      * @return [List] de [Integrante]
-     * @see [CacheImpl.get]
-     * @see [CacheImpl.put]
      * @see [EquipoRepositoryImpl.getById]
      */
     override fun getById(id: Long): Result<Integrante, GestionErrors> {
@@ -114,7 +111,7 @@ class EquipoServiceImpl(
      * @return El integrante guardado
      * @see [IntegranteValidator.validar]
      * @see [EquipoRepositoryImpl.update]
-     * @see [CacheImpl.remove]
+     * @return [Result] de [Integrante] o [GestionErrors.NotFoundError]
      */
     override fun update(id: Long, integrante: Integrante): Result<Integrante, GestionErrors> {
         logger.debug { "Actualizando integrante" }
@@ -134,10 +131,9 @@ class EquipoServiceImpl(
     /**
      * Borra un integrante del repositorio y la cache en base a un Id
      * @param id [Long] Identificador del objeto
-     * @throws [Exceptions.NotFoundException] si no encuentra al integrante
+     * @return [GestionErrors.NotFoundError] si no encuentra al integrante
      * @return El integrante
      * @see [EquipoRepositoryImpl.delete]
-     * @see [CacheImpl.remove]
      */
     override fun delete(id: Long): Result<Integrante, GestionErrors> {
         logger.debug { "Borrando integrante" }

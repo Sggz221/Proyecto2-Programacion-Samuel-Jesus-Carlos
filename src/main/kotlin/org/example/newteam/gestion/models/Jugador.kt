@@ -19,6 +19,9 @@ import java.time.LocalDateTime
  * @param peso  [Double] Peso en kilogramos del jugador
  * @param goles [Int] Numero de goles que ha marcado el jugador en total
  * @param partidos_jugados [Int] Numero de partidos que ha jugado el jugador en total
+ * @param minutos_jugados [Int] Numero de minutos que ha jugado el jugador en total
+ * @param imagen [String] Imagen de perfil del jugador
+ * @property rol [String] Rol del integrante, en este caso, es un jugador
  */
 class Jugador(
     id: Long = 0L,

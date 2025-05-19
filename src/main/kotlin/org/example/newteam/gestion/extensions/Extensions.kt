@@ -25,6 +25,8 @@ import kotlin.math.round
  * @param newPeso Nuevo peso que recibira el objeto en la copia si desea actualizar, por defecto el mismo que antes
  * @param newGoles Nuevo numero de goles que recibira el objeto en la copia si desea actualizar, por defecto el mismo que antes
  * @param new_partidos_jugados Nuevo numero de partidos jugados que recibira el objeto en la copia si desea actualizar, por defecto el mismo que antes
+ * @param new_minutos_jugados Nuevo minutos jugados que recibira el objeto en la copia si desea actualizar, por defecto el mismo que antes
+ * @param new_imagen Nueva imagen que recibira el objeto en la copia si desea actualizar, por defecto la misma que antes
  * @timeStamp Franja de tiempo que recibira el objeto, por defecto el momento en el que se llama a la funcion
  * @return La copia del objeto creado
  */
@@ -77,6 +79,7 @@ fun Jugador.copy(
  * @param newSalario Nuevo salario que recibira el objeto en la copia si desea actualizar, por defecto el mismo que antes
  * @param newIsDeleted Nuevo campo de borrado que recibira el objeto en la copia si desea actualizar, por defecto el mismo que antes
  * @param newEspecialidad Nueva especialidad que recibira el objeto, por defecto la misma de antes
+ * @param new_imagen Nueva imagen que recibira el objeto en la copia si desea actualizar, por defecto la misma que antes
  * @return La copia del objeto creado
  */
 fun Entrenador.copy(
@@ -106,6 +109,10 @@ fun Entrenador.copy(
     )
 }
 
+/**
+ * Función de extensión de la clase Double que redondea un doble a dos cifras decimales.
+ * @return El número ya redondeado.
+ */
 fun Double.redondearA2Decimales(): Double {
     val factor = 10.0.pow(2)
     return round(this * factor) / factor

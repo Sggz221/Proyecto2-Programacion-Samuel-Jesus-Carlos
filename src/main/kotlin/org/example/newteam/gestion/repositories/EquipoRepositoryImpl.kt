@@ -14,7 +14,7 @@ import org.lighthousegames.logging.logging
 import java.time.LocalDateTime
 
 /**
- * Clase que implementa la interfaz [EquipoRepository] para gestionar un equpo de futbol en memoria con una serie de [Integrante] que pueden ser [Jugador] o [Entrenador]
+ * Clase que implementa la interfaz [EquipoRepository] para gestionar un equpo de futbol en una base de datos gestionada por el [EquipoDAO] con una serie de [Integrante] que pueden ser [Jugador] o [Entrenador]
  */
 class EquipoRepositoryImpl(
     private val dao: EquipoDAO
@@ -23,7 +23,7 @@ class EquipoRepositoryImpl(
 
 
     /**
-     * Funcion que guarda un [Integrante] en una posicion libre del mapa que representa al equipo
+     * Funcion que guarda un [Integrante] en la base de datos
      * @param entity [Integrante] El integrante que se intenta guardar en el mapa
      * @return [Integrante]
      */
@@ -45,8 +45,8 @@ class EquipoRepositoryImpl(
     }
 
     /**
-     * Elimina un [Integrante] del mapa que representa al equipoen base a un ID
-     * @param id [Long] el identificador que representa el objeto que se quiere borrar del mapa
+     * Elimina un [Integrante] de la base de datos en base a un ID
+     * @param id [Long] el identificador que representa el objeto que se quiere borrar de la base de datos
      * @return [Integrante] o nulo si no encuentra el objeto
      */
     override fun delete(id: Long): Integrante? {
@@ -64,8 +64,8 @@ class EquipoRepositoryImpl(
     }
 
     /**
-     * Funcion que actualiza un integrante
-     *  @param id [Long] el identificador que representa el objeto que se quiere actualizar
+     * Funcion que actualiza un integrante en la base de datos
+     *  @param id [Long] El identificador que representa el objeto que se quiere actualizar
      *  @param entity [Integrante] El integrante que se quiere actualizar
      * @return [Integrante] o nulo si no encuentra el objeto
      */
@@ -86,7 +86,7 @@ class EquipoRepositoryImpl(
     }
 
     /**
-     * Obtiene todos los [Integrante] del mapa y lo convierte en una [List] de [Integrante]
+     * Obtiene todos los [Integrante] dela base de datos y lo convierte en una [List] de [Integrante]
      * @return [List] de [Integrante]
      */
     override fun getAll(): List<Integrante> {
@@ -95,7 +95,7 @@ class EquipoRepositoryImpl(
     }
 
     /**
-     * Obtiene un [Integrante] en base a un id
+     * Obtiene un [Integrante] en base a un id de la base de datos
      * @param id [Long] Identificador que representa el objeto
      * @return [Integrante] o nulo si no encuentra el objeto
      */
