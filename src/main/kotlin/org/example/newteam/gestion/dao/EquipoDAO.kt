@@ -24,5 +24,5 @@ interface EquipoDAO {
     fun delete(@Bind("id") id: Long): Int // Devuelve el número de filas de la tabla afectadas. Si devuelve 1, se ha eliminado el integrante. Si devuelve 0, no porque no existe ningún integrante con ese id.
 
     @SqlUpdate("UPDATE integrantes SET nombre = :nombre, apellidos = :apellidos, fecha_nacimiento = :fecha_nacimiento, fecha_incorporacion = :fecha_incorporacion, salario = :salario, pais = :pais, rol = :rol, especialidad = :especialidad, posicion = :posicion, dorsal = :dorsal, altura = :altura, peso = :peso, goles = :goles, partidos_jugados = :partidos_jugados, minutos_jugados = :minutos_jugados, createdAt = :createdAt, updatedAt = :updatedAt, imagen = :imagen WHERE id = :id")
-    fun update(@BindBean vehiculo: IntegranteEntity): Int // Devuelve el número de filas de la tabla afectadas. Si devuelve 1, se ha actualizado el integrante. Si devuelve 0, no porque no existe ningún integrante con ese id.
+    fun update(@BindBean integrante: IntegranteEntity): Int // Devuelve el número de filas de la tabla afectadas. Si devuelve 1, se ha actualizado el integrante. Si devuelve 0, no porque no existe ningún integrante con ese id.
 }
