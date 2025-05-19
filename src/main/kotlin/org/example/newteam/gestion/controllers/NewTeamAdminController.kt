@@ -28,6 +28,11 @@ import org.lighthousegames.logging.logging
 import java.time.LocalDate
 import kotlin.concurrent.thread
 
+/**
+ * Clase que representa el controlador de la vista de administrador
+ * @property viewModel viewModel del programa
+ * @see [EquipoViewModel]
+ */
 class NewTeamAdminController () {
 
     private val logger = logging()
@@ -150,12 +155,22 @@ class NewTeamAdminController () {
 
     private var alreadyFiltered: Boolean = false
 
+    /**
+     * Método automáticamente llamado por JavaFX cuando se crea el [NewTeamAdminController] asociado al correspondiente .fxml
+     * @see initEvents
+     * @see initDefaultValues
+     * @see initBindings
+     */
     fun initialize() {
         initEvents()
         initBindings()
         initDefaultValues()
     }
 
+    /**
+     * Inicializa los valores por defecto que tendrán los distintos campos de la vista
+     * @see disableAll
+     */
     private fun initDefaultValues() {
         disableAll()
         
@@ -168,6 +183,18 @@ class NewTeamAdminController () {
         colEspecialidad.cellValueFactory = PropertyValueFactory("miEspecialidad")
     }
 
+    /**
+     * Inicializa los enlaces de datos entre los campos de la vista y la información contenida en el [EquipoViewModel]
+     * @see filterByName
+     * @see filterByJugadores
+     * @see filterByEntrenadores
+     * @see filterByNothing
+     * @see isExternalImage
+     * @see RoutesManager.getResourceAsStream
+     * @see desmarcarPosicionesJugador
+     * @see desmarcarEspecialidadesEntrenador
+     * @see onTablaSelected
+     */
     private fun initBindings(){
         //Comunes
         // De interfaz a ViewModel
@@ -278,6 +305,12 @@ class NewTeamAdminController () {
         totalPlantilla.textProperty().bind(viewModel.state.map { it.totalCost })
     }
 
+    /**
+     * Comprueba si una imagen está o no en la carpeta resources del proyecto
+     * @param path ruta de la imagen
+     * @return true en caso de no estar en resources, false en caso de estar en resources
+     *
+     */
     private fun isExternalImage(path: String):Boolean {
         if (path.startsWith("file:/"))
             return true
@@ -285,6 +318,11 @@ class NewTeamAdminController () {
             return false
     }
 
+    /**
+     * Detecta qué integrante de la tabla está seleccionado
+     * @param newValue el integrante seleccionado
+     * @see [EquipoViewModel.updateIntegranteSelected]
+     */
     private fun onTablaSelected(newValue: Integrante) {
         logger.debug { " Integrante seleccionado en la tabla: $newValue " }
         disableAll()
@@ -292,6 +330,25 @@ class NewTeamAdminController () {
         logger.debug { "IntegranteState selected: ${viewModel.state.value.integrante}" }
     }
 
+    /**
+     * Asigna la función de cada elemento de la vista al hacer click sobre el mismo
+     * @see [RoutesManager.initAboutStage]
+     * @see [RoutesManager.onAppExit]
+     * @see [showLogoutAlert]
+     * @see [onImportarAction]
+     * @see [onExportarAction]
+     * @see [onCheckEditState]
+     * @see [onCreateJugadorAction]
+     * @see [onCreateEntrenadorAction]
+     * @see [onCheckDeleteState]
+     * @see [onImageSelectAction]
+     * @see [onSortByNombreAction]
+     * @see [onSortBySalarioAction]
+     * @see [onSortByNothingAction]
+     * @see [onFilterByNothingAction]
+     * @see [onFilterByEntrenadoresAction]
+     * @see [onFilterByJugadoresAction]
+     */
     private fun initEvents() {
         aboutButton.setOnAction {
             RoutesManager.initAboutStage()
@@ -345,6 +402,10 @@ class NewTeamAdminController () {
 
     }
 
+    /**
+     * Permite seleccionar una imagen para cargar como foto de perfil de un integrante
+     * @see [EquipoViewModel.updateImageIntegrante]
+     */
     private fun onImageSelectAction() {
         FileChooser().run {
             title = "Selecciona una imagen para el integrante"
@@ -355,6 +416,12 @@ class NewTeamAdminController () {
         }
     }
 
+    /**
+     * Filtra la lista de integrantes por nombre
+     * @param cadena la cadena a filtrar
+     * @see [EquipoViewModel.quitarFiltros]
+     * @see [EquipoViewModel.filterIntegrantes]
+     */
     private fun filterByName (cadena: String){
         logger.debug { "Filtrando integrantes por nombre" }
 
@@ -364,6 +431,10 @@ class NewTeamAdminController () {
         viewModel.filterIntegrantes(integrantesFiltradosPorNombre)
     }
 
+    /**
+     * Elimina los filtrados por jugador y entrenador
+     * @see [EquipoViewModel.quitarFiltros]
+     */
     private fun onFilterByNothingAction() {
         logger.debug { "Quitando filtros de jugador y entrenador" }
 
@@ -372,6 +443,11 @@ class NewTeamAdminController () {
 
     }
 
+    /**
+     * Filtra los entrenadores de la lista de integrantes
+     * @see [EquipoViewModel.loadAllIntegrantes]
+     * @see [EquipoViewModel.filterIntegrantes]
+     */
     private fun onFilterByEntrenadoresAction() {
         logger.debug { "Filtrando los jugadores" }
 
@@ -381,7 +457,11 @@ class NewTeamAdminController () {
         viewModel.filterIntegrantes(entrenadoresFiltrados)
         alreadyFiltered = true
     }
-
+    /**
+     * Filtra los jugadores de la lista de integrantes
+     * @see [EquipoViewModel.loadAllIntegrantes]
+     * @see [EquipoViewModel.filterIntegrantes]
+     */
     private fun onFilterByJugadoresAction() {
         logger.debug { "Filtrando los jugadores" }
 
@@ -392,6 +472,10 @@ class NewTeamAdminController () {
         alreadyFiltered = true
     }
 
+    /**
+     * Elimina los filtros de ordenación de la lista de integrantes
+     * @see[EquipoViewModel.sortIntegrantes]
+     */
     private fun onSortByNothingAction() {
         logger.debug { "Quitando filtros de ordenación" }
 
@@ -401,6 +485,10 @@ class NewTeamAdminController () {
 
     }
 
+    /**
+     * Ordena los integrantes por salario
+     * @see [EquipoViewModel.sortIntegrantes]
+     */
     private fun onSortBySalarioAction(){
         logger.debug { "Ordenando integrantes por salario" }
 
@@ -417,6 +505,10 @@ class NewTeamAdminController () {
         viewModel.sortIntegrantes(integrantesOrdenados)
     }
 
+    /**
+     * Ordena los integrantes por nombre
+     * @see [EquipoViewModel.sortIntegrantes]
+     */
     private fun onSortByNombreAction() {
         logger.debug { "Ordenando integrantes por nombre" }
 
@@ -433,25 +525,49 @@ class NewTeamAdminController () {
         viewModel.sortIntegrantes(integrantesOrdenados)
     }
 
+    /**
+     * Comprueba si el boton de eliminar debe cumplir la función de cancelar o eliminar
+     * @see deleteFunction
+     * @see cancelFunction
+     */
     private fun onCheckDeleteState() {
         if (isEditButton) deleteFunction()
         else cancelFunction()
     }
 
+    /**
+     * Elimina el integrante seleccionado
+     * @see onDeleteIntegranteAction
+     */
     private fun deleteFunction() {
         onDeleteIntegranteAction()
     }
 
+    /**
+     * Elimina el integrante seleccionado
+     * @see [EquipoViewModel.deleteIntegrante]
+     */
     private fun onDeleteIntegranteAction() {
         val id = viewModel.state.value.integrante.id
         viewModel.deleteIntegrante(id)
     }
 
+    /**
+     * Comprueba si el boton de editar debe cumplir la función de editar o la función de guardar
+     * @see editFunction
+     * @see saveFunction
+     */
     private fun onCheckEditState() {
         if (isEditButton) editFunction()
         else saveFunction(viewModel.state.value.integrante.especialidad == "") // Si no tiene especialidad, es Jugador
     }
 
+    /**
+     * Cancela la edición de un integrante, devuelve los botones a su aspecto original y desactiva todos los campos del detalle para que no puedan editarse
+     * @see styleToEditButton
+     * @see styleToDeleteButton
+     * @see disableAll
+     */
     private fun cancelFunction() {
         styleToEditButton()
         styleToDeleteButton()
@@ -459,6 +575,12 @@ class NewTeamAdminController () {
         isEditButton = true
     }
 
+    /**
+     * Guarda un integrante y cambia los botones adecuadamente
+     * @see styleToEditButton
+     * @see styleToDeleteButton
+     * @see onSaveIntegranteAction
+     */
     private fun saveFunction(esJugador: Boolean) {
         styleToEditButton()
         styleToDeleteButton()
@@ -466,6 +588,11 @@ class NewTeamAdminController () {
         isEditButton = true
     }
 
+    /**
+     * Edita los datos de un integrante y cambia los botones adecuadamente
+     * @see styleToSaveButton
+     * @see styleToCancelButton
+     */
     private fun editFunction(){
         styleToSaveButton()
         styleToCancelButton()
@@ -482,28 +609,49 @@ class NewTeamAdminController () {
         editAndSaveButton.text = "Editar"
         // CAMBIAR FOTO
     }
+
+    /**
+     * Cambia el estilo del botón al de un botón de guardar
+     */
     private fun styleToSaveButton() {
         editAndSaveButton.style = "-fx-background-color: #33b3ff"
         editAndSaveButton.text = "Guardar"
         // CAMBIAR FOTO
     }
+
+    /**
+     * Cambia el estilo del botón al de un botón de eliminar
+     */
     private fun styleToDeleteButton() {
         deleteAndCancelButton.style = "-fx-background-color: #FF2C2C"
         deleteAndCancelButton.text = "Eliminar"
         // CAMBIAR FOTO
     }
+
+    /**
+     * Cambia el estilo del botón al de un botón de cancelar
+     */
     private fun styleToCancelButton() {
         deleteAndCancelButton.style = "-fx-background-color: #e59111"
         deleteAndCancelButton.text = "Cancelar"
         // CAMBIAR FOTO
     }
 
+    /**
+     * Deshabilita todos los campos del detalle para que el usuario no pueda interaccionar con estos
+     * @see disableComunes
+     * @see disableJugador
+     * @see disableEntrenador
+     */
     private fun disableAll() {
         disableComunes()
         disableJugador()
         disableEntrenador()
     }
 
+    /**
+     * Deshabilita los campos comunes a [Jugador] y [Entrenador]
+     */
     private fun disableComunes(){
         profilePicture.isDisable = true
         paisField.isDisable = true
@@ -514,6 +662,9 @@ class NewTeamAdminController () {
         nombreField.isDisable = true
     }
 
+    /**
+     * Deshabilita los campos que son propios de [Jugador]
+     */
     private fun disableJugador(){
         minutosField.isDisable = true
         partidosField.isDisable = true
@@ -524,10 +675,16 @@ class NewTeamAdminController () {
         posicion.toggles.forEach { (it as RadioButton).isDisable = true }
     }
 
+    /**
+     * Deshabilita los campos que son propios de [Entrenador]
+     */
     private fun disableEntrenador(){
         especialidad.toggles.forEach { (it as RadioButton).isDisable = true }
     }
 
+    /**
+     * Habilita los campos comunes a [Jugador] y [Entrenador]
+     */
     private fun enableComunes(){
         profilePicture.isDisable = false
         paisField.isDisable = false
@@ -538,6 +695,9 @@ class NewTeamAdminController () {
         nombreField.isDisable = false
     }
 
+    /**
+     * Habilita los campos que son propios de [Jugador]
+     */
     private fun enableJugador(){
         enableComunes()
         minutosField.isDisable = false
@@ -549,12 +709,18 @@ class NewTeamAdminController () {
         posicion.toggles.forEach { (it as RadioButton).isDisable = false }
     }
 
+    /**
+     * Deselecciona las especialidades de [Entrenador]
+     */
     private fun desmarcarEspecialidadesEntrenador() {
         radioAsistente.isSelected = false
         radioPorteros.isSelected = false
         radioPrincipal.isSelected = false
     }
 
+    /**
+     * Deselecciona las posiciones de [Jugador]
+     */
     private fun desmarcarPosicionesJugador() {
         radioCentro.isSelected = false
         radioDelantero.isSelected = false
@@ -562,10 +728,20 @@ class NewTeamAdminController () {
         radioPortero.isSelected = false
     }
 
+    /**
+     * Habilita los campos que son propios de [Entrenador]
+     */
     private fun enableEntrenador(){
         enableComunes()
         especialidad.toggles.forEach { (it as RadioButton).isDisable = false }
     }
+
+    /**
+     * Crea un entrenador vacío
+     * @see enableEntrenador
+     * @see disableJugador
+     * @see [EquipoViewModel.createEmptyIntegrante]
+     */
     private fun onCreateEntrenadorAction(){
         logger.debug { "Creando Entrenador" }
         enableEntrenador()
@@ -573,6 +749,13 @@ class NewTeamAdminController () {
         val emptyEntrenador = EquipoViewModel.IntegranteState(especialidad = "ENTRENADOR_PORTEROS")
         viewModel.createEmptyIntegrante(emptyEntrenador)
     }
+
+    /**
+     * Crea un jugador vacío
+     * @see enableJugador
+     * @see disableEntrenador
+     * @see [EquipoViewModel.createEmptyIntegrante]
+     */
     private fun onCreateJugadorAction() {
         logger.debug { "Creando Jugador" }
         enableJugador()
@@ -581,6 +764,12 @@ class NewTeamAdminController () {
         viewModel.createEmptyIntegrante(emptyJugador)
     }
 
+    /**
+     * Guarda un integrante tras validar sus datos
+     * @see validarJugador
+     * @see validarEntrenador
+     * @see [EquipoViewModel.saveIntegrante]
+     */
     private fun onSaveIntegranteAction(esJugador: Boolean) {
         logger.debug { "Guardando nuevo jugador" }
         validarJugador()
@@ -594,6 +783,12 @@ class NewTeamAdminController () {
 
     }
 
+    /**
+     * Crea un integrante en el [EquipoViewModel] recogiendo los datos que contienen los distintos campos de la interfaz
+     * @param esJugador indica si es un jugador o un entrenador
+     * @see getPosicionFromView
+     * @see getEspecialidadFromView
+     */
     private fun parseViewToIntegrante(esJugador: Boolean) {
         if (esJugador) {
             viewModel.state.value = viewModel.state.value.copy(
@@ -632,6 +827,10 @@ class NewTeamAdminController () {
         logger.debug { "Integrante parseado al estado: ${viewModel.state.value.integrante}" }
     }
 
+    /**
+     * Obtiene el valor del campo posición de un jugador en función de la opción seleccionada en la vista
+     * @return la posición
+     */
     private fun getPosicionFromView(): String {
         if(radioDelantero.isSelected) return "DELANTERO"
         else if (radioCentro.isSelected) return "CENTROCAMPISTA"
@@ -639,6 +838,11 @@ class NewTeamAdminController () {
         else if (radioPortero.isSelected) return "PORTERO"
         else return "FALLO"
     }
+
+    /**
+     * Obtiene el valor del campo especialidad de un entrenador en función de la opción seleccionada en la vista
+     * @return la especialidad
+     */
     private fun getEspecialidadFromView(): String {
         if(radioPrincipal.isSelected) return "ENTRENADOR_PRINCIPAL"
         else if (radioAsistente.isSelected) return "ENTRENADOR_ASISTENTE"
@@ -646,6 +850,10 @@ class NewTeamAdminController () {
         else return "FALLO"
     }
 
+    /**
+     * Valida los datos de un [Jugador]
+     * @return un [Result] de [Unit] en caso de ser correctos o de [GestionErrors.InvalidoError] en el caso contrario
+     */
     private fun validarJugador (): Result<Unit, GestionErrors.InvalidoError> {
         logger.debug { "Validando jugador" }
 
@@ -700,6 +908,10 @@ class NewTeamAdminController () {
         return Ok(Unit)
     }
 
+    /**
+     * Valida los datos de un [Entrenador]
+     * @return un [Result] de [Unit] en caso de ser correctos o de [GestionErrors.InvalidoError] en el caso contrario
+     */
     private fun validarEntrenador (): Result<Unit, GestionErrors.InvalidoError> {
         logger.debug { "Validando entrenador" }
         if (nombreField.text.isBlank()){
@@ -734,6 +946,10 @@ class NewTeamAdminController () {
 
     }
 
+    /**
+     * Hace una copia de seguridad de los integrantes en un fichero
+     * @see[EquipoViewModel.exportIntegrantestoFile]
+     */
     private fun onExportarAction(){
         logger.debug{ "Iniciando FileChooser" }
 
@@ -762,6 +978,10 @@ class NewTeamAdminController () {
         }
     }
 
+    /**
+     * Importa los integrantes de un fichero seleccionado por el usuario
+     * @see [EquipoViewModel.loadIntegrantesFromFile]
+     */
     private fun onImportarAction() {
         logger.debug{ "Iniciando FileChooser" }
         FileChooser().run {
@@ -799,6 +1019,9 @@ class NewTeamAdminController () {
         }.showAndWait()
     }
 
+    /**
+     * Muestra una ventana de confirmación para cerrar sesión
+     */
     private fun showLogoutAlert(){
         val alert = Alert(AlertType.CONFIRMATION).apply {
             this.title = "Cerrar sesión"

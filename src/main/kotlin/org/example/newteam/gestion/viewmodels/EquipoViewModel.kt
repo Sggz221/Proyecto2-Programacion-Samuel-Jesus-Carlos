@@ -25,7 +25,11 @@ import java.time.Instant
 import java.time.LocalDate
 import kotlin.concurrent.thread
 
-//
+/**
+ * Clase que representa el ViewModel de la aplicación
+ * @property service servicio inyectado
+ * @see [EquipoServiceImpl]
+ */
 class EquipoViewModel (
     private val service: EquipoServiceImpl = Dependencies.getIntegrantesService()
 ) {
@@ -62,6 +66,11 @@ class EquipoViewModel (
         val minutos_jugados: Int = 0
     )
 
+    /**
+     * Guarda un integrante
+     * @param integrante el integrante a guardar
+     * @see updateState
+     */
     fun saveIntegrante(integrante: Integrante) {
         service.save(integrante).onSuccess {
             state.value.integrantes.addAll(it)
@@ -69,6 +78,11 @@ class EquipoViewModel (
         updateState()
     }
 
+    /**
+     * Elimina un integrante
+     * @param id el id del integrante a eliminar
+     * @see updateState
+     */
     fun deleteIntegrante(id: Long) {
         service.delete(id).onSuccess {
             state.value.integrantes.removeIf { it.id == id }
@@ -76,14 +90,22 @@ class EquipoViewModel (
         updateState()
     }
 
-
-
+    /**
+     * Carga todos los integrantes en el estado
+     * @see [EquipoServiceImpl.getAll]
+     * @see updateState
+     */
     fun loadAllIntegrantes() {
         logger.debug { "Cargando los integrantes en el estado" }
         val newIntegrantes = service.getAll()
         state.value.integrantes.setAll(newIntegrantes)
         updateState()
     }
+
+    /**
+     * Actualiza el estado para que la media de goles, de minutos jugados y el coste total de salarios de la plantilla estén actualizados.
+     * @see redondearA2Decimales
+     */
     private fun updateState() {
         val goalAvg = state.value.integrantes.filterIsInstance<Jugador>().map { it.goles }.average().redondearA2Decimales().toString()
         val minutesAvg = state.value.integrantes.filterIsInstance<Jugador>().map { it.minutos_jugados }.average().redondearA2Decimales().toString()
@@ -96,12 +118,20 @@ class EquipoViewModel (
         )
     }
 
+    /**
+     * Guarda en el estado los integrantes ordenados
+     * @see updateState
+     */
     fun sortIntegrantes(integrantesOrdenados: List<Integrante>) {
         logger.debug { "Ordenando la lista de integrantes" }
 
         state.value.integrantes.setAll(integrantesOrdenados)
     }
 
+    /**
+     * Guarda en el estado los integrantes filtrados
+     * @see updateState
+     */
     fun filterIntegrantes(integrantesFiltrados: List<Integrante>) {
         logger.debug { "Filtrando la lista de integrantes" }
 
@@ -110,6 +140,11 @@ class EquipoViewModel (
 
     }
 
+    /**
+     * Elimina todos los filtros
+     * @see filterIntegrantes
+     * @see updateState
+     */
     fun quitarFiltros() {
         logger.debug { "Quitando filtros" }
 
@@ -118,20 +153,37 @@ class EquipoViewModel (
         updateState()
     }
 
+    /**
+     * Realiza una copia de seguridad de los integrantes en un fichero
+     * @param file el fichero
+     * @return un [Result] de [Unit] en caso de exportar correctamente o de [GestionErrors.StorageError] en caso contrario
+     */
     fun exportIntegrantestoFile(file: File) : Result<Unit, GestionErrors> {
         logger.debug { "Exportando integrantes a fichero $file"}
         return service.exportToFile(file.path)
     }
 
+    /**
+     * Importa los integrantes de un fichero
+     * @param file el fichero
+     * @return un [Result] de una lista de [Integrante] en caso de importar correctamente o de [GestionErrors.StorageError] en caso contrario
+     */
     fun loadIntegrantesFromFile(file: File) : Result<List<Integrante>, GestionErrors> {
         logger.debug { "Cargando integrantes desde fichero $file"}
         return service.importFromFile(file.path).also { loadAllIntegrantes() }
     }
 
+    /**
+     * Crea un integrante vacío
+     */
     fun createEmptyIntegrante(emptyIntegrante: IntegranteState) {
         state.value = state.value.copy(integrante = emptyIntegrante)
     }
 
+    /**
+     * Actualiza el integrante seleccionado con los datos del integrante que le entra por parámetro
+     * @param integrante integrante cuyos datos queremos guardar en el integrante seleccionado
+     */
     fun updateIntegranteSelected(integrante: Integrante) {
         if (integrante is Jugador){
             state.value = state.value.copy(
@@ -171,6 +223,11 @@ class EquipoViewModel (
         }
     }
 
+    /**
+     * Actualiza la imagen de un integrante
+     * @param fileName ruta del archivo de imagen
+     * @see getImagenName
+     */
     fun updateImageIntegrante(fileName: File) {
         logger.debug { "Guardando imagen $fileName" }
 
@@ -197,6 +254,11 @@ class EquipoViewModel (
         }
     }
 
+    /**
+     * Obtiene el nombre de la imagen a partir de la ruta donde se encuentra
+     * @param newFileImage la ruta de la imagen
+     * @return el nombre de la imagen
+     */
     private fun getImagenName(newFileImage: File): String {
         val name = newFileImage.name
         val extension = name.substring(name.lastIndexOf(".") + 1)
